@@ -1,0 +1,71 @@
+<section id="main" class="column">
+  <article class="module width_full">
+	[% IF valid %]
+        <h4 class="alert_success">Tiedot tallennettu!</h4>
+    [% END %]
+    [% IF valid == 0%]
+        <h4 class="alert_error">Virhe tiedoissa. Tarkista kaikki pakolliset kentät!</h4>
+    [% END %]
+    <header><h3>Uusi toimihenkilö</h3></header>
+    <form action="[% request.uri_base %]/admin/new/coach" method="post">
+    <div class="module_content">
+      <fieldset style="width:48%; float:left; margin-right: 3%;[%IF coach.err_firstname %]color:red;[%END%]">
+    	<label>Etunimi *</label>
+    	<input type="text" name="firstname" value="[% coach.firstname %]" style="width:92%;">
+      </fieldset>
+      <fieldset style="width:48%; float:left;[%IF coach.err_street %]color:red;[%END%]">
+    	<label>Katuosoite</label>
+    	<input type="text" name="street" value="[% coach.street %]" style="width:92%;">
+      </fieldset>
+      <fieldset style="width:48%; float:left; margin-right: 3%;[%IF coach.err_lastname %]color:red;[%END%]">
+    	<label>Sukunimi *</label>
+    	<input type="text" name="lastname" value="[% coach.lastname %]"style="width:92%;">
+      </fieldset>
+      <fieldset style="width:48%; float:left;[%IF coach.err_zip %]color:red;[%END%]">
+    	<label>Postinumero</label>
+    	<input type="text" name="zip" value="[% coach.zip %]" style="width:92%;">
+      </fieldset>
+      <fieldset style="width:48%; float:left; margin-right: 3%;[%IF coach.err_phone %]color:red;[%END%]">
+    	<label>Puhelin *</label>
+    	<input type="text" name="phone" value="[% coach.phone %]" style="width:92%;">
+      </fieldset>
+      <fieldset style="width:48%; float:left;[%IF coach.err_city %]color:red;[%END%]">
+    	<label>Kaupunki</label>
+    	<input type="text" name="city" value="[% coach.city %]" style="width:92%;">
+      </fieldset>
+      <fieldset style="width:48%; float:left; margin-right: 3%;[%IF coach.err_email %]color:red;[%END%]">
+    	<label>Sähköposti *</label>
+    	<input type="text" name="email" value="[% coach.email %]" style="width:92%;">
+      </fieldset>
+      <fieldset style="width:48%; float:left;[%IF coach.err_suburbanid %]color:red;[%END%]">
+    	<label>Kaupunginosa *</label>
+        <select style="width:92%;" name="suburbanid">
+            <option value="">(valitse)</option>
+        [% FOREACH sub IN suburbans %]
+            <option value="[% sub.id %]">[% sub.name %]</option>
+        [% END %]
+        </select>
+      </fieldset>
+      <fieldset style="width:48%; float:left; margin-right: 3%;[%IF coach.err_password %]color:red;[%END%]">
+    	<label>Salasana *</label>
+    	<input type="text" name="password" value="[% coach.password %]" style="width:92%;">
+      </fieldset>
+      <fieldset style="width:48%; float:left;[%IF coach.err_teamid %]color:red;[%END%]">
+        <label>Joukkue *</label>
+        <select style="width:92%;" name="teamid">
+            <option value="">(valitse)</option>
+        [% FOREACH team IN teams %]
+          <option value="[% team.id %]"> [% team.name %]</option>
+        [% END %]
+        </select>
+      </fieldset>
+    <div class="clear"></div>
+    </div>
+    <footer>
+      <div class="submit_link">
+        <input type="submit" value="Tallenna" class="alt_btn">
+      </div>
+    </footer>
+    </form>
+  </article><!-- end of admin new player article -->
+</section>

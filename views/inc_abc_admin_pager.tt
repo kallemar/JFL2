@@ -1,0 +1,53 @@
+<!--<footer>-->
+<div class="pagerSC">
+
+[% FOREACH p IN ABC.list %]
+  <a [% IF ABC.current == p.0 %] class="currentSC" [% END %] href="[% request.uri_base %]/admin/[% P123.route %]?char=[%p.0%]&count=[%p.1%]">[% p.0 %] </a>
+[% END %]
+
+<br/>
+
+<!-- we are on first page -->
+[% IF P123.current == 1 %]
+  <span class="nextprevSC"><-</span>
+[% ELSE %]
+  <a class="nextprev" href="[% request.uri_base %]/admin/[% P123.route %]?page=[% IF P123.current == 1 %]1[% ELSE %] [% P123.current - 1 %][%END%]&char=[% ABC.current%]"><-</a>
+[% END %]
+
+[% MACRO round(n)
+GET n + 0.4
+FILTER format("%d");
+%]
+[% page = 1 %]
+[% show_page = page %]
+[% WHILE page <= P123.max_pages && page <= P123.pages %]
+
+  [% IF P123.current <= P123.max_pages && P123.current <= P123.max_pages %]
+    <a [% IF P123.current == page%] class="currentSC" [% END %] href="[% request.uri_base %]/admin/[% P123.route %]?page=[%page%]&char=[% ABC.current%]">[[%page%]]</a>
+  [% END %]
+
+  [% IF P123.current > P123.max_pages && P123.pages - P123.current > P123.max_pages  %]
+    [% offset = round(P123.current - P123.max_pages / 2) %]
+    <a [% IF P123.current == page%] class="currentSC" [% END %] href="[% request.uri_base %]/admin/[% P123.route %]?page=[%page + offset%]&char=[% ABC.current%]">[[% page + offset %]]</a>
+  [% END %]
+
+  [% IF P123.pages - P123.current <= P123.max_pages &&  P123.current > P123.max_pages %]
+    [% offset = P123.pages - P123.max_pages %]
+    <a [% IF P123.current == page%] class="currentSC" [% END %] href="[% request.uri_base %]/admin/[% P123.route %]?page=[% page + offset %]&char=[% ABC.current%]">[[% page + offset %]]</a>
+  [% END %]
+
+  [% page = page + 1%]
+[% END %]
+
+<!-- we are on the last page -->
+[% IF P123.current == P123.pages %]
+  <span class="nextprevSC">-></span>
+[% ELSE %]
+  <a  class="nextprev" title="Seuraava" href="[% request.uri_base %]/admin/[% P123.route %]?page=[% IF P123.current == pager.pages %]P123.current[% ELSE %][% P123.current + 1 %][%END%]&char=[% ABC.current%]">-></a>
+[% END %]
+<div style="clear: left;"></div>
+</div>
+
+
+
+<!--</footer>-->

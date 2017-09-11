@@ -1,0 +1,97 @@
+[% USE date(format = '%d.%m.%Y', locale = 'fi_FI') %]
+
+<ol class="breadcrumb">
+  <li><a href="/roster/">Futisklubi</a></li>
+  <li><a href="/roster/suburban/index">Kaupunginosat</a></li>
+  <li><a href="/roster/suburban/[% player.suburbanid %]">[% player.suburban %]</a></li>
+  [% IF player.teamid %]
+  <li><a href="/roster/team/[% player.teamid %]">[% player.team %]</a></li>
+  [% END %]
+  <li class="active">[% player.firstname %] [% player.lastname %]</li>
+</ol>
+
+<div class="container">
+
+<h1>[% player.firstname %] [% player.lastname %]</h1>
+<!-- Nav tabs -->
+<ul class="nav nav-tabs">
+  <li class="active"><a href="#player" data-toggle="tab">Pelaaja</a></li>
+  <li><a href="#parent" data-toggle="tab">Huoltaja</a></li>
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content">
+    <div class="tab-pane active" id="player">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-4 col-md-2">Nimi</div>
+            <div class="col-xs-8 col-md-10">[% player.firstname %] [% player.lastname %]</div>
+        </div>
+        <div class="row">
+            <div class="col-xs-4 col-md-2">Osoite</div>
+            <div class="col-xs-8 col-md-10">[% player.street %]<br/>[% player.zip %] [% player.city %]</div>
+        </div>
+        <div class="row">
+            <div class="col-xs-4 col-md-2">Kaupunginosa</div>
+            <div class="col-xs-8 col-md-10">[% player.suburban %]</div>
+        </div>
+        <div class="row">
+            <div class="col-xs-4 col-md-2">Joukkue</div>
+            <div class="col-xs-8 col-md-10">[% player.team %]</div>
+        </div>
+        <hr/>
+        <div class="row">
+            <div class="col-xs-4 col-md-2">Syntymävuosi</div>
+            <div class="col-xs-8 col-md-10">[% player.birthyear %]</div>
+        </div>
+        <div class="row">
+            <div class="col-xs-4 col-md-2">Puhelin</div>
+            <div class="col-xs-8 col-md-10">[% player.phone %]</div>
+        </div>
+        <div class="row">
+            <div class="col-xs-4 col-md-2">Sähköposti</div>
+            <div class="col-xs-8 col-md-10"><a href="mailto:[% player.email %]">[% player.email %]</a></div>
+        </div>
+    </div>
+    </div>
+
+    <div class="tab-pane" id="parent">
+    <div class="container">
+    [% IF parent.id %]
+        <div class="row">
+            <div class="col-xs-4 col-md-2">Nimi</div>
+            <div class="col-xs-8 col-md-10">[% parent.firstname %] [% parent.lastname %]</div>
+        </div>
+        <div class="row">
+            <div class="col-xs-4 col-md-2">Suhde pelaajaan</div>
+            <div class="col-xs-8 col-md-10">[% parent.relation %]</div>
+        </div>
+         <div class="row">
+            <div class="col-xs-4 col-md-2">Kiinnostus <span class="glyphicon glyphicon-eye-open"></span></div>
+            <div class="col-xs-8 col-md-10">[% parent.interest %]</div>
+        </div>
+        <hr/>
+        <div class="row">
+            <div class="col-xs-4 col-md-2">Puhelin</div>
+            <div class="col-xs-8 col-md-10">[% parent.phone %]</div>
+        </div>
+        <div class="row">
+            <div class="col-xs-4 col-md-2">Sähköposti</div>
+            <div class="col-xs-8 col-md-10"><a href="mailto:[% parent.email %]">[% parent.email %]</a></div>
+        </div>
+    [% ELSE %]
+        <div class="row">
+            <div class="col-xs-12 col-md-12">Ei huoltajatietoja</div>
+        </div>
+    [% END %]
+    </div>
+    </div>
+</div>
+<hr/>
+
+<div class="container">
+<p>Lisätietoa <span class="glyphicon glyphicon-info-sign"></span></p>
+<p>[% parent.comment %]</p>
+</div>
+
+</div>

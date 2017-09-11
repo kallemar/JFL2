@@ -1,0 +1,54 @@
+<section id="main" class="column">
+  <article class="module width_full">
+    <header><h3>Muokkaa yhteyshenkilöä</h3></header>
+    <form action="[% request.uri_base %]/admin/edit/contact" method="post">
+       <input type="hidden" name="id" value="[% contact.id %]">
+    <div class="module_content">
+    [% IF valid %]
+      <h4 class="alert_success">Tiedot tallennettu</h4>
+    [% END %]
+    [% IF valid == 0%]
+      <h4 class="alert_error">Virhe tiedoissa. Tarkista kaikki pakolliset kentät!</h4>
+    [% END %]
+      <fieldset style="width:48%; float:left; margin-right: 3%;[%IF contact.err_firstname %]color:red;[%END%]">
+    	<label>Etunimi *</label>
+    	<input type="text" name="firstname" value="[% contact.firstname %]" style="width:92%;">
+      </fieldset>
+      <fieldset style="width:48%; float:left;[%IF contact.err_street %]color:red;[%END%]">
+    	<label>Katuosoite</label>
+    	<input type="text" name="street" value="[% contact.street %]" style="width:92%;">
+      </fieldset>
+      <fieldset style="width:48%; float:left; margin-right: 3%;[%IF contact.err_lastname %]color:red;[%END%]">
+    	<label>Sukunimi *</label>
+    	<input type="text" name="lastname" value="[% contact.lastname %]"style="width:92%;">
+      </fieldset>
+      <fieldset style="width:48%; float:left;[%IF contact.err_zip %]color:red;[%END%]">
+    	<label>Postinumero</label>
+    	<input type="text" name="zip" value="[% contact.zip %]" style="width:92%;">
+      </fieldset>
+      <fieldset style="width:48%; float:left; margin-right: 3%;[%IF contact.err_phone %]color:red;[%END%]">
+    	<label>Puhelin *</label>
+    	<input type="text" name="phone" value="[% contact.phone %]" style="width:92%;">
+      </fieldset>
+      <fieldset style="width:48%; float:left;[%IF contact.err_city %]color:red;[%END%]">
+    	<label>Kaupunki</label>
+    	<input type="text" name="city" value="[% contact.city %]" style="width:92%;">
+      </fieldset>
+      <fieldset style="width:48%; float:left; margin-right: 3%;[%IF contact.err_email %]color:red;[%END%]">
+    	<label>Sähköposti *</label>
+    	<input type="text" name="email" value="[% contact.email %]" style="width:92%;">
+      </fieldset>
+      <fieldset style="width:48%; float:left;[%IF contact.err_password %]color:red;[%END%]">
+    	<label>Salasana *</label>
+    	<input type="password" name="password" value="[% user.password %]" style="width:92%;">
+      </fieldset>      
+    <div class="clear"></div>
+    </div>
+    <footer>
+      <div class="submit_link">
+        <input type="submit" value="Tallenna" class="alt_btn">
+      </div>
+    </footer>
+    </form>
+  </article><!-- end of admin new player article -->
+</section>

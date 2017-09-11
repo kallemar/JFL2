@@ -1,0 +1,77 @@
+# This is the main configuration file of your Dancer app
+# env-related settings should go to environments/$env.yml
+# all the settings in this file will be loaded at Dancer's startup.
+
+# Your application's name
+appname: "JFL"
+environment: production
+behind_proxy : 1
+
+# The default layout to use for your application (located in
+# views/layouts/main.tt)
+layout: "admin"
+
+# when the charset is set to UTF-8 Dancer will handle for you
+# all the magic of encoding and decoding. You should not care
+# about unicode within your app when this setting is set (recommended).
+charset: "UTF-8"
+
+# session
+session: Storable
+session_dir: /tmp/dancer-sessions
+
+#pager
+pager_items_per_page: 10
+pager_max_pages: 9
+
+# template engine
+template: "template_toolkit"
+
+# Club's information email address
+email: 'info@futisklubi.tpv.fi'
+
+# Money value default fraction. Money in db price * fraction
+fraction: 10000
+
+# ProCountor settings
+#ProCountorInterfacePassword: testi
+ProCountorInterfacePassword: 'TtvhH-ps6uh3'
+ProCountorDimension: "Tulolähde\Futisklubi"
+ProCountorProduct: "Toimintamaksu Futisklubi"
+ProCountorDueDate: ""
+
+engines:
+   template_toolkit:
+     encoding:  'utf8'
+     start_tag: '[%'
+     end_tag:   '%]'
+   XMLSerializer:
+     serialize:
+        XMLDecl: '<?xml version="1.0" encoding="UTF-8"?>'
+        NoEscape: 1
+        AttrIndent: 1
+        SuppressEmpty: null
+        RootName:  InvoiceBatch
+        KeyAttr:
+            Finvoice:        'Version'
+            StartDate:       'Format'
+            EndDate:         'Format'
+            InvoiceDate:     'Format'
+            InvoiceDueDate:  'Format'
+            OrderedQuantity: 'QuantityUnitCode'
+            UnitPriceAmount: 'AmountCurrencyIdentifier'
+            EpiAccountID:    'IdentificationSchemeName'
+            EpiRemittanceInfoIdentifier: 'IdentificationSchemeName'
+
+plugins:
+  # Password generated: mkpasswd --method=md5 Sala1234
+  Auth::Basic:
+        paths:
+          "/proc":
+            realm: "ProCountor integraatio"
+            user: admin
+            password: Sala1234
+
+# Reset password secret
+reset_password_secret: ejkto37JKds
+reset_password_timeout: 3600

@@ -1,0 +1,21 @@
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Ohjaaja</th>
+            <th>
+                <span class="hidden-print"><a href="mailto:[% FOREACH coach IN coaches %][% coach.email %],[% END %]">Sähköposti</a></span>
+                <span class="visible-print">Sähköposti</span>
+            </th>
+            <th>Puhelin</th>
+          </tr>
+        </thead>
+    <tbody>
+        [% FOREACH coach IN coaches %]
+          <tr>
+            <td>[% coach.firstname %] [% coach.lastname %]</td>
+            <td>[% coach.email %]</td>
+            <td>[% coach.phone %]</td>
+          </tr>
+    [% END %]
+        </tbody>
+      </table>

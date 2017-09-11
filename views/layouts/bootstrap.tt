@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=[% settings.charset %]" />
+<title>Futisklubi</title>
+
+<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0;" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<link rel="apple-touch-icon" href="/tpv.png"/>
+     
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+<!-- Optional theme -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css">
+
+</head>
+<body>
+
+[% IF flash.error %]
+<div id="msg_error" class="alert bg-danger"> <a class="close" data-dismiss="alert" href="#">×</a>[% flash.error %] </div>
+[% END %]
+[% IF flash.message %]
+<div id="msg_message" class="alert"> <a class="close" data-dismiss="alert" href="#">×</a>[% flash.message |html %] </div>
+[% END %]
+[% IF flash.success %]
+<div id="msg_success" class="alert bg-success"> <a class="close" data-dismiss="alert" href="#">×</a>[% flash.success |html %] </div>
+[% END %]
+
+<div class="container">
+<form style="display:inline;" id="season" action="[% request.uri_base %]/roster/set_season" method="POST" >
+          <select onchange="this.form.submit()" name="changeSeason">
+[% FOREACH season IN session.seasons %]
+            <option value="[% season.id %]" [% IF session.seasonid == season.id %] selected [% END %]>[% season.name %]</option>
+[% END %]
+          </select>
+</form>      
+
+<div class="row">
+[% content %]
+</div>
+</div>
+
+<hr/>
+<div class="container hidden-print">
+
+<a class="btn btn-primary" href="/logout"> 
+<span class="glyphicon glyphicon-log-out"></span> Kirjaudu ulos
+</a>
+
+
+<a class="btn btn-primary" href="/roster/myprofile"> 
+<span class="glyphicon glyphicon-user"></span> Omat tiedot
+</a>
+<a class="btn btn-primary" href="javascript:window.print();"> 
+<span class="glyphicon glyphicon-print"></span> Tulosta
+</a>
+<a class="btn btn-link" href="/roster">Takaisin</a>
+</div>
+<hr/>
+
+<div class="container hidden-print">
+<footer id="footer" class="span11">
+<a href="/roster/rekisteriseloste">Rekisteriseloste</a>, Powered by <a href="http://perldancer.org/">Dancer</a> [% dancer_version %]
+Using <a href="http://glyphicons.com/">Glyphicons</a> and <a href="http://twitter.github.com/bootstrap/">Bootstrap</a>
+</footer>
+</div>
+
+<script language="JavaScript" type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script language="JavaScript" type="text/javascript" src="http://code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>

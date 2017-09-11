@@ -1,0 +1,48 @@
+  <table class="table">
+        <thead>
+          <tr>
+            <th>Joukkue</th>
+            <th>Pelaaja</th>
+            <th>Syntynyt</th>
+            <th>
+                <span class="hidden-print"><a href="mailto:[% FOREACH player IN players %][% player.email %];[% END %]">Sähköposti</a></span>
+                <span class="visible-print">Sähköposti</span>
+            </th>
+            <th>Puhelinnumero</th>
+            <th>Laskutettu</th>
+            <th>Maksettu</th>
+          </tr>
+        </thead>
+    <tbody>
+        [% FOREACH player IN players %]
+          <tr 
+            [% IF player.cancelled != '' %]
+            style="display:none;"
+            [% END %]
+             id="row_[% player.id %]">
+            <td>[% player.team %]</td>
+            <td>
+                <span class="hidden-print"><a href="/roster/view/player/[% player.id %]">[% player.firstname %] [% player.lastname %]</a></span>
+                <span class="visible-print">[% player.firstname %] [% player.lastname %]&nbsp;</span>
+                    [% IF player.comment %]<span class="glyphicon glyphicon-info-sign"></span>[% END %]
+                    [% IF player.interest %]<span class="glyphicon glyphicon-eye-open"></span>[% END %]
+            </td>
+            <td>[% player.birthyear %]</td>
+            <td>[% player.email %]</td>
+            <td>[% player.phone %]</td>
+            <td>
+            [% IF player.invoiced != '' %]
+            [% date.format(player.invoiced) %]
+            [% END %]
+            </td>
+            <td>
+            [% IF player.paid != '' %]
+            [% date.format(player.paid) %]
+            [% END %]
+            </td>            
+          </tr>
+    [% END %]
+        </tbody>
+      </table>
+<a class="btn btn-primary hidden-print" href="/roster/export/players/[% suburban.id %]">
+<span class="glyphicon glyphicon-export"></span> Siirrä CSV-tiedostoon</a>

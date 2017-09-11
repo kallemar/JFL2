@@ -1,0 +1,21 @@
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Yhteyshenkilö</th>
+            <th>
+                <span class="hidden-print"><a href="mailto:[% FOREACH contact IN suburban.contacts %][% contact.email %],[% END %]">Sähköposti</a></span>
+                <span class="visible-print">Sähköposti</span>
+            </th>
+            <th>Puhelin</th>
+          </tr>
+        </thead>
+    <tbody>
+        [% FOREACH contact IN suburban.contacts %]
+          <tr>
+            <td>[% contact.firstname %] [% contact.lastname %]</td>
+            <td>[% contact.email %]</td>
+            <td>[% contact.phone %]</td>
+          </tr>
+    [% END %]
+        </tbody>
+      </table>

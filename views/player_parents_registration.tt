@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en-us" dir="ltr">
+  <head>
+  <meta charset="utf-8">
+<!--
+
+   Copyright (c) 2010, Dragan Babic
+
+   Permission is hereby granted, free of charge, to any person
+   obtaining a copy of this software and associated documentation
+   files (the "Software"), to deal in the Software without
+   restriction, including without limitation the rights to use,
+   copy, modify, merge, publish, distribute, sublicense, and/or sell
+   copies of the Software, and to permit persons to whom the
+   Software is furnished to do so, subject to the following
+   conditions:
+
+   The above copyright notice and this permission notice shall be
+   included in all copies or substantial portions of the Software.
+
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+   EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+   OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+   NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+   HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+   WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+   FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+   OTHER DEALINGS IN THE SOFTWARE.
+
+-->
+    <title>Huoltajan tiedot</title>
+
+    <link href="[% request.uri_base %]/css/uni-form.css" media="screen" rel="stylesheet"/>
+    <link href="[% request.uri_base %]/css/default.uni-form.css" title="Default Style" media="screen" rel="stylesheet"/>
+   <link href="[% request.uri_base %]/css/demo.css" media="screen" rel="stylesheet"/>
+
+    <!--[if lte ie 7]>
+      <style type="text/css" media="screen">
+        /* Move these to your IE6/7 specific stylesheet if possible */
+        .uniForm, .uniForm fieldset, .uniForm .ctrlHolder, .uniForm .formHint, .uniForm .buttonHolder, .uniForm .ctrlHolder ul{ zoom:1; }
+      </style>
+    <![endif]-->
+
+  </head>
+
+  <body>
+    <form action="[% request.uri_base %]/parents" method="post" class="uniForm">
+
+      <fieldset>
+        <img src="[% request.uri_base %]/tpv.png" width="50" height="50"></img>
+        <h3>HUOLTAJAN YHTEYSTIEDOT</h3>
+
+         [%IF result.err_firstname %] <div class="ctrlHolder error" id="error1"> [% ELSE %] <div class="ctrlHolder" > [% END %]
+          <label for=""><em>*</em> Etunimi</label>
+          [% IF result.firstname %]
+              <input name="firstname" id="name" value="[% result.firstname %]" size="35" maxlength="50" type="text" class="textInput  [% IF result.err_firstname %] medium error [% END %]"/>
+          [% ELSE %]
+              <input name="firstname" id="name" data-default-value="Etunimi" size="35" maxlength="50" type="text" class="textInput required"/>
+          [% END %]
+          <p class="formHint">Huoltajan etunimi.</p>
+        </div>
+
+         [%IF result.err_lastname %] <div class="ctrlHolder error" id="error1"> [% ELSE %] <div class="ctrlHolder" > [% END %]
+          <label for=""><em>*</em> Sukunimi</label>
+          [% IF result.lastname %]
+              <input name="lastname" id="" value="[% result.lastname %]" size="35" maxlength="50" type="text" class="textInput  [% IF result.err_lastname %] medium error [% END %]"/>
+          [% ELSE %]
+              <input name="lastname" id="name" data-default-value="Sukunimi" size="35" maxlength="50" type="text" class="textInput required"/>
+          [% END %]
+          <p class="formHint">Huoltajan sukunimi.</p>
+        </div>
+
+
+         [%IF result.err_phone %] <div class="ctrlHolder error" id="error1"> [% ELSE %] <div class="ctrlHolder" > [% END %]
+          <label for=""><em>*</em> Puhelin</label>
+          [% IF result.phone %]
+              <input name="phone" id="name" value="[% result.phone %]" size="35" maxlength="20" type="text" class="textInput [% IF result.err_phone %] medium error [% END %]"/>
+          [%ELSE %]
+              <input name="phone" id="name" data-default-value="Puhelinnumero" size="35" maxlength="20" type="text" class="textInput required"/>
+          [% END %]
+          <p class="formHint">Puhelin yhteydenpitoa varten.</p>
+        </div>
+
+         [%IF result.err_email %] <div class="ctrlHolder error" id="error1"> [% ELSE %] <div class="ctrlHolder" > [% END %]
+          <label for=""><em>*</em> Sähköposti</label>
+          [% IF result.email %]
+              <input name="email" id="" value="[% result.email %]" size="35" maxlength="50" type="text" class="textInput [% IF result.err_error %] medium error [% END %]"/>
+          [% ELSE %]
+              <input name="email" id="email" data-default-value="Sähköposti" size="35" maxlength="50" type="text" class="textInput required validateEmail"/>
+          [% END %]
+          <p class="formHint">Sähköpostiosoite johon toimintaan liittyvät tiedot lähetetään.</p>
+        </div>
+         [%IF result.err_email_confirm %] <div class="ctrlHolder error" id="error1"> [% ELSE %] <div class="ctrlHolder" > [% END %]
+          <label for=""><em>*</em> Sähkpostiosoitteen varmistus</label>
+          [% IF result.email_confirm %]
+              <input name="email_confirm" id="" value="[% result.email_confirm %]" size="35" maxlength="50" type="text" class="textInput [% IF result.err_error %] medium error [% END %]"/>
+          [% ELSE %]
+              <input name="email_confirm" id="email_confirm" data-default-value="Sähköposti" size="35" maxlength="50" type="text" class="textInput required validateSameAs email"/>
+          [% END %]
+          <p class="formHint">Syötä sähköpostiosoitteesi uudestaan.</p>
+        </div>
+
+        [%IF result.err_relation %] <div class="ctrlHolder error" id="error1"> [% ELSE %] <div class="ctrlHolder" > [% END %]
+          <p class="label">
+            <em>*</em> Tiedot ovat
+          </p>
+          <ul>
+            <li><label for=""><input id="" name="relation" value="isä"  type="radio" [% IF result.relation == 'isä' %] checked [% END %]/> Isän</label></li>
+            <li><label for=""><input id="" name="relation" value="äiti" type="radio" [% IF result.relation == 'äiti' %] checked [% END %]/> Äidin</label></li>
+            <li><label for=""><input id="" name="relation" value="muu"  type="radio" [% IF result.relation == 'muu' %] checked [% END %]/> Muun</label></li>
+          </ul>
+          <p class="formHint">Huoltajan tiedot ovat isän/äidin/jonkun muun.</p>
+        </div>
+
+         <div class="ctrlHolder">
+          <p class="label">
+            Olen kiinnostunut toimimaan
+          </p>
+          <ul>
+            <li><label for=""><input id="" name="interest" value="ohjaaja"    data-default-value="Placeholder text" type="radio" [% IF result.interest == 'ohjaaja' %] checked [% END %]/> Ohjaajana</label></li>
+            <li><label for=""><input id="" name="interest" value="apuohjaaja"          data-default-value="Placeholder text" type="radio" [% IF result.interest == 'apuohjaaja' %] checked [% END %]/> Apuohjaajana</label></li>
+            <!--<li><label for=""><input id="" name="interest" value="huoltaja"         data-default-value="Placeholder text" type="radio" [% IF result.interest == 'huoltaja' %] checked [% END %]/> Joukkueen huoltajana</label></li>-->
+          </ul>
+          <p class="formHint">Merkitse tähän, jos ole kiinnostunut osallistumaan Futisklubin toimintaan.</p>
+        </div>
+
+        <div class="ctrlHolder">
+          <label for=""> Muuta</label>
+          <textarea name="comment" id="" rows="25" cols="25">[% result.comment %]</textarea>
+          <p class="formHint">Muuta tärkeätä tietoa seuralle.</p>
+        </div>
+      </fieldset>
+
+      <div class="buttonHolder">
+        <a class="secondaryAction" href="[% request.uri_base %]/player" title="Peruuta">← Takaisin</a>
+        <button type="submit" class="primaryAction">Seuraava</button>
+      </div>
+
+    </form>
+
+    <div id="footer">
+      <p>Tampereen Pallo-Veikot ry &bull; Teiskontie 1 A &bull; 33500 &bull; Tampere &bull; puh. (03) 261 7211 &bull; toimisto@tpv.fi</p>
+    </div>
+
+
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+    <script type="text/javascript" src="[% request.uri_base %]/javascripts/uni-form-validation.jquery.js" charset="utf-8"></script>
+    <script type="text/javascript" src="[% request.uri_base %]/localization/fi.js" charset="utf-8"></script>
+    <script>
+      $(function(){
+        $('form.uniForm').uniform({
+          prevent_submit : true
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,50 @@
+<section id="main" class="column">
+[% IF message %]
+  <h4 class="alert_info">Welcome to the free MediaLoot admin panel template, this could be an informative message.</h4>
+[% END %]
+[% IF warning %]
+  <h4 class="alert_warning">A Warning Alert</h4>
+[% END %]
+[% IF error %]
+  <h4 class="alert_error">An Error Message</h4>
+[% END %]
+[% IF success %]
+  <h4 class="alert_success">A Success Message</h4>
+[% END %]
+
+
+<article class="module width_full">
+  <header><h3 class="tabs_involved">Joukkueet</h3></header>
+      <table class="tablesorter" cellspacing="0">
+        <thead>
+	  <tr>
+   	    <th></th>
+    	    <th>Nimi</th>
+            <th>Kaupunginosa</th>
+            <th>Kuvaus</th>
+            <th>Toiminnot</th>
+          </tr>
+        </thead>
+	<tbody>
+        [% FOREACH team IN teams %]
+          <tr>
+            <td><input type="checkbox"></td>
+            <td>[% team.name %]</td>
+            <td>[% team.suburban %]</td>
+            <td>[% team.description %]</td>
+            <td><a href="[% request.uri_base %]/admin/edit/team/[% team.id %]"><input type="image" src="[% request.uri_base %]/images/icn_edit.png" title="Edit"></a>
+                <a href="[% request.uri_base %]/admin/delete/team/[% team.id %]"><input type="image" src="[% request.uri_base %]/images/icn_trash.png" title="Trash"></a></td>
+          </tr>
+	[% END %]
+        </tbody>
+      </table>
+
+[% INCLUDE inc_123_admin_pager.tt %]
+
+      <footer>
+       <div class="submit_link">
+         <input type="submit" value="Liitä" class="alt_btn">
+       </div>
+      </footer>
+  <div class="clear"></div>
+</section>

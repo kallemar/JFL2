@@ -1,0 +1,60 @@
+<section id="main" class="column">
+  <article class="module width_full">
+  <header>
+    <h3 class="tabs_involved">KAUSI</h3>
+  </header>
+
+  <div class="tab_container">
+    <div id="tab1" class="tab_content">
+      [% IF valid %]
+        <h4 class="alert_success">Kausi talennettu</h4>
+      [% END %]
+      [% IF valid == 0%]
+        <h4 class="alert_error">Virhe tiedoissa. Tarkista kaikki pakolliset kentät!</h4>
+      [% END %]
+      <div class="module_content">
+      <form action="[% request.uri_base %]/admin/edit/season" method="post">
+        <input type="hidden" name="id" value="[% season.id %]" style="width:92%;">
+
+        <fieldset style="width:48%; float:left; margin-right: 3%;[%IF data.result.err_name %]color:red;[%END%]">
+          <label>Nimi *</label>
+          <input type="text" name="name" value="[% season.name %]" style="width:92%;">
+        </fieldset>
+
+       <fieldset style="width:48%;float:left;">
+          <label>Aktiivinen</label>
+          <select name="isactive">
+            <option value="1" [% IF season.isactive == 1 %] selected [% END %]>kyllä</option>
+ 		    <option value="0" [% IF season.isactive == 0 %] selected [% END %]>ei</option>
+          </select>
+        </fieldset>
+
+        [% USE date(format = '%d.%m.%Y', locale = 'fi_FI') %]
+
+        <fieldset style="width:48%;float:left;margin-right: 3%;[% IF season.err_startdate %]color:red;[%END%]">
+          <label>Kausi alkaa</label>
+          <input type="text" name="startdate" value="[% IF season.startdate %][% IF ! season.err_startdate %] [% date.format(season.startdate) %][% ELSE %] [%seaon.startdate%][% END %][% END %]" style="width:92%;">
+        </fieldset>
+
+        <fieldset style="width:48%; float:left;[% IF season.err_enddate %]color:red;[%END%]">
+          <label>Kausi päättyy</label>
+          <input type="text" name="enddate" value="[% IF season.enddate %][% IF ! season.err_enddate %][% date.format(season.enddate) %][% ELSE %][%season.enddate%][% END %][% END %]" style="width:92%;">
+        </fieldset>
+        
+        <fieldset style="width:48%;float:left;margin-right: 3%;[% IF season.err_price %]color:red;[%END%]">
+          <label>Kauden hinta € *</label>
+          <input type="text" name="price" value="[% season.price %]" style="width:92%;">
+        </fieldset>
+        <div class="clear"></div>
+      </div>
+      <footer>
+        <div class="submit_link">
+          <input type="submit" value="Tallenna" class="alt_btn">
+        </div>
+      </footer>
+       </form>
+    </div><!-- end of #tab1 -->
+
+  </div><!-- end of .tab_container -->
+  </article>
+</section>

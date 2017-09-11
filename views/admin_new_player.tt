@@ -1,0 +1,156 @@
+[% USE date(format = '%d.%m.%Y', locale = 'fi_FI') %]
+
+<section id="main" class="column">
+  <article class="module width_full">
+  <header>
+  <h3 class="tabs_involved">Uusi pelaaja</h3>
+  <ul class="tabs">
+    <li><a href="#tab1">Pelaaja</a></li>
+    <li><a href="#tab2">Huoltaja</a></li>
+  </ul>
+  </header>
+  <div class="tab_container">
+    <div id="tab1" class="tab_content">
+    <div class="module_content">
+    [% IF valid %]
+        <h4 class="alert_success">Tiedot tallennettu!</h4>
+    [% END %]
+    [% IF valid == 0%]
+        <h4 class="alert_error">Virhe tiedoissa. Tarkista kaikki pakolliset kentät. Tarkista myös huoltajan tiedot.</h4>
+    [% END %]
+    <form action="[% request.uri_base %]/admin/new/player" method="post">
+        <fieldset style="width:48%; float:left; margin-right: 3%;[%IF player.err_firstname %]color:red;[%END%]">
+          <label>Etunimi *</label>
+          <input type="text" name="firstname" value="[% player.firstname %]" style="width:92%;">
+        </fieldset>
+        <fieldset style="width:48%; float:left;[%IF player.err_street %]color:red;[%END%]">
+          <label>Katuosoite *</label>
+          <input type="text" name="street" value="[% player.street %]" style="width:92%;">
+        </fieldset>
+        <fieldset style="width:48%; float:left; margin-right: 3%;[%IF player.err_lastname %]color:red;[%END%]">
+          <label>Sukunimi *</label>
+          <input type="text" name="lastname" value="[% player.lastname %]" style="width:92%;">
+        </fieldset>
+        <fieldset style="width:48%; float:left;[%IF player.err_zip %]color:red;[%END%]">
+          <label>Postinumero *</label>
+          <input type="text" name="zip" value="[% player.zip %]" style="width:92%;">
+        </fieldset>
+        <fieldset style="width:48%; float:left; margin-right: 3%;[%IF player.err_hetu %]color:red;[%END%]">
+          <label>HETU *</label>
+          <input type="text" name="hetu" value="[% player.hetu %]" style="width:92%;">
+        </fieldset>
+        <fieldset style="width:48%; float:left;[%IF player.err_city %]color:red;[%END%]">
+          <label>Kaupunki *</label>
+          <input type="text" name="city" value="[% player.city %]" style="width:92%;">
+        </fieldset>
+        <fieldset style="width:48%; float:left; margin-right: 3%;[%IF player.err_phone %]color:red;[%END%]">
+          <label>Puhelin *</label>
+          <input type="text" name="phone" value="[% player.phone %]" style="width:92%;">
+        </fieldset>
+        <fieldset style="width:48%; float:left;[%IF player.err_suburban %]color:red;[%END%]">
+          <label>Kaupunginosa *</label>
+          <select style="width:92%;" name="suburbanid">
+            <option value="">(valitse)</option>
+          [% FOREACH sub IN suburbans %]
+            <option value="[% sub.id %]" [%IF sub.id == player.suburbanid %] selected [% END %]> [% sub.name %]</option>
+          [% END %]
+          </select>
+        </fieldset>
+        <fieldset style="width:48%; float:left; margin-right: 3%;[%IF player.err_email %]color:red;[%END%]">
+          <label>Sähköposti *</label>
+          <input type="text" name="email" value="[% player.email %]" style="width:92%;">
+        </fieldset>
+        <fieldset style="width:48%; float:left;[%IF player.err_team %]color:red;[%END%]">
+          <label>Joukkue</label>
+          <select style="width:92%;" name="teamid">
+		    <option value="">(valitse)</option>
+          [% FOREACH team IN teams %]
+            <option value="[% team.id %]" [%IF team.id == player.teamid %] selected [% END %]> [% team.name %]</option>
+          [% END %]
+          </select>
+        </fieldset>
+		
+		<fieldset style="width:48%; float:left; margin-right: 3%;">
+          <label>Pelipaidan koko</label>
+          <select style="width:92%;" name="shirtsizeid">
+			 <option value="">(valitse)</option>
+          [% FOREACH size IN shirtsizetable %]
+            <option value="[% size.id %]" [%IF size.id == player.shirtsizeid %] selected [% END %]> [% size.name %]</option>
+          [% END %]
+          </select>
+        </fieldset>
+		
+		<fieldset style="width:48%; float:left;">
+          <label style="width:100%">Haluaa pelata tyttöjoukkueessa</label>
+          <select style="width:92%;" name="wantstoplayingirlteam">	
+            <option value="0" [%IF player.wantstoplayingirlteam == 0 %] selected [% END %]> ei</option>
+            <option value="1" [%IF player.wantstoplayingirlteam == 1 %] selected [% END %]> kyllä</option>
+          </select>
+        </fieldset>
+        <fieldset style="width:48%; float:left; margin-right: 3%;[%IF player.err_invoiced %]color:red;[%END%]">
+          <label>Laskutettu</label>
+          <input type="text" name="invoiced" value="[%IF player.invoiced %] [% date.format(player.invoiced) %] [% END %]" style="width:92%;">
+        </fieldset>
+        <fieldset style="width:48%; float:left;[%IF player.err_paid %]color:red;[%END%]">
+          <label>Maksettu</label>
+          <input type="text" name="paid" value="[%IF player.paid %] [% date.format(player.paid) %] [% END %]" style="width:92%;">
+        </fieldset>
+
+        <fieldset style="width:48%; float:left;[%IF player.err_cancelled %]color:red;[%END%]">
+          <label>Päättänyt</label>
+          <input type="text" name="cancelled" value="[%IF player.cancelled %] [% date.format(player.cancelled) %] [% END %]" style="width:92%;">
+        </fieldset>
+
+      <div class="clear"></div>
+    </div>
+    <footer>
+      <div class="submit_link">
+          [% player.parent.firstname %]
+        <input type="submit" value="Tallenna" class="alt_btn">
+      </div>
+    </footer>
+
+</div><!-- end of #tab1 -->
+<div id="tab2" class="tab_content">
+   <div class="module_content">
+     <fieldset style="width:48%; float:left; margin-right: 3%;">
+	   <label>Etunimi *</label>
+	   <input type="text" name="parent_firstname" value="[% player.parent_firstname %]" style="width:92%;">
+     </fieldset>
+     <fieldset style="width:48%; float:left;">
+	   <label>Sukunimi *</label>
+	   <input type="text" name="parent_lastname" value="[% player.parent_lastname %]" style="width:92%;">
+     </fieldset>
+     <fieldset style="width:48%; float:left; margin-right: 3%;">
+	   <label>Puhelin *</label>
+	   <input type="text" name="parent_phone" value="[% player.parent_phone %]" style="width:92%;">
+     </fieldset>
+     <fieldset style="width:48%; float:left;">
+       <label>Sähköposti *</label>
+       <input type="text" name="parent_email" value="[% player.parent_email %]" style="width:92%;">
+     </fieldset>
+     <fieldset style="width:48%; float:left; margin-right: 3%;">
+	   <label>Suhde pelaajaan</label>
+	   <input type="text" name="parent_relation" value="[% player.parent_relation %]" style="width:92%;">
+     </fieldset>
+     <fieldset style="width:48%; float:left;">
+       <label>Kiinnostus </label>
+       <input type="text" name="parent_interest" value="[% player.parent_interest %]" style="width:92%;">
+     </fieldset>
+     <fieldset style="width:99%; float:left;">
+       <label>Muuta tietoa</label>
+       <textarea style="width:92%;" name="parent_comment" rows="12" maxlength="255">[% player.parent_comment %]</textarea>
+     </fieldset>
+     <div class="clear"></div>
+   </div>
+   <footer>
+     <div class="submit_link">
+       <input type="submit" value="Tallenna" class="alt_btn">
+     </div>
+   </footer>
+   </form>
+</div><!-- end of #tab2 -->
+
+</div><!-- end of .tab_container -->
+</article><!-- end of admin new player article -->
+</section>

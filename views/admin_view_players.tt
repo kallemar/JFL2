@@ -1,0 +1,91 @@
+
+<section id="main" class="column">
+[% IF message %]
+  <h4 class="alert_info">Welcome to the free MediaLoot admin panel template, this could be an informative message.</h4>
+[% END %]
+[% IF warning %]
+  <h4 class="alert_warning">A Warning Alert</h4>
+[% END %]
+[% IF error %]
+  <h4 class="alert_error">An Error Message</h4>
+[% END %]
+[% IF success %]
+  <h4 class="alert_success">A Success Message</h4>
+[% END %]
+
+
+[% INCLUDE inc_admin_search_players.tt %]
+[% USE date %]
+
+<form action="[% request.uri_base %]/admin/assign_players" method="post">
+<article class="module width_full">
+  <header>
+      <h3 class="tabs_involved">Pelaajien hallinta</h3>
+  </header>
+  <div class="tab_container">
+    <div id="tab1" class="tab_content">
+      <table class="tablesorter" cellspacing="0">
+        <thead>
+      <tr>
+        <th></th>
+            <th>Pelaaja</th>
+            <th>Syntymävuosi</th>
+            <th>Kaupunginosa</th>
+            <th>Joukkue</th>
+            <th>Laskutettu</th>
+            <th>Maksettu</th>
+            <th>Toiminnot</th>
+          </tr>
+        </thead>
+    <tbody>
+        [% FOREACH player IN players %]
+          <tr>
+            <td><input type="checkbox" name="player" value="[% player.id %]"></td>
+            <td><a style="color: #666666" href="[% request.uri_base %]/admin/edit/player/[% player.id %]">[% player.firstname %] [% player.lastname %] [%IF user_roles.first == 'admin'%]([% player.hetu %])[% END %]</a></td>
+            <td>[% player.birthyear %]</td>
+            <td>[% player.suburban %]</td>
+            <td>[% player.team %]</td>
+            <td>[% IF player.isinvoice %][%IF player.invoiced %] [% date.format(player.invoiced, '%d.%m.%Y') %] [% END %] [% ELSE %] ei laskuteta [% END %]</td>
+            <td>[%IF player.paid %] [% date.format(player.paid, '%d.%m.%Y') %] [% END %]</td>
+            <td>
+              <a href="[% request.uri_base %]/admin/edit/player/[% player.id %]"><img src="[% request.uri_base %]/images/icn_edit.png" alt="Muokkaa"></a>
+              <a href="[% request.uri_base %]/admin/cancel/player/[% player.id %]?page=[% P123.current %]&char=[% ABC.current %]"><img src="[% request.uri_base %]/images/icn_trash.png" alt="Peruuta"></a>
+            [%IF user_roles.first == 'admin'%]
+              <a href="[% request.uri_base %]/admin/paid/player/[% player.id %]?page=[% P123.current %]&char=[% ABC.current %]"><img src="[% request.uri_base %]/images/euro-sign.png" alt="Maksettu"></a>
+            [% END %]
+            [% IF player.parent.interest %]
+              <a href="[% request.uri_base %]/admin/edit/player/[% player.id %]#tab2"><img src="[% request.uri_base %]/images/icn_alert_info.png" alt="Infoa"></a>
+            [% END %]
+            [% IF player.cancelled %]
+              <a href="[% request.uri_base %]/admin/edit/player/[% player.id %]"><img src="[% request.uri_base %]/images/icn_alert_error.png" alt="Muokkaa"></a>
+            [% END %]
+            [%IF session.logged_in_user == 'kalle@marjamaki.net'%]
+              <a href="[% request.uri_base %]/admin/delete/player/[% player.id %]"><img src="[% request.uri_base %]/images/icn_trash_red.png" alt="Poista"></a>
+            [%END%]
+            </td>
+          </tr>
+    [% END %]
+        </tbody>
+      </table>
+[% IF ABC.defined %]
+    [% INCLUDE inc_abc_admin_pager.tt %]
+[% END %]
+[% IF P123.defined and NOT ABC.defined %]
+    [% INCLUDE inc_123_admin_pager.tt %]
+[% END %]
+      <footer>
+       <div class="submit_link">
+         <select style="width:auto;" name="team">
+           <option value="" selected>(valitse)</option>
+         [% FOREACH team IN teams %]
+           <option value="[% team.id %]">[% team.name %]</option>
+         [% END %]
+         </select>
+         <input type="submit" value="Liitä" class="alt_btn">
+        </div>
+      </footer>
+    </div><!-- end of #tab1 -->
+  </div><!-- end of .tab_container -->
+  <div class="clear"></div>
+</section>
+</form>

@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="fi-FI" dir="ltr">
+  <head>
+  <meta charset="utf-8">
+
+    <title>Kortteliliiga - </title>
+
+    <link href="[% request.uri_base %]/css/uni-form.css" media="screen" rel="stylesheet"/>
+    <link href="[% request.uri_base %]/css/default.uni-form.css" title="Default Style" media="screen" rel="stylesheet"/>
+    <link href="[% request.uri_base %]/css/demo.css" media="screen" rel="stylesheet"/>
+
+
+    <!--[if lte ie 7]>
+      <style type="text/css" media="screen">
+        /* Move these to your IE6/7 specific stylesheet if possible */
+        .uniForm, .uniForm fieldset, .uniForm .ctrlHolder, .uniForm .formHint, .uniForm .buttonHolder, .uniForm .ctrlHolder ul{ zoom:1; }
+      </style>
+    <![endif]-->
+
+  </head>
+
+<body>
+  <form action="[% request.uri_base %]/done" method="get" class="uniForm">
+    <!--  <div class="uniForm"> -->
+      <fieldset>
+        <img src="[% request.uri_base %]/tpv.png" width="50" height="50"></img>
+        <h3>TARKISTA TIEDOT</h3>
+      </fieldset>
+
+        <div class="ctrlHolder" >
+          <b>PELAAJAN TIEDOT: </b></br>
+          [% player.result.firstname %] [% player.result.lastname %] ([% player.result.hetu %]) </br>
+          [% player.result.address %] [% player.result.zip %] [% player.result.city %] </br>
+          Puhelin: [% player.result.phone %]</br>
+          Sähköposti: [% player.result.email %]</br>	
+          Pelipaidan koko: [% player.result.shirtsize_name %]</br>
+          Haluan pelata tyttöjoukkueessa (koskee vain tyttöpelaajia): [%IF player.result.wantstoplayingirlteam %]Kyllä[% ELSE %]Ei[% END %]</br>
+
+		  </div>
+
+        <div class="ctrlHolder" >
+          Kaupunginosa: <b>[% player.result.suburban_name %]</b></br>
+          Lisätietoja:  [% player.result.suburban_description %]</br>
+        </div>
+        <div class="ctrlHolder" >
+          <b>HUOLTAJAN TIEDOT: </b></br>
+            [% parent.result.firstname %] [% parent.result.lastname %] </br>
+            Puhelin: [% parent.result.phone %]</br>
+            Sähköposti: [% parent.result.email %]
+        </div>
+
+        <div class="ctrlHolder" >
+          <b>MUUT TIEDOT: </b></br>
+            Suhde pelaajaan: [% parent.result.relation %]</br>
+            Kiinnostus: [% parent.result.interest %]</br>
+            Muuta tietoa: <br/>[% parent.result.comment %]
+        </div>
+
+        <div class="buttonHolder">
+          <a class="secondaryAction" href="[% request.uri_base %]/parents" title="Peruuta">← Takaisin</a>
+          <button type="submit" class="primaryAction">Lähetä</button>
+        </div>
+  </form>
+
+    <div id="footer">
+      <p>Tampereen Pallo-Veikot ry &bull; Teiskontie 1 A &bull; 33500 &bull; Tampere &bull; puh. (03) 261 7211 &bull; toimisto@tpv.fi</p>
+    </div>
+
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+    <script type="text/javascript" src="[% request.uri_base %]/javascripts/uni-form-validation.jquery.js" charset="utf-8"></script>
+    <script type="text/javascript" src="../localization/fi.js" charset="utf-8"></script>
+    <script>
+      $(function(){
+        $('form.uniForm').uniform({
+          prevent_submit : true
+        });
+      });
+    </script>
+    </form>
+  </body>
+</html>

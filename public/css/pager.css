@@ -1,0 +1,56 @@
+/*subcide.com*/
+/* Pager
+------------------------------------------------- */
+
+.pagerSC {
+        text-align:center;
+	clear: both;
+	height: 1%; /* Fixes double padding in IE */
+	background: #3E3E3E;
+	margin: 0 auto;
+	border: 1px solid #313131;
+	font-size: 0.8em;
+	font-family: Tahoma, Arial, Helvetica, Sans-serif;
+}
+
+.pagerSC a, .pagerSC span {
+    display: inline-block;
+    width: 20px;
+    /*float: left;*/
+    padding: 5px;
+    margin-right: 0.1em;
+	text-decoration: none;
+	background: #3E3E3E;
+	color: #ffffff;
+}
+
+.pagerSC span {
+	color: #868686;
+}
+
+.pagerSC .currentSC {
+	background: #313131;
+}
+
+.pagerSC a:hover {
+	background: #EC5210;
+}
+
+.pagertop {
+	border-top: 0 none;
+}
+
+.pagerbottomSC {
+	border-bottom: 0 none;
+}
+
+.pagerSC ul {
+	margin: 0;
+	padding: 0;
+}
+
+
+.pagerSC li {
+	margin: 0;
+	padding: 0;
+}

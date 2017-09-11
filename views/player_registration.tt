@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="fi-fi" dir="ltr">
+  <head>
+  <meta name="google-site-verification" content="GAVurES8O6VMvKz_dbWZ_ywL-NIgaKGHlfZlZhiqYrg" />
+  <meta charset="utf-8">
+<!--
+
+   Copyright (c) 2010, Dragan Babic
+
+   Permission is hereby granted, free of charge, to any person
+   obtaining a copy of this software and associated documentation
+   files (the "Software"), to deal in the Software without
+   restriction, including without limitation the rights to use,
+   copy, modify, merge, publish, distribute, sublicense, and/or sell
+   copies of the Software, and to permit persons to whom the
+   Software is furnished to do so, subject to the following
+   conditions:
+
+   The above copyright notice and this permission notice shall be
+   included in all copies or substantial portions of the Software.
+
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+   EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+   OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+   NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+   HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+   WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+   FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+   OTHER DEALINGS IN THE SOFTWARE.
+
+-->
+    <title>Pelaajan rekisteröityminen</title>
+
+    <link href="[% request.uri_base %]/css/uni-form.css" media="screen" rel="stylesheet"/>
+    <link href="[% request.uri_base %]/css/default.uni-form.css" title="Default Style" media="screen" rel="stylesheet"/>
+    <link href="[% request.uri_base %]/css/demo.css" media="screen" rel="stylesheet"/>
+
+    <!--[if lte ie 7]>
+      <style type="text/css" media="screen">
+        /* Move these to your IE6/7 specific stylesheet if possible */
+        .uniForm, .uniForm fieldset, .uniForm .ctrlHolder, .uniForm .formHint, .uniForm .buttonHolder, .uniForm .ctrlHolder ul{ zoom:1; }
+      </style>
+    <![endif]-->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+    <script type="text/javascript" src="[% request.uri_base %]/javascripts/uni-form.jquery.js"></script>
+    <script type="text/javascript" src="[% request.uri_base %]/javascripts/uni-form-validation.jquery.js" charset="utf-8"></script>
+    <script type="text/javascript" src="[% request.uri_base %]/localization/fi.js" charset="utf-8"></script>
+
+    [% IF valid == 0 %]
+
+    <script type="text/javascript">
+      $(function(){
+
+        // init Uni-Form
+        $('form.uniForm').uniform();
+
+        // specific for this page
+        $(".browse a").click(function(e) {
+          e.preventDefault();
+          $("#formStyle").attr("href",$(this).attr('rel'));
+          return false;
+        });
+      });
+    </script>
+    [% ELSE %]
+    <script>
+      $(function(){
+        $('form.uniForm').uniform({
+          prevent_submit : true
+        });
+      });
+    </script>
+    [% END %]
+
+  </head>
+
+  <body>
+
+
+
+    <form action="[% request.uri_base %]/player" method="post" class="uniForm">
+       [% IF valid == 0 %]
+       <div id="errorMsg">
+        <h3>Virheitä lomakkeella!</h3>
+          <ol>
+            [% IF result.err_firstname %]     <li>[% result.err_firstname %]</li>     [% END %]
+            [% IF result.err_lastname %]      <li>[% result.err_lastname %]</li>      [% END %]
+            [% IF result.err_hetu %]          <li>[% result.err_hetu %]</li>          [% END %]
+            [% IF result.err_suburban %]      <li>[% result.err_suburban %]</li>      [% END %]
+            [% IF result.err_address %]       <li>[% result.err_address %]</li>       [% END %]
+            [% IF result.err_zip %]           <li>[% result.err_zip %]</li>           [% END %]
+            [% IF result.err_city %]          <li>[% result.err_city %]</li>          [% END %]
+            [% IF result.err_phone %]         <li>[% result.err_phone %]</li>         [% END %]
+            [% IF result.err_email %]         <li>[% result.err_email %]</li>         [% END %]
+            [% IF result.err_email_confirm %] <li>[% result.err_email_confirm %]</li> [% END %]
+          </ol>
+      </div>
+      [% END %]
+
+      <fieldset>
+        <img src="[% request.uri_base %]/tpv.png" width="50" height="50"></img>
+        <h3>PELAAJAN TIEDOT</h3>
+
+         [%IF result.err_firstname %] <div class="ctrlHolder error" id="error1"> [% ELSE %] <div class="ctrlHolder" > [% END %]
+          <label for=""><em>*</em> Etunimi</label>
+          [% IF result.firstname %]
+              <input name="firstname" id="name" value="[% result.firstname %]" size="35" maxlength="50" type="text" class="textInput  [% IF result.err_firstname %] medium error [% END %]"/>
+          [% ELSE %]
+              <input name="firstname" id="name" data-default-value="Etunimi" size="35" maxlength="50" type="text" class="textInput required"/>
+          [% END %]
+          <p class="formHint">Pelaajan etunimi.</p>
+        </div>
+
+         [%IF result.err_lastname %] <div class="ctrlHolder error" id="error1"> [% ELSE %] <div class="ctrlHolder" > [% END %]
+          <label for=""><em>*</em> Sukunimi</label>
+          [% IF result.lastname %]
+              <input name="lastname" id="" value="[% result.lastname %]" size="35" maxlength="50" type="text" class="textInput  [% IF result.err_lastname %] medium error [% END %]"/>
+          [% ELSE %]
+              <input name="lastname" id="name" data-default-value="Sukunimi" size="35" maxlength="50" type="text" class="textInput required"/>
+          [% END %]
+          <p class="formHint">Pelaajan sukunimi.</p>
+        </div>
+
+        [%IF result.err_hetu %] <div class="ctrlHolder error" id="error1"> [% ELSE %] <div class="ctrlHolder" > [% END %]
+          <label for=""><em>*</em> Henkilötunnus</label>
+          [% IF result.hetu %]
+              <input name="hetu" id="" value="[% result.hetu %]" size="35" maxlength="11" type="text" class="textInput [% IF result.err_hetu %] medium error [% END %]"/>
+          [% ELSE %]
+              <input name="hetu" id="name" data-default-value="ppkkvv-123A" size="35" maxlength="11" type="text" class="textInput required"/>
+          [% END %]
+          <p class="formHint">Henkilötunnus tarvitaan pelaajan vakuutusta ja lisenssiä varten.</p>
+        </div>
+
+         [%IF result.err_address %] <div class="ctrlHolder error" id="error1"> [% ELSE %] <div class="ctrlHolder" > [% END %]
+          <label for=""><em>*</em> Katuosoite</label>
+          [% IF result.address %]
+              <input name="address" id="" value="[% result.address %]" size="35" maxlength="50" type="text" class="textInput [% IF result.err_address %] medium error [% END %]"/>
+          [% ELSE %]
+              <input name="address" id="name" data-default-value="Katuosoite" size="35" maxlength="50" type="text" class="textInput required"/>
+          [% END %]
+          <p class="formHint">Pelaajan katuosoite.</p>
+        </div>
+
+        [%IF result.err_zip %] <div class="ctrlHolder error" id="error1"> [% ELSE %] <div class="ctrlHolder" > [% END %]
+          <label for=""><em>*</em> Postinumero</label>
+          [% IF result.address %]
+              <input name="zip" id="" value="[% result.zip %]" size="35" maxlength="5" type="text" class="textInput [% IF result.err_zip %] medium error [% END %]"/>
+          [% ELSE %]
+              <input name="zip" id="name" data-default-value="Postinumero" size="35" maxlength="5" type="text" class="textInput required"/>
+          [% END %]
+          <p class="formHint">Pelaajan postinumero.</p>
+        </div>
+
+         [%IF result.err_suburban %] <div class="ctrlHolder error" id="error1"> [% ELSE %] <div class="ctrlHolder" > [% END %]
+          <label for="">* Kaupunginosa</label>
+          <select name="suburban" id="" class="selectInput">
+            <option value="">(valitse)</option>
+          [% FOREACH sub IN suburbans %]
+            <option value="[% sub.id %]" [%IF sub.id == result.suburban %] selected [% END %] >[% sub.name %]</option>
+          [% END %]
+          </select>
+          <p class="formHint">Valitse kaupunginosa, jossa pelaaja osallistuu toimintaan. Aluejako löytyy TPV:n kotisivulta.</p>
+        </div>
+
+         [%IF result.err_city %] <div class="ctrlHolder error" id="error1"> [% ELSE %] <div class="ctrlHolder" > [% END %]
+          <label for=""><em>*</em> Kaupunki</label>
+          [% IF result.city %]
+              <input name="city" id="" value="[% result.city %]" size="35" maxlength="10" type="text" class="textInput [% IF result.err_city %] medium error [% END %]"/>
+          [% ELSE %]
+              <input name="city" id="name" data-default-value="Kaupunki" size="35" maxlength="10" type="text" class="textInput required"/>
+          [% END %]
+          <p class="formHint">Pelaajan kaupunki</p>
+        </div>
+
+         [%IF result.err_phone %] <div class="ctrlHolder error" id="error1"> [% ELSE %] <div class="ctrlHolder" > [% END %]
+          <label for=""><em>*</em> Puhelin</label>
+          [% IF result.phone %]
+              <input name="phone" id="name" value="[% result.phone %]" size="35" maxlength="20" type="text" class="textInput [% IF result.err_phone %] medium error [% END %]"/>
+          [%ELSE %]
+              <input name="phone" id="name" data-default-value="Puhelinnumero" size="35" maxlength="20" type="text" class="textInput required"/>
+          [% END %]
+          <p class="formHint">Puhelin yhteydenpitoa varten.</p>
+        </div>
+
+         [%IF result.err_shirtsizeid %] <div class="ctrlHolder error" id="error1"> [% ELSE %] <div class="ctrlHolder" > [% END %]
+          <label for=""><em>*</em> Pelipaidan koko</label>
+          <select name="shirtsizeid" id="" class="selectInput">
+            <option value="">(valitse)</option>
+				[% FOREACH size IN shirtsizes %]
+					<option value="[% size.id %]" [%IF size.id == result.shirtsizeid %] selected [% END %] >[% size.name %]</option>
+				[% END %]
+          </select>
+  
+          <p class="formHint">Pelipaidan koko. Jos valitset vaihtoehdon 'Käytän viimekesäistä pelipaitaa', niin maksusta vähennetään 10 euroa.</p>
+        </div>
+		
+		[%IF result.err_wantstoplayingirlteam %] <div class="ctrlHolder error" id="error1"> [% ELSE %] <div class="ctrlHolder" > [% END %]
+          <label for=""><em>*</em> Haluan pelata tyttöjoukkueessa</label>
+          <select name="wantstoplayingirlteam" id="" class="selectInput">
+            <option value="0">Ei</option>
+            <option value="1">Kyllä</option>
+          </select>
+  
+          <p class="formHint">Valitse 'Kyllä' jos haluat pelata tyttöjoukkueessa. Joukkue muodostetaan mikäli löytyy riittävästi pelaajia</p>
+        </div>
+
+         [%IF result.err_email %] <div class="ctrlHolder error" id="error1"> [% ELSE %] <div class="ctrlHolder" > [% END %]
+          <label for=""><em>*</em> Sähköposti</label>
+          [% IF result.email %]
+              <input name="email" id="" value="[% result.email %]" size="35" maxlength="50" type="text" class="textInput [% IF result.err_error %] medium error [% END %]"/>
+          [% ELSE %]
+              <input name="email" id="email" data-default-value="Sähköposti" size="35" maxlength="50" type="text" class="textInput required validateEmail"/>
+          [% END %]
+          <p class="formHint">Sähköpostiosoite johon toimintaan liittyvät tiedot lähetetään.</p>
+        </div>
+
+         [%IF result.err_email_confirm %] <div class="ctrlHolder error" id="error1"> [% ELSE %] <div class="ctrlHolder" > [% END %]
+          <label for=""><em>*</em> Sähköpostiosoitteen varmistus.</label>
+          [% IF result.email_confirm %]
+              <input name="email_confirm" id="" value="[% result.email_confirm %]" size="35" maxlength="50" type="text" class="textInput [% IF result.err_error %] medium error [% END %]"/>
+          [% ELSE %]
+              <input name="email_confirm" id="email_confirm" data-default-value="Sähköposti" size="35" maxlength="50" type="text" class="textInput required validateSameAs email"/>
+          [% END %]
+          <p class="formHint">Syötä sähköpostiosoitteesi uudestaan.</p>
+        </div>
+
+      </fieldset>
+
+      <div class="buttonHolder">
+        <a class="secondaryAction" href="http://www.tpv.fi/futisklubi" title="Peruuta">← Takaisin</a>
+        <button type="submit" class="primaryAction">Seuraava</button>
+      </div>
+
+    </form>
+
+    <div id="footer">
+      <p>Tampereen Pallo-Veikot ry &bull; Teiskontie 1 A &bull; 33500 &bull; Tampere &bull; puh. (03) 261 7211 &bull; toimisto@tpv.fi</p>
+    </div>
+
+
+  </body>
+</html>

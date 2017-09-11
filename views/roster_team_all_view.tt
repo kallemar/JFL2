@@ -1,0 +1,55 @@
+[% USE date(format = '%d.%m.%Y', locale = 'fi_FI') %]
+
+<ol class="breadcrumb">
+  <li><a href="/roster/">Futisklubi</a></li>
+  <li><a href="/roster/suburban/index">Kaupunginosat</a></li>
+  <li><a href="/roster/suburban/[% suburban.id %]">[% suburban.name %]</a></li>
+  <li class="active">Kaikki pelaajat</li>
+</ol>
+
+<div class="container">
+
+<div class="panel panel-default">
+  <div class="panel-body">
+    Sisältää kaikki pelaajat tästä kaupunginosasta.
+  </div>
+</div>
+
+<ul class="nav nav-tabs hidden-print">
+  <li class="active"><a href="#players" data-toggle="tab">Pelaajat</a></li>
+  <li><a href="#coaches" data-toggle="tab">Ohjaajat</a></li>
+  <li><a href="#contacts" data-toggle="tab">Yhteyshenkilöt</a></li>
+</ul>
+
+<div class="visible-print">
+    <h3>Pelaajaluettelo</h3>
+    <div class="visible-print">
+        [% INCLUDE 'roster_player_all_table.tt' %]    
+    </div>
+    <h3 class="visible-print">Ohjaajat</h3>
+    <div class="visible-print">
+        [% INCLUDE 'roster_coach_table.tt' %]
+    </div>
+    <h3 class="visible-print">Yhteyshenkilöt</h3>
+    <div class="visible-print">
+        [% INCLUDE 'roster_contact_table.tt' %]
+    </div>
+</div>
+
+
+<div class="hidden-print">
+<div class="tab-content">
+
+<div id="players" class="tab-pane active">
+[% INCLUDE 'roster_player_all_table.tt' %]   
+</div> <!-- tab-pane -->
+<div id="coaches" class="tab-pane">
+[% INCLUDE 'roster_coach_table.tt' %]   
+</div> <!-- tab-pane -->
+<div id="contacts" class="tab-pane">
+[% INCLUDE 'roster_contact_table.tt' %]   
+</div> <!-- tab-pane -->
+
+</div> <!-- tab-content -->
+</div>
+</div>

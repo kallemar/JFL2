@@ -1,0 +1,68 @@
+[% FOREACH suburban IN suburbans %]
+<ol class="breadcrumb">
+  <li><a href="/roster/">Futisklubi</a></li>
+  <li><a href="/roster/suburban/index">Kaupunginosat</a></li>
+  <li class="active">[% suburban.name %]</li>
+</ol>
+
+<div class="container">
+
+<div class="panel panel-default">
+  <div class="panel-body">
+    [% suburban.description %]
+  </div>
+</div>
+
+      <h3>Yhteyshenkilöt</h3>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Nimi</th>
+            <th>Sähköposti</th>
+            <th>Puhelinnumero</th>
+          </tr>
+        </thead>
+        <tbody>
+      [% FOREACH cs IN suburban.contacts %]
+      <tr>
+            <td>[% cs.lastname %] [% cs.firstname %]</a></td>
+            <td>[% cs.email %]</td>
+            <td>[% cs.phone %]</td>
+      </tr>
+      [% END %]
+      </tbody>
+      </table>
+      
+      <h3>Joukkueet</h3>
+      
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Joukkue</th>
+            <th>Pelaajia</th>
+            <th>Kuvaus</th>
+          </tr>
+        </thead>
+    <tbody>
+        [% FOREACH team IN suburban.teams %]
+          <tr>
+            <td><a href="/roster/team/[% team.id %]">[% team.name %]</a></td>
+            <td>[% team.players %]</td>
+            <td>[% team.description %]</td>
+          </tr>
+        [% END %]
+        <tr>
+            <td><a href="/roster/team-unset/[% suburban.id %]">(Määrittämätön)</a></td>
+            <td></td>
+            <td>Sisältää ne pelaajat, joilla ei ole vielä joukkuetta.</td>
+        </tr>
+        <tr>
+            <td><a href="/roster/team-all/[% suburban.id %]">(Kaikki)</a></td>
+            <td></td>
+            <td>Sisältää kaikki pelaajat tästä kaupunginosasta.</td>
+        </tr>
+        </tbody>
+      </table>	
+[% END %]
+
+</div>

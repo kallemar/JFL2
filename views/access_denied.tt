@@ -1,0 +1,5 @@
+   <div class="container">
+        <img src="[% request.uri_base%]/denied.png" alt="Access Denied">
+        
+        <a class="close" data-dismiss="alert" href="[% request.uri_base%]/admin/view/players">Takaisin</a>
+    </div> <!-- /container -->

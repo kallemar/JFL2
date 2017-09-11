@@ -1,0 +1,41 @@
+<section id="main" class="column">
+  <article class="module width_full">
+    <header><h3>Uusi ylläpitäjä</h3></header>
+    <form action="[% request.uri_base %]/admin/new/user" method="post">
+    <div class="module_content">
+    [% IF valid %]
+      <h4 class="alert_success">Tiedot tallennettu</h4>
+    [% END %]
+    [% IF valid == 0%]
+      <h4 class="alert_error">Virhe tiedoissa. Tarkista kaikki pakolliset kentät!</h4>
+    [% END %]
+      <fieldset style="width:48%; float:left; margin-right: 3%;[%IF user.err_username %]color:red;[%END%]">
+    	<label>Sähköposti *</label>
+    	<input type="text" name="username" value="[% user.username %]" style="width:92%;">
+      </fieldset>
+      <fieldset style="width:48%; float:left;[%IF user.err_password %]color:red;[%END%]">
+    	<label>Salasana *</label>
+    	<input type="text" name="password" value="[% user.password %]" style="width:92%;">
+      </fieldset>
+      <fieldset style="width:48%; float:left; margin-right: 3%;[%IF user.err_firstname %]color:red;[%END%]">
+    	<label>Etunimi *</label>
+    	<input type="text" name="firstname" value="[% user.firstname %]" style="width:92%;">
+      </fieldset>
+      <fieldset style="width:48%; float:left;[%IF user.err_lastname %]color:red;[%END%]">
+    	<label>Sukunimi *</label>
+    	<input type="text" name="lastname" value="[% user.lastname  %]" style="width:92%;">
+      </fieldset>
+      <fieldset style="width:48%; float:left; margin-right: 3%;[%IF user.err_phone %]color:red;[%END%]">
+    	<label>Puhelin *</label>
+    	<input type="text" name="phone" value="[% user.phone %]" style="width:92%;">
+      </fieldset>
+    <div class="clear"></div>
+    </div>
+    <footer>
+      <div class="submit_link">
+        <input type="submit" value="Tallenna" class="alt_btn">
+      </div>
+    </footer>
+    </form>
+  </article><!-- end of admin new player article -->
+</section>

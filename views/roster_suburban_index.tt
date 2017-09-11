@@ -1,0 +1,26 @@
+<ol class="breadcrumb">
+  <li><a href="/roster/">Futisklubi</a></li>
+  <li class="active">Kaupunginosat</li>
+</ol>
+<div class="container">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Kaupunginosa</th>
+            <th>Yhteyshenkilö</th>
+            <th>Pelaajia</th>
+            <th>Kuvaus</th>
+          </tr>
+        </thead>
+        <tbody>
+      [% FOREACH suburban IN suburbans %]
+      <tr>
+            <td><a href="/roster/suburban/[% suburban.id %]">[% suburban.name %]</a></td>
+            <td>[% FOREACH cs IN suburban.contacts %] [% cs.firstname %] [% cs.lastname %]<br/>[% END %]</td>
+            <td>[% suburban.players %]</td>
+            <td>[% suburban.description %]</td>
+      </tr>
+      [% END %]
+      </tbody>
+      </table>
+</div>

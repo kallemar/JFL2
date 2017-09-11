@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en-us" dir="ltr">
+  <head>
+  <meta charset="utf-8">
+
+    <title>Futisklubi</title>
+
+    <link href="[% request.uri_base %]/css/uni-form.css" media="screen" rel="stylesheet"/>
+    <link href="[% request.uri_base %]/css/default.uni-form.css" title="Default Style" media="screen" rel="stylesheet"/>
+    <link href="[% request.uri_base %]/css/demo.css" media="screen" rel="stylesheet"/>
+
+
+    <!--[if lte ie 7]>
+      <style type="text/css" media="screen">
+        /* Move these to your IE6/7 specific stylesheet if possible */
+        .uniForm, .uniForm fieldset, .uniForm .ctrlHolder, .uniForm .formHint, .uniForm .buttonHolder, .uniForm .ctrlHolder ul{ zoom:1; }
+      </style>
+    <![endif]-->
+
+  </head>
+
+  <body>
+    <div class="uniForm">
+      <fieldset>
+        <img src="[% request.uri_base %]/tpv.png" width="50" height="50"></img>
+        <h3>Kiitos ilmoittautumisesta!</h3>
+        <p>Ilmoittautumisesi otettiin vastaan, tervetuloa mukaan kesän hauskimpaan harrastukseen!</p>
+        <p>Tutustu tarkemmin toimintaan <a href="http://www.tpv.fi/index.php?option=com_content&view=category&layout=blog&id=32&Itemid=182">Futisklubin kotisivuilla</a>. Ne sisältävät tärkeätä tietoa toiminnasta</p>
+      </fieldset>
+    </div>
+    <div id="footer">
+      <p>Tampereen Pallo-Veikot ry &bull; Teiskontie 1 A &bull; 33500 &bull; Tampere &bull; puh. (03) 261 7211 &bull; toimisto@tpv.fi</p>
+    </div>
+
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+    <script type="text/javascript" src="[% request.uri_base %>/javascripts/uni-form-validation.jquery.js" charset="utf-8"></script>
+    <script type="text/javascript" src="../localization/fi.js" charset="utf-8"></script>
+    <script>
+      $(function(){
+        $('form.uniForm').uniform({
+          prevent_submit : true
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,46 @@
+<section id="main" class="column">
+  <article class="module width_full">
+    <form action="[% request.uri_base%]/admin/new/suburban" method="post">
+    <header><h3>Kaupunginosa</h3></header>
+     [% IF valid %]
+        <h4 class="alert_success">Kaupunginosa lisätty</h4>
+      [% END %]
+      [% IF valid == 0%]
+        <h4 class="alert_error">Virhe tiedoissa. Tarkista kaikki pakolliset kentät!</h4>
+      [% END %]
+    <div class="module_content">
+      <fieldset style="width:48%; float:left; margin-right: 3%;[%IF suburban.err_name %]color:red;[%END%]">
+    	<label>Kaupunginosan nimi *</label>
+    	<input type="text" name="name" value="[% suburban.name %]"style="width:92%;margin-bottom: 8px;">
+
+        <label>Näkyvissä rekisteröinissä</label>
+        <select style="width:92%;" name="isvisible">
+          <option value="1" [%IF suburban.isvisible == 1 %] selected [% END %]> kyllä</option>
+          <option value="0" [%IF suburban.isvisible == 0 %] selected [% END %]> ei</option>
+        </select>
+
+      </fieldset>
+      <fieldset style="width:48%; float:left;[%IF suburaban.err_contact %]color:red;[%END%]">
+    	<label>Yhteyshenkilö *</label>
+        <select style="width:92%;height: 85px;" name="contactid" multiple size="3">
+          <option value="">(valitse)</option>
+        [% FOREACH contact IN contacts %]
+          <option value="[% contact.id %]" [% IF suburban.contactid  == contact.id %] selected [% END %]>[% contact.lastname %] [% contact.firstname %]</option>
+        [% END %]
+        </select>
+      </fieldset>
+      <div class="clear"></div>
+      <fieldset>
+        <label>Kuvaus</label>
+        <textarea rows="12" name="description">[% suburban.description %]</textarea>
+      </fieldset>
+      <div class="clear"></div>
+    </div>
+    <footer>
+      <div class="submit_link">
+        <input type="submit" value="Tallenna" class="alt_btn">
+      </div>
+    </footer>
+    </form>
+  </article>
+</section>

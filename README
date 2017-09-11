@@ -1,0 +1,13 @@
+The file JFLAuth.pm is new authentication provider for 
+Dancer::Plugin::Auth::Extensible and needs to be copied  to
+Dancer/Plugin/Auth/Extensible/Provider folder in used Perl distribution.
+Optionally only symbolic link can be used.
+
+Authenticaton works as follows:
+
+-if there is only one entry for given e-mail address in users table,
+ auhtenticaton is make against this.
+ 
+-if there are multible rows for given e-mail address in users table,
+ user must be either contact or coach and assigned to active season. This
+ way system can identify the user table row to use in authentication.

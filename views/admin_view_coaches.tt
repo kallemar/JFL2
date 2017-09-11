@@ -1,0 +1,69 @@
+
+<section id="main" class="column">
+[% IF message %]
+  <h4 class="alert_info">Welcome to the free MediaLoot admin panel template, this could be an informative message.</h4>
+[% END %]
+[% IF warning %]
+  <h4 class="alert_warning">A Warning Alert</h4>
+[% END %]
+[% IF error %]
+  <h4 class="alert_error">An Error Message</h4>
+[% END %]
+[% IF success %]
+  <h4 class="alert_success">A Success Message</h4>
+[% END %]
+
+<form action="[% request.uri_base %]/admin/copy/coach" method="post">
+<article class="module width_full">
+  <header>
+      <h3 class="tabs_involved">Toimihenkilöt</h3>
+  </header>
+  <div class="tab_container">
+    <div id="tab1" class="tab_content">
+      <table class="tablesorter" cellspacing="0">
+        <thead>
+      <tr>
+        <th></th>
+            <th>Henkilö</th>
+            <th>Puhelin</th>
+            <th>Sähköposti</th>
+            <th>Kaupunginosa</th>
+            <th>Joukkue</th>
+            <th>Toiminnot</th>
+          </tr>
+        </thead>
+    <tbody>
+        [% FOREACH coach IN coaches %]
+          <tr>
+            <td><input type="checkbox" name="coach" value="[% coach.id %]"></td>
+            <td>[% coach.firstname %] [% coach.lastname %] </td>
+            <td>[% coach.phone %]</td>
+            <td>[% coach.email %]</td>
+            <td>[% coach.suburban %]</td>
+            <td>[% coach.team %]</td>
+
+            <td><a href="[% request.uri_base %]/admin/edit/coach/[% coach.id %]"><img src="[% request.uri_base %]/images/icn_edit.png" alt="Muokkaa"></a>
+                <a href="[% request.uri_base %]/admin/delete/coach/[% coach.id %]"><img src="[% request.uri_base %]/images/icn_trash.png" alt="Poista"></a>
+           </tr>
+    [% END %]
+        </tbody>
+      </table>
+[% IF P123.defined %]
+    [% INCLUDE inc_abc_admin_pager.tt %]
+[% END %]
+      <footer>
+       <div class="submit_link">
+         <select style="width:auto;" name="season">
+           <option value="" selected>(valitse)</option>
+         [% FOREACH season IN seasons %]
+           <option value="[% season.id %]">[% season.name %]</option>
+         [% END %]
+         </select>
+         <input type="submit" value="Perusta kaudelle" class="alt_btn">	
+       </div>
+      </footer>
+    </div><!-- end of #tab1 -->
+  </div><!-- end of .tab_container -->
+  <div class="clear"></div>
+</section>
+</form>

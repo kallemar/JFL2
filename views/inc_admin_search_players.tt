@@ -1,0 +1,49 @@
+<div class="module width_full">
+  <header style="height:28px;"><h3 class="tabs_involved">Haku</h3></header>
+  <form action="[% request.uri_base %]/admin/search_players" method="post">
+    <div class="module_content">
+
+      <fieldset style="width:22%; float:left; margin-right: 3%;">
+        <label>Kaupunginosa</label>
+        <select style="width:92%;" name="suburban">
+          <option value="">(valitse)</option>
+        [% FOREACH sub IN suburbans %]
+          <option value="[% sub.id %]" [% IF session.search_params.suburban == sub.id %] selected [% END %]>[% sub.name %]</option>
+        [% END %]
+        </select>
+      </fieldset>
+      <fieldset style="width:22%; float:left;margin-right: 3%;">
+        <label>Joukkue</label>
+        <select style="width:92%;" name="team">
+          <option value="">(valitse)</option>
+        [% FOREACH team IN teams %]
+          <option value="[% team.id %]" [% IF session.search_params.team == team.id %] selected [% END %]> [% team.name %]</option>
+        [% END %]
+        </select>
+      </fieldset>
+      <fieldset style="width:22%;float:left;margin-right: 3%;">
+        <label>Laskutettu</label>
+        <select style="width:92%;" name="invoiced">
+          <option value="">(valitse)</option>
+          <option value="1" [% IF session.search_params.invoiced == 1 %] selected [% END %]>kyllä</option>
+          <option value="0" [% IF session.search_params.invoiced == 0 %] selected [% END %]>ei</option>
+        </select>
+      </fieldset>
+      <fieldset style="width:22%;float:left;">
+        <label>Maksettu</label>
+        <select style="width:92%;" name="paid">
+          <option value="">(valitse)</option>
+          <option value="1" [% IF session.search_params.paid == 1 %] selected [% END %]>kyllä</option>
+          <option value="0" [% IF session.search_params.paid == 0 %] selected [% END %]>ei</option>
+        </select>
+      </fieldset>
+
+      <div class="clear"></div>
+    </div>
+    <footer style="height:28px;">
+      <div class="submit_link">
+        <input type="submit" value="Hae" class="alt_btn">
+      </div>
+    </footer>
+  </form>
+</div>

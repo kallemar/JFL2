@@ -1,0 +1,19 @@
+   <div class="container">
+
+      <form class="form-signin" role="form" action="[% request.uri_base %]/login" method="post">
+        <h2 class="form-signin-heading">Sisäänkirjautuminen</h2>
+
+        [% IF flash.error %]
+            <div id="msg_error" class="alert bg-danger"> <a class="close" data-dismiss="alert" href="#">×</a>[% flash.error %] </div>
+        [% END %]
+
+        <input name="username" type="text" class="form-control" placeholder="Sähköpostiosoite" required autofocus>
+        <input name="password" type="password" class="form-control" placeholder="Salasana" required>
+        <input name="path" type="hidden" value="[% path %]"/>
+         
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Kirjaudu sisään</button>
+        
+        <p>Salasana hukassa? Ei hätää, saat sen palautettua <a href="/login/resetpassword">tämän</a> kautta.</p>
+      </form>
+      
+    </div> <!-- /container -->
