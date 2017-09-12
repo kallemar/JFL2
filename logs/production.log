@@ -1,0 +1,475 @@
+[3314]  core @0.000006> initializing appdir to: `/home/kalle/Projects/JFL2/bin/..' in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer.pm l. 341
+[3314]  core @0.000409> Dancer::Session::Storable using session_dir : /tmp/dancer-sessions in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Session/Storable.pm l. 35
+[3314]  core @0.001336> initializing appdir to: `/home/kalle/Projects/JFL2/bin/..' in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer.pm l. 341
+[3314]  core @0.001629> Dancer::Session::Storable using session_dir : /tmp/dancer-sessions in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Session/Storable.pm l. 35
+[3314]  core @0.034425> Dancer::Session::Storable using session_dir : /tmp/dancer-sessions in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Session/Storable.pm l. 35
+[3314]  core @0.039139> loading Dancer::Handler::Standalone handler in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 47
+[3314]  core @0.039252> loading handler 'Dancer::Handler::Standalone' in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer.pm l. 495
+[3314]  core @0.000124> request: GET / from 127.0.0.1 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 58
+[3314]  core @0.000509> [hit #1]Trying to match 'GET /' against /^\/admin\/view\/players$/ (generated from '/admin/view/players') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3314]  core @0.000616> [hit #1]Trying to match 'GET /' against /^\/admin\/view\/cancelled$/ (generated from '/admin/view/cancelled') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3314]  core @0.000710> [hit #1]Trying to match 'GET /' against /^\/admin\/new\/player$/ (generated from '/admin/new/player') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3314]  core @0.000785> [hit #1]Trying to match 'GET /' against /^\/admin\/edit\/player\/(?#token)([^\/]+)$/ (generated from '/admin/edit/player/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3314]  core @0.000875> [hit #1]Trying to match 'GET /' against /^\/admin\/delete\/player\/(?#token)([^\/]+)$/ (generated from '/admin/delete/player/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3314]  core @0.001007> [hit #1]Trying to match 'GET /' against /^\/admin\/quick_search_players$/ (generated from '/admin/quick_search_players') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3314]  core @0.001261> [hit #1]Trying to match 'GET /' against /^\/admin\/search_players$/ (generated from '/admin/search_players') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3314]  core @0.001661> [hit #1]Trying to match 'GET /' against /^\/admin\/assign_players$/ (generated from '/admin/assign_players') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3314]  core @0.001976> [hit #1]Trying to match 'GET /' against /^\/admin\/paid\/player\/(?#token)([^\/]+)$/ (generated from '/admin/paid/player/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3314]  core @0.002240> [hit #1]Trying to match 'GET /' against /^\/admin\/cancel\/player\/(?#token)([^\/]+)$/ (generated from '/admin/cancel/player/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3314]  core @0.002410> [hit #1]Trying to match 'GET /' against /(?-xism:^(?-xism:^\/admin(?:\/)?$)$)/ (generated from '(?-xism:^\/admin(?:\/)?$)') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3314]  core @0.002537> [hit #1]Trying to match 'GET /' against /^\/admin\/report$/ (generated from '/admin/report') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3314]  core @0.002644> [hit #1]Trying to match 'GET /' against /^\/admin\/report\/data01$/ (generated from '/admin/report/data01') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3314]  core @0.002794> [hit #1]Trying to match 'GET /' against /^\/admin\/report\/data02$/ (generated from '/admin/report/data02') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3314]  core @0.002904> [hit #1]Trying to match 'GET /' against /^\/admin\/new\/season$/ (generated from '/admin/new/season') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3314]  core @0.003003> [hit #1]Trying to match 'GET /' against /^\/admin\/view\/seasons$/ (generated from '/admin/view/seasons') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3314]  core @0.003102> [hit #1]Trying to match 'GET /' against /^\/admin\/edit\/season\/(?#token)([^\/]+)$/ (generated from '/admin/edit/season/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3314]  core @0.003191> [hit #1]Trying to match 'GET /' against /^\/admin\/delete\/season\/(?#token)([^\/]+)$/ (generated from '/admin/delete/season/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3314]  core @0.003269> [hit #1]Trying to match 'GET /' against /^\/admin\/view\/coaches$/ (generated from '/admin/view/coaches') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3314]  core @0.003340> [hit #1]Trying to match 'GET /' against /^\/admin\/new\/coach$/ (generated from '/admin/new/coach') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3314]  core @0.003433> [hit #1]Trying to match 'GET /' against /^\/admin\/edit\/coach\/(?#token)([^\/]+)$/ (generated from '/admin/edit/coach/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3314]  core @0.003540> [hit #1]Trying to match 'GET /' against /^\/admin\/delete\/coach\/(?#token)([^\/]+)$/ (generated from '/admin/delete/coach/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3314]  core @0.003649> [hit #1]Trying to match 'GET /' against /^\/admin\/view\/teams$/ (generated from '/admin/view/teams') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3314]  core @0.003756> [hit #1]Trying to match 'GET /' against /^\/admin\/new\/team$/ (generated from '/admin/new/team') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3314]  core @0.003869> [hit #1]Trying to match 'GET /' against /^\/admin\/edit\/team\/(?#token)([^\/]+)$/ (generated from '/admin/edit/team/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3314]  core @0.003977> [hit #1]Trying to match 'GET /' against /^\/admin\/delete\/team\/(?#token)([^\/]+)$/ (generated from '/admin/delete/team/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3314]  core @0.004090> [hit #1]Trying to match 'GET /' against /^\/admin\/view\/suburbans$/ (generated from '/admin/view/suburbans') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3314]  core @0.004195> [hit #1]Trying to match 'GET /' against /^\/admin\/new\/suburban$/ (generated from '/admin/new/suburban') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3314]  core @0.004300> [hit #1]Trying to match 'GET /' against /^\/admin\/edit\/suburban\/(?#token)([^\/]+)$/ (generated from '/admin/edit/suburban/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3314]  core @0.004414> [hit #1]Trying to match 'GET /' against /^\/admin\/delete\/suburban\/(?#token)([^\/]+)$/ (generated from '/admin/delete/suburban/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3314]  core @0.004527> [hit #1]Trying to match 'GET /' against /^\/admin\/view\/contacts$/ (generated from '/admin/view/contacts') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3314]  core @0.004664> [hit #1]Trying to match 'GET /' against /^\/admin\/new\/contact$/ (generated from '/admin/new/contact') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3314]  core @0.004777> [hit #1]Trying to match 'GET /' against /^\/admin\/edit\/contact\/(?#token)([^\/]+)$/ (generated from '/admin/edit/contact/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3314]  core @0.004906> [hit #1]Trying to match 'GET /' against /^\/admin\/delete\/contact\/(?#token)([^\/]+)$/ (generated from '/admin/delete/contact/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3314]  core @0.005117> [hit #1]Trying to match 'GET /' against /^\/admin\/view\/users$/ (generated from '/admin/view/users') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3314]  core @0.005375> [hit #1]Trying to match 'GET /' against /^\/admin\/new\/user$/ (generated from '/admin/new/user') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3314]  core @0.005566> [hit #1]Trying to match 'GET /' against /^\/admin\/edit\/user\/(?#token)([^\/]+)$/ (generated from '/admin/edit/user/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3314]  core @0.005781> [hit #1]Trying to match 'GET /' against /^\/admin\/delete\/user\/(?#token)([^\/]+)$/ (generated from '/admin/delete/user/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3314]  core @0.005923> [hit #1]Trying to match 'GET /' against /(?-xism:^(?-xism:^\/roster(?:\/)?$)$)/ (generated from '(?-xism:^\/roster(?:\/)?$)') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3314]  core @0.006032> [hit #1]Trying to match 'GET /' against /^\/roster\/suburban\/index$/ (generated from '/roster/suburban/index') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3314]  core @0.006131> [hit #1]Trying to match 'GET /' against /^\/roster\/view\/player\/(?#token)([^\/]+)$/ (generated from '/roster/view/player/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3314]  core @0.006243> [hit #1]Trying to match 'GET /' against /^\/roster\/edit\/player\/(?#token)([^\/]+)$/ (generated from '/roster/edit/player/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3314]  core @0.006348> [hit #1]Trying to match 'GET /' against /^\/roster\/suburban\/(?#token)([^\/]+)$/ (generated from '/roster/suburban/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3314]  core @0.006451> [hit #1]Trying to match 'GET /' against /^\/roster\/team\/(?#token)([^\/]+)$/ (generated from '/roster/team/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3314]  core @0.006560> [hit #1]Trying to match 'GET /' against /^\/roster\/team-unset\/(?#token)([^\/]+)$/ (generated from '/roster/team-unset/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3314]  core @0.006677> [hit #1]Trying to match 'GET /' against /^\/roster\/team-all\/(?#token)([^\/]+)$/ (generated from '/roster/team-all/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3314]  core @0.006787> [hit #1]Trying to match 'GET /' against /^\/roster\/rekisteriseloste$/ (generated from '/roster/rekisteriseloste') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3314]  core @0.006885> [hit #1]Trying to match 'GET /' against /^\/roster\/myprofile$/ (generated from '/roster/myprofile') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3314]  core @0.006956> [hit #1]Trying to match 'GET /' against /^\/roster\/changepassword$/ (generated from '/roster/changepassword') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3314]  core @0.007044> [hit #1]Trying to match 'GET /' against /^\/roster\/export\/players\/(?#token)([^\/]+)$/ (generated from '/roster/export/players/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3314]  core @0.007153> [hit #1]Trying to match 'GET /' against /^\/rest\/player\/(?#token)([^\/]+)\.(?#token)([^\/]+)$/ (generated from '/rest/player/:id.:format') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3314]  core @0.007264> [hit #1]Trying to match 'GET /' against /^\/rest\/player\/(?#token)([^\/]+)$/ (generated from '/rest/player/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3314]  core @0.007359> [hit #1]Trying to match 'GET /' against /^\/admin\/export\/players$/ (generated from '/admin/export/players') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3314]  core @0.007457> [hit #1]Trying to match 'GET /' against /^\/admin\/export\/coaches$/ (generated from '/admin/export/coaches') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3314]  core @0.007529> [hit #1]Trying to match 'GET /' against /^\/admin\/export\/contacts$/ (generated from '/admin/export/contacts') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3314]  core @0.007597> [hit #1]Trying to match 'GET /' against /^\/proc\/(?#token)([^\/]+)$/ (generated from '/proc/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3314]  core @0.007666> [hit #1]Trying to match 'GET /' against /^\/login\/resetpassword$/ (generated from '/login/resetpassword') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3314]  core @0.007735> [hit #1]Trying to match 'GET /' against /^\/login\/resetpasswordfor\/id=(?#splat)([^\/]+)&digest=(?#splat)([^\/]+)&time=(?#splat)([^\/]+)$/ (generated from '/login/resetpasswordfor/id=*&digest=*&time=*') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3314]  core @0.007807> [hit #1]Trying to match 'GET /' against /^\/login$/ (generated from '/login') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3314]  core @0.007874> [hit #1]Trying to match 'GET /' against /^\/logout$/ (generated from '/logout') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3314]  core @0.007939> [hit #1]Trying to match 'GET /' against /^\/login\/denied$/ (generated from '/login/denied') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3314]  core @0.008006> [hit #1]Trying to match 'GET /' against /^\/$/ (generated from '/') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3314]  core @0.008068> [hit #1]  --> got 1 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 92
+[3314]  core @0.008253> [hit #1]entering before hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3314]  core @0.008342> [hit #1]entering before hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3314]  core @0.008423> [hit #1]entering before hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3314] error @0.011622> [hit #1]request to GET / crashed: DBI connect('dbname=/opt/jfl/db/jfldb','',...) failed: unable to open database file at /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Plugin/ORMesque.pm line 44. in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 98
+[3314]  core @0.017673> [hit #1]entering before_file_render hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3314]  core @0.018170> [hit #1]response: 500 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 181
+[3892]  core @0.000007> initializing appdir to: `/home/kalle/Projects/JFL2/bin/..' in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer.pm l. 341
+[3892]  core @0.000430> Dancer::Session::Storable using session_dir : /tmp/dancer-sessions in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Session/Storable.pm l. 35
+[3892]  core @0.001449> initializing appdir to: `/home/kalle/Projects/JFL2/bin/..' in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer.pm l. 341
+[3892]  core @0.001791> Dancer::Session::Storable using session_dir : /tmp/dancer-sessions in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Session/Storable.pm l. 35
+[3892]  core @0.033427> Dancer::Session::Storable using session_dir : /tmp/dancer-sessions in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Session/Storable.pm l. 35
+[3892]  core @0.040115> loading Dancer::Handler::Standalone handler in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 47
+[3892]  core @0.040296> loading handler 'Dancer::Handler::Standalone' in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer.pm l. 495
+[3892]  core @0.000114> request: GET / from 127.0.0.1 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 58
+[3892]  core @0.000511> [hit #1]Trying to match 'GET /' against /^\/admin\/view\/players$/ (generated from '/admin/view/players') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.000687> [hit #1]Trying to match 'GET /' against /^\/admin\/view\/cancelled$/ (generated from '/admin/view/cancelled') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.000839> [hit #1]Trying to match 'GET /' against /^\/admin\/new\/player$/ (generated from '/admin/new/player') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.000975> [hit #1]Trying to match 'GET /' against /^\/admin\/edit\/player\/(?#token)([^\/]+)$/ (generated from '/admin/edit/player/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.001092> [hit #1]Trying to match 'GET /' against /^\/admin\/delete\/player\/(?#token)([^\/]+)$/ (generated from '/admin/delete/player/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.001219> [hit #1]Trying to match 'GET /' against /^\/admin\/quick_search_players$/ (generated from '/admin/quick_search_players') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.001333> [hit #1]Trying to match 'GET /' against /^\/admin\/search_players$/ (generated from '/admin/search_players') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.001443> [hit #1]Trying to match 'GET /' against /^\/admin\/assign_players$/ (generated from '/admin/assign_players') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.001552> [hit #1]Trying to match 'GET /' against /^\/admin\/paid\/player\/(?#token)([^\/]+)$/ (generated from '/admin/paid/player/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.001664> [hit #1]Trying to match 'GET /' against /^\/admin\/cancel\/player\/(?#token)([^\/]+)$/ (generated from '/admin/cancel/player/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.001745> [hit #1]Trying to match 'GET /' against /(?-xism:^(?-xism:^\/admin(?:\/)?$)$)/ (generated from '(?-xism:^\/admin(?:\/)?$)') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.001830> [hit #1]Trying to match 'GET /' against /^\/admin\/report$/ (generated from '/admin/report') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.001933> [hit #1]Trying to match 'GET /' against /^\/admin\/report\/data01$/ (generated from '/admin/report/data01') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.002002> [hit #1]Trying to match 'GET /' against /^\/admin\/report\/data02$/ (generated from '/admin/report/data02') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.002069> [hit #1]Trying to match 'GET /' against /^\/admin\/new\/season$/ (generated from '/admin/new/season') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.002135> [hit #1]Trying to match 'GET /' against /^\/admin\/view\/seasons$/ (generated from '/admin/view/seasons') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.002201> [hit #1]Trying to match 'GET /' against /^\/admin\/edit\/season\/(?#token)([^\/]+)$/ (generated from '/admin/edit/season/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.002270> [hit #1]Trying to match 'GET /' against /^\/admin\/delete\/season\/(?#token)([^\/]+)$/ (generated from '/admin/delete/season/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.002339> [hit #1]Trying to match 'GET /' against /^\/admin\/view\/coaches$/ (generated from '/admin/view/coaches') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.002405> [hit #1]Trying to match 'GET /' against /^\/admin\/new\/coach$/ (generated from '/admin/new/coach') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.002471> [hit #1]Trying to match 'GET /' against /^\/admin\/edit\/coach\/(?#token)([^\/]+)$/ (generated from '/admin/edit/coach/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.002538> [hit #1]Trying to match 'GET /' against /^\/admin\/delete\/coach\/(?#token)([^\/]+)$/ (generated from '/admin/delete/coach/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.002605> [hit #1]Trying to match 'GET /' against /^\/admin\/view\/teams$/ (generated from '/admin/view/teams') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.002671> [hit #1]Trying to match 'GET /' against /^\/admin\/new\/team$/ (generated from '/admin/new/team') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.002736> [hit #1]Trying to match 'GET /' against /^\/admin\/edit\/team\/(?#token)([^\/]+)$/ (generated from '/admin/edit/team/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.002802> [hit #1]Trying to match 'GET /' against /^\/admin\/delete\/team\/(?#token)([^\/]+)$/ (generated from '/admin/delete/team/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.002870> [hit #1]Trying to match 'GET /' against /^\/admin\/view\/suburbans$/ (generated from '/admin/view/suburbans') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.002935> [hit #1]Trying to match 'GET /' against /^\/admin\/new\/suburban$/ (generated from '/admin/new/suburban') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.003001> [hit #1]Trying to match 'GET /' against /^\/admin\/edit\/suburban\/(?#token)([^\/]+)$/ (generated from '/admin/edit/suburban/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.003068> [hit #1]Trying to match 'GET /' against /^\/admin\/delete\/suburban\/(?#token)([^\/]+)$/ (generated from '/admin/delete/suburban/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.003148> [hit #1]Trying to match 'GET /' against /^\/admin\/view\/contacts$/ (generated from '/admin/view/contacts') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.003214> [hit #1]Trying to match 'GET /' against /^\/admin\/new\/contact$/ (generated from '/admin/new/contact') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.003278> [hit #1]Trying to match 'GET /' against /^\/admin\/edit\/contact\/(?#token)([^\/]+)$/ (generated from '/admin/edit/contact/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.003344> [hit #1]Trying to match 'GET /' against /^\/admin\/delete\/contact\/(?#token)([^\/]+)$/ (generated from '/admin/delete/contact/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.003412> [hit #1]Trying to match 'GET /' against /^\/admin\/view\/users$/ (generated from '/admin/view/users') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.003476> [hit #1]Trying to match 'GET /' against /^\/admin\/new\/user$/ (generated from '/admin/new/user') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.003541> [hit #1]Trying to match 'GET /' against /^\/admin\/edit\/user\/(?#token)([^\/]+)$/ (generated from '/admin/edit/user/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.003607> [hit #1]Trying to match 'GET /' against /^\/admin\/delete\/user\/(?#token)([^\/]+)$/ (generated from '/admin/delete/user/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.003674> [hit #1]Trying to match 'GET /' against /(?-xism:^(?-xism:^\/roster(?:\/)?$)$)/ (generated from '(?-xism:^\/roster(?:\/)?$)') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.003737> [hit #1]Trying to match 'GET /' against /^\/roster\/suburban\/index$/ (generated from '/roster/suburban/index') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.003802> [hit #1]Trying to match 'GET /' against /^\/roster\/view\/player\/(?#token)([^\/]+)$/ (generated from '/roster/view/player/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.003869> [hit #1]Trying to match 'GET /' against /^\/roster\/edit\/player\/(?#token)([^\/]+)$/ (generated from '/roster/edit/player/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.003936> [hit #1]Trying to match 'GET /' against /^\/roster\/suburban\/(?#token)([^\/]+)$/ (generated from '/roster/suburban/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.004002> [hit #1]Trying to match 'GET /' against /^\/roster\/team\/(?#token)([^\/]+)$/ (generated from '/roster/team/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.004067> [hit #1]Trying to match 'GET /' against /^\/roster\/team-unset\/(?#token)([^\/]+)$/ (generated from '/roster/team-unset/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.004133> [hit #1]Trying to match 'GET /' against /^\/roster\/team-all\/(?#token)([^\/]+)$/ (generated from '/roster/team-all/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.004199> [hit #1]Trying to match 'GET /' against /^\/roster\/rekisteriseloste$/ (generated from '/roster/rekisteriseloste') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.004263> [hit #1]Trying to match 'GET /' against /^\/roster\/myprofile$/ (generated from '/roster/myprofile') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.004339> [hit #1]Trying to match 'GET /' against /^\/roster\/changepassword$/ (generated from '/roster/changepassword') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.004404> [hit #1]Trying to match 'GET /' against /^\/roster\/export\/players\/(?#token)([^\/]+)$/ (generated from '/roster/export/players/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.004474> [hit #1]Trying to match 'GET /' against /^\/rest\/player\/(?#token)([^\/]+)\.(?#token)([^\/]+)$/ (generated from '/rest/player/:id.:format') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.004548> [hit #1]Trying to match 'GET /' against /^\/rest\/player\/(?#token)([^\/]+)$/ (generated from '/rest/player/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.004617> [hit #1]Trying to match 'GET /' against /^\/admin\/export\/players$/ (generated from '/admin/export/players') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.004683> [hit #1]Trying to match 'GET /' against /^\/admin\/export\/coaches$/ (generated from '/admin/export/coaches') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.004747> [hit #1]Trying to match 'GET /' against /^\/admin\/export\/contacts$/ (generated from '/admin/export/contacts') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.004812> [hit #1]Trying to match 'GET /' against /^\/proc\/(?#token)([^\/]+)$/ (generated from '/proc/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.004878> [hit #1]Trying to match 'GET /' against /^\/login\/resetpassword$/ (generated from '/login/resetpassword') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.004946> [hit #1]Trying to match 'GET /' against /^\/login\/resetpasswordfor\/id=(?#splat)([^\/]+)&digest=(?#splat)([^\/]+)&time=(?#splat)([^\/]+)$/ (generated from '/login/resetpasswordfor/id=*&digest=*&time=*') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.005015> [hit #1]Trying to match 'GET /' against /^\/login$/ (generated from '/login') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.005080> [hit #1]Trying to match 'GET /' against /^\/logout$/ (generated from '/logout') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.005144> [hit #1]Trying to match 'GET /' against /^\/login\/denied$/ (generated from '/login/denied') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.005209> [hit #1]Trying to match 'GET /' against /^\/$/ (generated from '/') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.005269> [hit #1]  --> got 1 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 92
+[3892]  core @0.005442> [hit #1]entering before hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.005531> [hit #1]entering before hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.005610> [hit #1]entering before hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.030839> [hit #1]entering after hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.036441> [hit #1]response: 302 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 181
+[3892]  core @0.000267> request: GET /player from 127.0.0.1 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 58
+[3892]  core @0.000804> [hit #2]Trying to match 'GET /player' against /^\/admin\/view\/players$/ (generated from '/admin/view/players') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.000995> [hit #2]Trying to match 'GET /player' against /^\/admin\/view\/cancelled$/ (generated from '/admin/view/cancelled') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.001220> [hit #2]Trying to match 'GET /player' against /^\/admin\/new\/player$/ (generated from '/admin/new/player') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.001450> [hit #2]Trying to match 'GET /player' against /^\/admin\/edit\/player\/(?#token)([^\/]+)$/ (generated from '/admin/edit/player/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.001648> [hit #2]Trying to match 'GET /player' against /^\/admin\/delete\/player\/(?#token)([^\/]+)$/ (generated from '/admin/delete/player/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.001805> [hit #2]Trying to match 'GET /player' against /^\/admin\/quick_search_players$/ (generated from '/admin/quick_search_players') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.002020> [hit #2]Trying to match 'GET /player' against /^\/admin\/search_players$/ (generated from '/admin/search_players') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.002191> [hit #2]Trying to match 'GET /player' against /^\/admin\/assign_players$/ (generated from '/admin/assign_players') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.002446> [hit #2]Trying to match 'GET /player' against /^\/admin\/paid\/player\/(?#token)([^\/]+)$/ (generated from '/admin/paid/player/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.002699> [hit #2]Trying to match 'GET /player' against /^\/admin\/cancel\/player\/(?#token)([^\/]+)$/ (generated from '/admin/cancel/player/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.002994> [hit #2]Trying to match 'GET /player' against /(?-xism:^(?-xism:^\/admin(?:\/)?$)$)/ (generated from '(?-xism:^\/admin(?:\/)?$)') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.003332> [hit #2]Trying to match 'GET /player' against /^\/admin\/report$/ (generated from '/admin/report') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.003705> [hit #2]Trying to match 'GET /player' against /^\/admin\/report\/data01$/ (generated from '/admin/report/data01') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.004051> [hit #2]Trying to match 'GET /player' against /^\/admin\/report\/data02$/ (generated from '/admin/report/data02') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.004372> [hit #2]Trying to match 'GET /player' against /^\/admin\/new\/season$/ (generated from '/admin/new/season') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.004609> [hit #2]Trying to match 'GET /player' against /^\/admin\/view\/seasons$/ (generated from '/admin/view/seasons') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.004782> [hit #2]Trying to match 'GET /player' against /^\/admin\/edit\/season\/(?#token)([^\/]+)$/ (generated from '/admin/edit/season/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.004974> [hit #2]Trying to match 'GET /player' against /^\/admin\/delete\/season\/(?#token)([^\/]+)$/ (generated from '/admin/delete/season/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.005216> [hit #2]Trying to match 'GET /player' against /^\/admin\/view\/coaches$/ (generated from '/admin/view/coaches') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.005397> [hit #2]Trying to match 'GET /player' against /^\/admin\/new\/coach$/ (generated from '/admin/new/coach') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.005565> [hit #2]Trying to match 'GET /player' against /^\/admin\/edit\/coach\/(?#token)([^\/]+)$/ (generated from '/admin/edit/coach/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.005733> [hit #2]Trying to match 'GET /player' against /^\/admin\/delete\/coach\/(?#token)([^\/]+)$/ (generated from '/admin/delete/coach/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.005971> [hit #2]Trying to match 'GET /player' against /^\/admin\/view\/teams$/ (generated from '/admin/view/teams') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.006148> [hit #2]Trying to match 'GET /player' against /^\/admin\/new\/team$/ (generated from '/admin/new/team') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.006307> [hit #2]Trying to match 'GET /player' against /^\/admin\/edit\/team\/(?#token)([^\/]+)$/ (generated from '/admin/edit/team/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.006443> [hit #2]Trying to match 'GET /player' against /^\/admin\/delete\/team\/(?#token)([^\/]+)$/ (generated from '/admin/delete/team/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.006579> [hit #2]Trying to match 'GET /player' against /^\/admin\/view\/suburbans$/ (generated from '/admin/view/suburbans') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.006719> [hit #2]Trying to match 'GET /player' against /^\/admin\/new\/suburban$/ (generated from '/admin/new/suburban') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.006859> [hit #2]Trying to match 'GET /player' against /^\/admin\/edit\/suburban\/(?#token)([^\/]+)$/ (generated from '/admin/edit/suburban/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.006999> [hit #2]Trying to match 'GET /player' against /^\/admin\/delete\/suburban\/(?#token)([^\/]+)$/ (generated from '/admin/delete/suburban/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.007145> [hit #2]Trying to match 'GET /player' against /^\/admin\/view\/contacts$/ (generated from '/admin/view/contacts') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.007273> [hit #2]Trying to match 'GET /player' against /^\/admin\/new\/contact$/ (generated from '/admin/new/contact') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.007410> [hit #2]Trying to match 'GET /player' against /^\/admin\/edit\/contact\/(?#token)([^\/]+)$/ (generated from '/admin/edit/contact/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.007541> [hit #2]Trying to match 'GET /player' against /^\/admin\/delete\/contact\/(?#token)([^\/]+)$/ (generated from '/admin/delete/contact/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.007683> [hit #2]Trying to match 'GET /player' against /^\/admin\/view\/users$/ (generated from '/admin/view/users') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.007836> [hit #2]Trying to match 'GET /player' against /^\/admin\/new\/user$/ (generated from '/admin/new/user') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.007959> [hit #2]Trying to match 'GET /player' against /^\/admin\/edit\/user\/(?#token)([^\/]+)$/ (generated from '/admin/edit/user/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.008091> [hit #2]Trying to match 'GET /player' against /^\/admin\/delete\/user\/(?#token)([^\/]+)$/ (generated from '/admin/delete/user/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.008223> [hit #2]Trying to match 'GET /player' against /(?-xism:^(?-xism:^\/roster(?:\/)?$)$)/ (generated from '(?-xism:^\/roster(?:\/)?$)') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.008348> [hit #2]Trying to match 'GET /player' against /^\/roster\/suburban\/index$/ (generated from '/roster/suburban/index') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.008488> [hit #2]Trying to match 'GET /player' against /^\/roster\/view\/player\/(?#token)([^\/]+)$/ (generated from '/roster/view/player/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.008570> [hit #2]Trying to match 'GET /player' against /^\/roster\/edit\/player\/(?#token)([^\/]+)$/ (generated from '/roster/edit/player/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.008661> [hit #2]Trying to match 'GET /player' against /^\/roster\/suburban\/(?#token)([^\/]+)$/ (generated from '/roster/suburban/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.008775> [hit #2]Trying to match 'GET /player' against /^\/roster\/team\/(?#token)([^\/]+)$/ (generated from '/roster/team/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.008928> [hit #2]Trying to match 'GET /player' against /^\/roster\/team-unset\/(?#token)([^\/]+)$/ (generated from '/roster/team-unset/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.009108> [hit #2]Trying to match 'GET /player' against /^\/roster\/team-all\/(?#token)([^\/]+)$/ (generated from '/roster/team-all/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.009412> [hit #2]Trying to match 'GET /player' against /^\/roster\/rekisteriseloste$/ (generated from '/roster/rekisteriseloste') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.009700> [hit #2]Trying to match 'GET /player' against /^\/roster\/myprofile$/ (generated from '/roster/myprofile') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.009901> [hit #2]Trying to match 'GET /player' against /^\/roster\/changepassword$/ (generated from '/roster/changepassword') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.010102> [hit #2]Trying to match 'GET /player' against /^\/roster\/export\/players\/(?#token)([^\/]+)$/ (generated from '/roster/export/players/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.010245> [hit #2]Trying to match 'GET /player' against /^\/rest\/player\/(?#token)([^\/]+)\.(?#token)([^\/]+)$/ (generated from '/rest/player/:id.:format') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.010384> [hit #2]Trying to match 'GET /player' against /^\/rest\/player\/(?#token)([^\/]+)$/ (generated from '/rest/player/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.010515> [hit #2]Trying to match 'GET /player' against /^\/admin\/export\/players$/ (generated from '/admin/export/players') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.010588> [hit #2]Trying to match 'GET /player' against /^\/admin\/export\/coaches$/ (generated from '/admin/export/coaches') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.010677> [hit #2]Trying to match 'GET /player' against /^\/admin\/export\/contacts$/ (generated from '/admin/export/contacts') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.010794> [hit #2]Trying to match 'GET /player' against /^\/proc\/(?#token)([^\/]+)$/ (generated from '/proc/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.010912> [hit #2]Trying to match 'GET /player' against /^\/login\/resetpassword$/ (generated from '/login/resetpassword') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.011017> [hit #2]Trying to match 'GET /player' against /^\/login\/resetpasswordfor\/id=(?#splat)([^\/]+)&digest=(?#splat)([^\/]+)&time=(?#splat)([^\/]+)$/ (generated from '/login/resetpasswordfor/id=*&digest=*&time=*') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.011132> [hit #2]Trying to match 'GET /player' against /^\/login$/ (generated from '/login') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.011229> [hit #2]Trying to match 'GET /player' against /^\/logout$/ (generated from '/logout') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.011337> [hit #2]Trying to match 'GET /player' against /^\/login\/denied$/ (generated from '/login/denied') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.011442> [hit #2]Trying to match 'GET /player' against /^\/$/ (generated from '/') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.011541> [hit #2]Trying to match 'GET /player' against /^\/player$/ (generated from '/player') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.011633> [hit #2]  --> got 1 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 92
+[3892]  core @0.011854> [hit #2]entering before hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.011952> [hit #2]entering before hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.012031> [hit #2]entering before hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892] debug @0.016263> [hit #2]{'shirtsizes' => [{'id' => -1,'name' => "k\x{e4}yt\x{e4}n viimekes\x{e4}ist\x{e4} pelipaitaa"},{'id' => 1,'name' => '116'},{'id' => 2,'name' => '128'},{'id' => 3,'name' => '140'},{'id' => 4,'name' => '152'},{'id' => 5,'name' => '164'},{'id' => 6,'name' => 'S'},{'id' => 7,'name' => 'M'},{'id' => 8,'name' => 'L'}],'suburbans' => [{'created' => '2017-09-08 15:46:58','description' => '','fraction' => 10000,'id' => 98,'isvisible' => 1,'name' => 'Tampere 2004-05 syntyneet','price' => undef,'seasonid' => 8},{'created' => '2017-09-08 15:47:19','description' => '','fraction' => 10000,'id' => 99,'isvisible' => 1,'name' => 'Tampere 2006-07 syntyneet','price' => undef,'seasonid' => 8},{'created' => '2017-09-08 15:48:33','description' => '','fraction' => 10000,'id' => 100,'isvisible' => 1,'name' => 'Tampere 2008-09 syntyneet','price' => undef,'seasonid' => 8},{'created' => '2017-09-08 15:48:51','description' => '','fraction' => 10000,'id' => 101,'isvisible' => 1,'name' => 'Tampere 2010-11 syntyneet','price' => undef,'seasonid' => 8}]} in /home/kalle/Projects/JFL2/lib/JFL2.pm l. 84
+[3892]  core @0.061629> [hit #2]entering after hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.062088> [hit #2]response: 200 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 181
+[3892]  core @0.000345> request: GET /css/uni-form.css from 127.0.0.1 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 58
+[3892]  core @0.002172> [hit #3]entering before_file_render hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.002651> [hit #3]response: 304 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 181
+[3892]  core @0.000210> request: GET /css/default.uni-form.css from 127.0.0.1 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 58
+[3892]  core @0.001064> [hit #4]entering before_file_render hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.001512> [hit #4]response: 304 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 181
+[3892]  core @0.000182> request: GET /css/demo.css from 127.0.0.1 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 58
+[3892]  core @0.001138> [hit #5]entering before_file_render hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.001631> [hit #5]response: 304 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 181
+[3892]  core @0.000168> request: GET /javascripts/uni-form-validation.jquery.js from 127.0.0.1 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 58
+[3892]  core @0.001265> [hit #6]entering before_file_render hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.001674> [hit #6]response: 304 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 181
+[3892]  core @0.000152> request: GET /javascripts/uni-form.jquery.js from 127.0.0.1 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 58
+[3892]  core @0.000894> [hit #7]entering before_file_render hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.001295> [hit #7]response: 304 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 181
+[3892]  core @0.000158> request: GET /localization/fi.js from 127.0.0.1 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 58
+[3892]  core @0.001348> [hit #8]entering before_file_render hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.001667> [hit #8]response: 304 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 181
+[3892]  core @0.000228> request: GET /tpv.png from 127.0.0.1 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 58
+[3892]  core @0.001193> [hit #9]entering before_file_render hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.001698> [hit #9]response: 304 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 181
+[3892]  core @0.000167> request: GET /favicon.ico from 127.0.0.1 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 58
+[3892]  core @0.002776> [hit #10]entering before_file_render hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.003155> [hit #10]response: 304 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 181
+[3892]  core @0.000149> request: GET /admin from 127.0.0.1 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 58
+[3892]  core @0.000642> [hit #11]Trying to match 'GET /admin' against /^\/admin\/view\/players$/ (generated from '/admin/view/players') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.000804> [hit #11]Trying to match 'GET /admin' against /^\/admin\/view\/cancelled$/ (generated from '/admin/view/cancelled') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.000931> [hit #11]Trying to match 'GET /admin' against /^\/admin\/new\/player$/ (generated from '/admin/new/player') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.001055> [hit #11]Trying to match 'GET /admin' against /^\/admin\/edit\/player\/(?#token)([^\/]+)$/ (generated from '/admin/edit/player/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.001182> [hit #11]Trying to match 'GET /admin' against /^\/admin\/delete\/player\/(?#token)([^\/]+)$/ (generated from '/admin/delete/player/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.001370> [hit #11]Trying to match 'GET /admin' against /^\/admin\/quick_search_players$/ (generated from '/admin/quick_search_players') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.001849> [hit #11]Trying to match 'GET /admin' against /^\/admin\/search_players$/ (generated from '/admin/search_players') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.002484> [hit #11]Trying to match 'GET /admin' against /^\/admin\/assign_players$/ (generated from '/admin/assign_players') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.002592> [hit #11]Trying to match 'GET /admin' against /^\/admin\/paid\/player\/(?#token)([^\/]+)$/ (generated from '/admin/paid/player/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.002695> [hit #11]Trying to match 'GET /admin' against /^\/admin\/cancel\/player\/(?#token)([^\/]+)$/ (generated from '/admin/cancel/player/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.002812> [hit #11]Trying to match 'GET /admin' against /(?-xism:^(?-xism:^\/admin(?:\/)?$)$)/ (generated from '(?-xism:^\/admin(?:\/)?$)') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.002965> [hit #11]  --> got 1 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 92
+[3892]  core @0.004046> [hit #11]entering before hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.004192> [hit #11]entering before hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.004307> [hit #11]entering before hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.006884> [hit #11]entering after hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.007302> [hit #11]response: 302 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 181
+[3892]  core @0.000259> request: GET /admin/view/players from 127.0.0.1 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 58
+[3892]  core @0.000926> [hit #12]Trying to match 'GET /admin/view/players' against /^\/admin\/view\/players$/ (generated from '/admin/view/players') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.001065> [hit #12]  --> got 1 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 92
+[3892]  core @0.001395> [hit #12]entering before hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.001587> [hit #12]entering before hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.001809> [hit #12]entering before hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892] debug @0.007284> [hit #12]Adding sqlite_unicode to DBI connection params to enable UTF-8 support in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Plugin/Database.pm l. 28
+[3892]  core @0.110826> [hit #12]entering after hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.111545> [hit #12]response: 200 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 181
+[3892]  core @0.000146> request: GET /css/layout.css from 127.0.0.1 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 58
+[3892]  core @0.000954> [hit #13]entering before_file_render hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.001418> [hit #13]response: 304 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 181
+[3892]  core @0.000151> request: GET /css/pager.css from 127.0.0.1 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 58
+[3892]  core @0.001413> [hit #14]entering before_file_render hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.002776> [hit #14]response: 304 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 181
+[3892]  core @0.000361> request: GET /javascripts/jquery-1.5.2.min.js from 127.0.0.1 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 58
+[3892]  core @0.001399> [hit #15]entering before_file_render hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.001699> [hit #15]response: 304 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 181
+[3892]  core @0.000134> request: GET /javascripts/hideshow.js from 127.0.0.1 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 58
+[3892]  core @0.000749> [hit #16]entering before_file_render hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.001034> [hit #16]response: 304 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 181
+[3892]  core @0.000146> request: GET /javascripts/jquery.tablesorter.min.js from 127.0.0.1 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 58
+[3892]  core @0.000823> [hit #17]entering before_file_render hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.001120> [hit #17]response: 304 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 181
+[3892]  core @0.000146> request: GET /javascripts/jquery.equalHeight.js from 127.0.0.1 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 58
+[3892]  core @0.003462> [hit #18]entering before_file_render hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.003930> [hit #18]response: 304 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 181
+[3892]  core @0.000191> request: GET /images/icn_edit.png from 127.0.0.1 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 58
+[3892]  core @0.001331> [hit #19]entering before_file_render hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.001686> [hit #19]response: 304 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 181
+[3892]  core @0.000153> request: GET /images/icn_trash.png from 127.0.0.1 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 58
+[3892]  core @0.001826> [hit #20]entering before_file_render hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.003398> [hit #20]response: 304 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 181
+[3892]  core @0.000340> request: GET /images/euro-sign.png from 127.0.0.1 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 58
+[3892]  core @0.001738> [hit #21]entering before_file_render hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.002150> [hit #21]response: 304 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 181
+[3892]  core @0.000336> request: GET /images/icn_trash_red.png from 127.0.0.1 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 58
+[3892]  core @0.001448> [hit #22]entering before_file_render hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.001953> [hit #22]response: 304 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 181
+[3892]  core @0.000144> request: GET /images/icn_alert_info.png from 127.0.0.1 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 58
+[3892]  core @0.000876> [hit #23]entering before_file_render hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.001267> [hit #23]response: 304 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 181
+[3892]  core @0.000155> request: GET /images/header_bg.png from 127.0.0.1 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 58
+[3892]  core @0.000941> [hit #24]entering before_file_render hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.001269> [hit #24]response: 304 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 181
+[3892]  core @0.000151> request: GET /images/header_shadow.png from 127.0.0.1 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 58
+[3892]  core @0.000898> [hit #25]entering before_file_render hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.001258> [hit #25]response: 304 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 181
+[3892]  core @0.000139> request: GET /images/secondary_bar.png from 127.0.0.1 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 58
+[3892]  core @0.000805> [hit #26]entering before_file_render hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.001134> [hit #26]response: 304 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 181
+[3892]  core @0.000239> request: GET /images/icn_user.png from 127.0.0.1 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 58
+[3892]  core @0.002801> [hit #27]entering before_file_render hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.003162> [hit #27]response: 304 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 181
+[3892]  core @0.000428> request: GET /images/icn_logout.png from 127.0.0.1 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 58
+[3892]  core @0.002005> [hit #28]entering before_file_render hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.003389> [hit #28]response: 304 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 181
+[3892]  core @0.000141> request: GET /images/secondary_bar_shadow.png from 127.0.0.1 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 58
+[3892]  core @0.001834> [hit #29]entering before_file_render hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.002263> [hit #29]response: 304 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 181
+[3892]  core @0.000365> request: GET /images/breadcrumb_divider.png from 127.0.0.1 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 58
+[3892]  core @0.001753> [hit #30]entering before_file_render hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.002040> [hit #30]response: 304 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 181
+[3892]  core @0.000124> request: GET /images/sidebar.png from 127.0.0.1 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 58
+[3892]  core @0.000847> [hit #31]entering before_file_render hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.001122> [hit #31]response: 304 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 181
+[3892]  core @0.000125> request: GET /images/icn_search.png from 127.0.0.1 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 58
+[3892]  core @0.001554> [hit #32]entering before_file_render hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.002310> [hit #32]response: 304 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 181
+[3892]  core @0.000127> request: GET /images/sidebar_divider.png from 127.0.0.1 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 58
+[3892]  core @0.002985> [hit #33]entering before_file_render hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.003867> [hit #33]response: 304 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 181
+[3892]  core @0.000086> request: GET /images/icn_view_users.png from 127.0.0.1 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 58
+[3892]  core @0.001177> [hit #34]entering before_file_render hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.001518> [hit #34]response: 304 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 181
+[3892]  core @0.000160> request: GET /images/icn_add_user.png from 127.0.0.1 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 58
+[3892]  core @0.002176> [hit #35]entering before_file_render hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.002532> [hit #35]response: 304 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 181
+[3892]  core @0.000368> request: GET /images/icn_edit_article.png from 127.0.0.1 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 58
+[3892]  core @0.002709> [hit #36]entering before_file_render hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.003342> [hit #36]response: 304 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 181
+[3892]  core @0.000148> request: GET /images/icn_new_article.png from 127.0.0.1 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 58
+[3892]  core @0.005522> [hit #37]entering before_file_render hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.005935> [hit #37]response: 304 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 181
+[3892]  core @0.000148> request: GET /images/application_export.png from 127.0.0.1 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 58
+[3892]  core @0.007369> [hit #38]entering before_file_render hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.009277> [hit #38]response: 304 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 181
+[3892]  core @0.000169> request: GET /images/sidebar_shadow.png from 127.0.0.1 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 58
+[3892]  core @0.000961> [hit #39]entering before_file_render hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.001365> [hit #39]response: 304 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 181
+[3892]  core @0.000272> request: GET /images/module_footer_bg.png from 127.0.0.1 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 58
+[3892]  core @0.001009> [hit #40]entering before_file_render hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.001266> [hit #40]response: 304 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 181
+[3892]  core @0.000093> request: GET /images/btn_submit_2.png from 127.0.0.1 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 58
+[3892]  core @0.000613> [hit #41]entering before_file_render hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.000832> [hit #41]response: 304 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 181
+[3892]  core @0.000089> request: GET /images/table_sorter_header.png from 127.0.0.1 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 58
+[3892]  core @0.000588> [hit #42]entering before_file_render hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.000812> [hit #42]response: 304 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 181
+[3892]  core @0.000209> request: GET /admin/view/players from 127.0.0.1 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 58
+[3892]  core @0.000846> [hit #43]Trying to match 'GET /admin/view/players' against /^\/admin\/view\/players$/ (generated from '/admin/view/players') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.001083> [hit #43]  --> got 1 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 92
+[3892]  core @0.001495> [hit #43]entering before hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.001785> [hit #43]entering before hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.002037> [hit #43]entering before hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.058273> [hit #43]entering after hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.059016> [hit #43]response: 200 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 181
+[3892]  core @0.000134> request: GET /admin/view/cancelled from 127.0.0.1 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 58
+[3892]  core @0.000505> [hit #44]Trying to match 'GET /admin/view/cancelled' against /^\/admin\/view\/players$/ (generated from '/admin/view/players') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.000599> [hit #44]Trying to match 'GET /admin/view/cancelled' against /^\/admin\/view\/cancelled$/ (generated from '/admin/view/cancelled') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.000676> [hit #44]  --> got 1 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 92
+[3892]  core @0.000841> [hit #44]entering before hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.000984> [hit #44]entering before hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.001088> [hit #44]entering before hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.042269> [hit #44]entering after hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.043121> [hit #44]response: 200 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 181
+[3892]  core @0.000160> request: GET /images/icn_alert_error.png from 127.0.0.1 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 58
+[3892]  core @0.000904> [hit #45]entering before_file_render hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.001257> [hit #45]response: 304 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 181
+[3892]  core @0.000143> request: GET /admin/new/player from 127.0.0.1 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 58
+[3892]  core @0.000556> [hit #46]Trying to match 'GET /admin/new/player' against /^\/admin\/view\/players$/ (generated from '/admin/view/players') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.000707> [hit #46]Trying to match 'GET /admin/new/player' against /^\/admin\/view\/cancelled$/ (generated from '/admin/view/cancelled') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.000834> [hit #46]Trying to match 'GET /admin/new/player' against /^\/admin\/new\/player$/ (generated from '/admin/new/player') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.000939> [hit #46]  --> got 1 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 92
+[3892]  core @0.001125> [hit #46]entering before hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.001227> [hit #46]entering before hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.001308> [hit #46]entering before hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892] debug @0.007715> [hit #46]DEBUG in /home/kalle/Projects/JFL2/lib/JFLPlayerAdmin.pm l. 247
+[3892]  core @0.021257> [hit #46]entering after hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.021675> [hit #46]response: 200 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 181
+[3892]  core @0.000178> request: GET /admin/view/coaches from 127.0.0.1 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 58
+[3892]  core @0.000704> [hit #47]Trying to match 'GET /admin/view/coaches' against /^\/admin\/view\/players$/ (generated from '/admin/view/players') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.000905> [hit #47]Trying to match 'GET /admin/view/coaches' against /^\/admin\/view\/cancelled$/ (generated from '/admin/view/cancelled') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.001042> [hit #47]Trying to match 'GET /admin/view/coaches' against /^\/admin\/new\/player$/ (generated from '/admin/new/player') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.001158> [hit #47]Trying to match 'GET /admin/view/coaches' against /^\/admin\/edit\/player\/(?#token)([^\/]+)$/ (generated from '/admin/edit/player/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.001256> [hit #47]Trying to match 'GET /admin/view/coaches' against /^\/admin\/delete\/player\/(?#token)([^\/]+)$/ (generated from '/admin/delete/player/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.001384> [hit #47]Trying to match 'GET /admin/view/coaches' against /^\/admin\/quick_search_players$/ (generated from '/admin/quick_search_players') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.001574> [hit #47]Trying to match 'GET /admin/view/coaches' against /^\/admin\/search_players$/ (generated from '/admin/search_players') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.001802> [hit #47]Trying to match 'GET /admin/view/coaches' against /^\/admin\/assign_players$/ (generated from '/admin/assign_players') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.002079> [hit #47]Trying to match 'GET /admin/view/coaches' against /^\/admin\/paid\/player\/(?#token)([^\/]+)$/ (generated from '/admin/paid/player/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.002363> [hit #47]Trying to match 'GET /admin/view/coaches' against /^\/admin\/cancel\/player\/(?#token)([^\/]+)$/ (generated from '/admin/cancel/player/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.002621> [hit #47]Trying to match 'GET /admin/view/coaches' against /(?-xism:^(?-xism:^\/admin(?:\/)?$)$)/ (generated from '(?-xism:^\/admin(?:\/)?$)') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.003017> [hit #47]Trying to match 'GET /admin/view/coaches' against /^\/admin\/report$/ (generated from '/admin/report') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.003369> [hit #47]Trying to match 'GET /admin/view/coaches' against /^\/admin\/report\/data01$/ (generated from '/admin/report/data01') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.003567> [hit #47]Trying to match 'GET /admin/view/coaches' against /^\/admin\/report\/data02$/ (generated from '/admin/report/data02') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.003744> [hit #47]Trying to match 'GET /admin/view/coaches' against /^\/admin\/new\/season$/ (generated from '/admin/new/season') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.003884> [hit #47]Trying to match 'GET /admin/view/coaches' against /^\/admin\/view\/seasons$/ (generated from '/admin/view/seasons') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.003989> [hit #47]Trying to match 'GET /admin/view/coaches' against /^\/admin\/edit\/season\/(?#token)([^\/]+)$/ (generated from '/admin/edit/season/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.004126> [hit #47]Trying to match 'GET /admin/view/coaches' against /^\/admin\/delete\/season\/(?#token)([^\/]+)$/ (generated from '/admin/delete/season/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.004257> [hit #47]Trying to match 'GET /admin/view/coaches' against /^\/admin\/view\/coaches$/ (generated from '/admin/view/coaches') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.004365> [hit #47]  --> got 1 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 92
+[3892]  core @0.004654> [hit #47]entering before hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.004821> [hit #47]entering before hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.004953> [hit #47]entering before hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892] debug @0.014301> [hit #47]{'lastname' => {'-like' => '%'},'seasonid' => 8} in /home/kalle/Projects/JFL2/lib/JFLAdmin.pm l. 348
+[3892]  core @0.031408> [hit #47]entering after hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.032060> [hit #47]response: 200 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 181
+[3892]  core @0.000107> request: GET /admin/new/coach from 127.0.0.1 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 58
+[3892]  core @0.000467> [hit #48]Trying to match 'GET /admin/new/coach' against /^\/admin\/view\/players$/ (generated from '/admin/view/players') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.000603> [hit #48]Trying to match 'GET /admin/new/coach' against /^\/admin\/view\/cancelled$/ (generated from '/admin/view/cancelled') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.000715> [hit #48]Trying to match 'GET /admin/new/coach' against /^\/admin\/new\/player$/ (generated from '/admin/new/player') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.000818> [hit #48]Trying to match 'GET /admin/new/coach' against /^\/admin\/edit\/player\/(?#token)([^\/]+)$/ (generated from '/admin/edit/player/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.000932> [hit #48]Trying to match 'GET /admin/new/coach' against /^\/admin\/delete\/player\/(?#token)([^\/]+)$/ (generated from '/admin/delete/player/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.001061> [hit #48]Trying to match 'GET /admin/new/coach' against /^\/admin\/quick_search_players$/ (generated from '/admin/quick_search_players') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.001188> [hit #48]Trying to match 'GET /admin/new/coach' against /^\/admin\/search_players$/ (generated from '/admin/search_players') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.001264> [hit #48]Trying to match 'GET /admin/new/coach' against /^\/admin\/assign_players$/ (generated from '/admin/assign_players') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.001342> [hit #48]Trying to match 'GET /admin/new/coach' against /^\/admin\/paid\/player\/(?#token)([^\/]+)$/ (generated from '/admin/paid/player/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.001429> [hit #48]Trying to match 'GET /admin/new/coach' against /^\/admin\/cancel\/player\/(?#token)([^\/]+)$/ (generated from '/admin/cancel/player/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.001508> [hit #48]Trying to match 'GET /admin/new/coach' against /(?-xism:^(?-xism:^\/admin(?:\/)?$)$)/ (generated from '(?-xism:^\/admin(?:\/)?$)') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.001590> [hit #48]Trying to match 'GET /admin/new/coach' against /^\/admin\/report$/ (generated from '/admin/report') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.001666> [hit #48]Trying to match 'GET /admin/new/coach' against /^\/admin\/report\/data01$/ (generated from '/admin/report/data01') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.001741> [hit #48]Trying to match 'GET /admin/new/coach' against /^\/admin\/report\/data02$/ (generated from '/admin/report/data02') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.001813> [hit #48]Trying to match 'GET /admin/new/coach' against /^\/admin\/new\/season$/ (generated from '/admin/new/season') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.001907> [hit #48]Trying to match 'GET /admin/new/coach' against /^\/admin\/view\/seasons$/ (generated from '/admin/view/seasons') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.001976> [hit #48]Trying to match 'GET /admin/new/coach' against /^\/admin\/edit\/season\/(?#token)([^\/]+)$/ (generated from '/admin/edit/season/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.002047> [hit #48]Trying to match 'GET /admin/new/coach' against /^\/admin\/delete\/season\/(?#token)([^\/]+)$/ (generated from '/admin/delete/season/:id') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.002117> [hit #48]Trying to match 'GET /admin/new/coach' against /^\/admin\/view\/coaches$/ (generated from '/admin/view/coaches') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.002184> [hit #48]Trying to match 'GET /admin/new/coach' against /^\/admin\/new\/coach$/ (generated from '/admin/new/coach') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.002248> [hit #48]  --> got 1 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 92
+[3892]  core @0.002582> [hit #48]entering before hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.003030> [hit #48]entering before hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.003458> [hit #48]entering before hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.018360> [hit #48]entering after hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.018779> [hit #48]response: 200 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 181
+[3892]  core @0.000239> request: GET /admin/new/player from 127.0.0.1 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 58
+[3892]  core @0.001018> [hit #49]Trying to match 'GET /admin/new/player' against /^\/admin\/new\/player$/ (generated from '/admin/new/player') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.001356> [hit #49]  --> got 1 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 92
+[3892]  core @0.001717> [hit #49]entering before hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.001935> [hit #49]entering before hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.002122> [hit #49]entering before hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892] debug @0.014156> [hit #49]DEBUG in /home/kalle/Projects/JFL2/lib/JFLPlayerAdmin.pm l. 247
+[3892]  core @0.021908> [hit #49]entering after hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.022617> [hit #49]response: 200 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 181
+[3892]  core @0.000245> request: GET /admin/view/cancelled from 127.0.0.1 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 58
+[3892]  core @0.000870> [hit #50]Trying to match 'GET /admin/view/cancelled' against /^\/admin\/view\/cancelled$/ (generated from '/admin/view/cancelled') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.001038> [hit #50]  --> got 1 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 92
+[3892]  core @0.001240> [hit #50]entering before hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.001528> [hit #50]entering before hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.001792> [hit #50]entering before hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.035004> [hit #50]entering after hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.035759> [hit #50]response: 200 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 181
+[3892]  core @0.000188> request: GET /admin/view/players from 127.0.0.1 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 58
+[3892]  core @0.000760> [hit #51]Trying to match 'GET /admin/view/players' against /^\/admin\/view\/players$/ (generated from '/admin/view/players') in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 84
+[3892]  core @0.000994> [hit #51]  --> got 1 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Route.pm l. 92
+[3892]  core @0.001312> [hit #51]entering before hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.001586> [hit #51]entering before hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.001815> [hit #51]entering before hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.051568> [hit #51]entering after hook in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Hook.pm l. 60
+[3892]  core @0.052116> [hit #51]response: 200 in /home/kalle/.plenv/versions/5.10.1/lib/perl5/site_perl/5.10.1/Dancer/Handler.pm l. 181

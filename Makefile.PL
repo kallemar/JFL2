@@ -3,7 +3,7 @@ use warnings;
 use ExtUtils::MakeMaker;
 
 WriteMakefile(
-    NAME                => 'JFL',
+    NAME                => 'JFL2',
     AUTHOR              => q{Kalle Marjamäki kalle@marjamaki.net},
     VERSION_FROM        => 'lib/JFL.pm',
     ABSTRACT            => 'Junior Football Leaque registration and management system',

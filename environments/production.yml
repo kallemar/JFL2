@@ -23,7 +23,7 @@ plugins:
     is_full: 0
   ORMesque:
     connection_name:
-      dsn:  "dbi:SQLite:dbname=/opt/jfl/db/jfldb"
+      dsn:  "dbi:SQLite:dbname=/home/kalle/Projects/JFL2/db/jfldb"
       options:
         RaiseError: 1
         PrintError: 1
@@ -53,4 +53,4 @@ plugins:
             sasl_password: Ai2sPycDtuta/nlpgzvBFYVk5pyzDcfMZZW19X8VMDR3
   Database:
      driver: 'SQLite'
-     database: '/opt/jfl/db/jfldb'
+     database: '/home/kalle/Projects/JFL2/db/jfldb'
