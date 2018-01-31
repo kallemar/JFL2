@@ -277,5 +277,4 @@ sub _hash2xml {
     return $data;
 }
 
-
 1;
