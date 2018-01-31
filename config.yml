@@ -4,7 +4,7 @@
 
 # Your application's name
 appname: "JFL2"
-environment: production
+environment: development
 behind_proxy : 1
 
 # The default layout to use for your application (located in
