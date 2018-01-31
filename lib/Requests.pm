@@ -240,7 +240,6 @@ sub PostSalesInvoice {
     _xmlset($invoice_xml, "root/salesinvoice/salesinvoicenumber", $Order->{'Alias'});
     _xmlset($invoice_xml, "root/salesinvoice/salesinvoicedate", $Order->{'CreationDate'}->strftime("%Y-%m-%d"));
     _xmlSetAttribute($invoice_xml, "root/salesinvoice/salesinvoicedate", "format", "ansi");
-<<<<<<< HEAD
     _xmlset($invoice_xml, "root/salesinvoice/salesinvoicevaluedate", ""); 
     _xmlSetAttribute($invoice_xml, "root/salesinvoice/salesinvoicevaluedate", "format", "ansi");
     _xmlset($invoice_xml, "root/salesinvoice/salesinvoicedeliverydate", "");
@@ -249,7 +248,7 @@ sub PostSalesInvoice {
     _xmlset($invoice_xml, "root/salesinvoice/salesinvoiceamount", "123,34");
     _xmlSetAttribute($invoice_xml, "root/salesinvoice/salesinvoiceamount", "iso4217currencycode", "EUR");
     _xmlSetAttribute($invoice_xml, "root/salesinvoice/salesinvoiceamount", "currencyrate", "");
-=======
+
     
     if(defined $Order->{'PaidOn'}) {
         _xmlset($invoice_xml, "root/salesinvoice/salesinvoicevaluedate", $Order->{'PaidOn'}->strftime("%Y-%m-%d")); 
@@ -265,7 +264,6 @@ sub PostSalesInvoice {
     #_xmlset($invoice_xml, "root/salesinvoice/salesinvoiceamount", $LineItemContainer->{'GrandTotal'});
     #_xmlSetAttribute($invoice_xml, "root/salesinvoice/salesinvoiceamount", "iso4217currencycode", $LineItemContainer->{'CurrencyID'});
     _xmlSetAttribute($invoice_xml, "root/salesinvoice/salesinvoiceamount", "currencyrate", "0,00");
->>>>>>> b607578fc35e0c456cc180bbfbe455fc15297d10
     _xmlset($invoice_xml, "root/salesinvoice/selleridentifier", "");
     _xmlSetAttribute("$invoice_xml", "root/salesinvoice/selleridentifier", "type", "netvisor");
     _xmlset($invoice_xml, "root/salesinvoice/sellername", "Myyjä");
