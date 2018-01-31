@@ -53,5 +53,6 @@ get '/:id' => sub {
 
 get '/getinvoicestatus' => sub {
 	# TODO haetaan maksamattomat laskut ja tarkistetaan että onko ne maksettu
-}
+};
+
 1;
