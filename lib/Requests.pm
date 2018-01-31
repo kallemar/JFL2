@@ -88,72 +88,71 @@ sub PostCustomer {
     # Create XML for post
     my $RootNode = XML::XPath::Node::Element->new('root',"");
     my $customer_xml = XML::XPath->new(context => $RootNode);
-    _xmlset($customer_xml, "root/customer/customerbaseinformation/internalidentifier", $Customer->{'Alias'});
-#    _xmlset($customer_xml, "root/customer/customerbaseinformation/externalidentifier", $Customer->{'VATID'));
+
+#    _xmlset($customer_xml, "root/customer/customerbaseinformation/internalidentifier", $Customer->get('Alias'));
+#    _xmlset($customer_xml, "root/customer/customerbaseinformation/externalidentifier", $BillingAddress->get('VATID'));
 #    _xmlset($customer_xml, "root/customer/customerbaseinformation/organizationunitnumber", "");
     _xmlset($customer_xml, "root/customer/customerbaseinformation/name", $Customer->{'FullName'});
-#    _xmlset($customer_xml, "root/customer/customerbaseinformation/nameextension", $Customer->{'JobTitle'});
+#    _xmlset($customer_xml, "root/customer/customerbaseinformation/nameextension", $BillingAddress->get('JobTitle'));
     _xmlset($customer_xml, "root/customer/customerbaseinformation/streetaddress", $Customer->{'Street'});
-#    _xmlset($customer_xml, "root/customer/customerbaseinformation/additionaladdressline", $Customer->{'Street2'});
+#    _xmlset($customer_xml, "root/customer/customerbaseinformation/additionaladdressline", $BillingAddress->get('Street2'));
     _xmlset($customer_xml, "root/customer/customerbaseinformation/city", $Customer->{'City'});
-    _xmlset($customer_xml, "root/customer/customerbaseinformation/postnumber", $Customer->{'Zipcode'});
+    _xmlset($customer_xml, "root/customer/customerbaseinformation/postnumber",$Customer->{'Zipcode'});
+#    _xmlset($customer_xml, "root/customer/customerbaseinformation/country", $BillingAddress->get('Country')->{'Code2'});
 
-	_xmlset($customer_xml, 			"root/customer/customerbaseinformation/country", 'FI');
-	_xmlSetAttribute($customer_xml, "root/customer/customerbaseinformation/country", "type", "ISO-3166");
+    _xmlSetAttribute($customer_xml, "root/customer/customerbaseinformation/country", "type", "ISO-3166");
+    _xmlset($customer_xml, "root/customer/customerbaseinformation/customergroupname", $Customer->get('CustomerGroup')->get('NameOrAlias', $LanguageID));
 
-#    _xmlset($customer_xml, "root/customer/customerbaseinformation/customergroupname", config->{'netvisor_customergroupname'} );
-    _xmlset($customer_xml, "root/customer/customerbaseinformation/phonenumber", $Customer->{'Phone'});
-#    _xmlset($customer_xml, "root/customer/customerbaseinformation/faxnumber", $Customer->{'Fax'});
-    _xmlset($customer_xml, "root/customer/customerbaseinformation/email", $Customer->{'EMail'});
-#    _xmlset($customer_xml, "root/customer/customerbaseinformation/homepageuri", $Customer->{'URL'));
-    _xmlset($customer_xml, "root/customer/customerbaseinformation/isactive", "1");
-    _xmlset($customer_xml, "root/customer/customerbaseinformation/isprivatecustomer", "1");
-    _xmlset($customer_xml, "root/customer/customerbaseinformation/emailinvoicingaddress", $Customer->{'EMail'});
+#    _xmlset($customer_xml, "root/customer/customerbaseinformation/phonenumber", $BillingAddress->get('Phone'));
+#    _xmlset($customer_xml, "root/customer/customerbaseinformation/faxnumber", $BillingAddress->get('Fax'));
+#    _xmlset($customer_xml, "root/customer/customerbaseinformation/email", $BillingAddress->get('EMail'));
+#    _xmlset($customer_xml, "root/customer/customerbaseinformation/homepageuri", $BillingAddress->get('URL'));
+#    _xmlset($customer_xml, "root/customer/customerbaseinformation/isactive", "1");
+#    _xmlset($customer_xml, "root/customer/customerbaseinformation/isprivatecustomer", "1");
+#    _xmlset($customer_xml, "root/customer/customerbaseinformation/emailinvoicingaddress", $BillingAddress->get('EMail'));
 
-#    _xmlset($customer_xml, "root/customer/customerfinvoicedetails/finvoiceaddress", $Customer->{'NetvisorEInvoiceAddress'));
-#    _xmlset($customer_xml, "root/customer/customerfinvoicedetails/finvoiceroutercode", $Customer->{'NetvisorEInvoiceOperatorAddress'));
+#    _xmlset($customer_xml, "root/customer/customerfinvoicedetails/finvoiceaddress", $Customer->get('NetvisorEInvoiceAddress'));
+#    _xmlset($customer_xml, "root/customer/customerfinvoicedetails/finvoiceroutercode", $Customer->get('NetvisorEInvoiceOperatorAddress'));
 
 #    if(defined $ShippingAddress) {
-#        _xmlset($customer_xml, "root/customer/customerdeliverydetails/deliveryname", $ShippingAddress->{'FullName'));
-#        _xmlset($customer_xml, "root/customer/customerdeliverydetails/deliverystreetaddress", $ShippingAddress->{'Street'));
-#        _xmlset($customer_xml, "root/customer/customerdeliverydetails/deliverycity", $ShippingAddress->{'City'));
-#        _xmlset($customer_xml, "root/customer/customerdeliverydetails/deliverypostnumber", $ShippingAddress->{'Zipcode'));
-#        _xmlset($customer_xml, "root/customer/customerdeliverydetails/deliverycountry", $ShippingAddress->{'Country')->{'Code2'});
+#        _xmlset($customer_xml, "root/customer/customerdeliverydetails/deliveryname", $ShippingAddress->get('FullName'));
+#        _xmlset($customer_xml, "root/customer/customerdeliverydetails/deliverystreetaddress", $ShippingAddress->get('Street'));
+#        _xmlset($customer_xml, "root/customer/customerdeliverydetails/deliverycity", $ShippingAddress->get('City'));
+#        _xmlset($customer_xml, "root/customer/customerdeliverydetails/deliverypostnumber", $ShippingAddress->get('Zipcode'));
+#        _xmlset($customer_xml, "root/customer/customerdeliverydetails/deliverycountry", $ShippingAddress->get('Country')->{'Code2'});
 #        _xmlSetAttribute($customer_xml, "root/customer/customerdeliverydetails/deliverycountry", "type", "ISO-3166");
 #    } else {
-        _xmlset($customer_xml, "root/customer/customerdeliverydetails/deliveryname", $Customer->{'FullName'});
-        _xmlset($customer_xml, "root/customer/customerdeliverydetails/deliverystreetaddress", $Customer->{'Street'});
-        _xmlset($customer_xml, "root/customer/customerdeliverydetails/deliverycity", $Customer->{'City'});
-        _xmlset($customer_xml, "root/customer/customerdeliverydetails/deliverypostnumber", $Customer->{'Zipcode'});
-	_xmlset($customer_xml, 			"root/customer/customerdeliverydetails/deliverycountry", 'FI');
-	_xmlSetAttribute($customer_xml, "root/customer/customerdeliverydetails/deliverycountry", "type", "ISO-3166");
+#        _xmlset($customer_xml, "root/customer/customerdeliverydetails/deliveryname", $BillingAddress->get('FullName'));
+#        _xmlset($customer_xml, "root/customer/customerdeliverydetails/deliverystreetaddress", $BillingAddress->get('Street'));
+#        _xmlset($customer_xml, "root/customer/customerdeliverydetails/deliverycity", $BillingAddress->get('City'));
+#        _xmlset($customer_xml, "root/customer/customerdeliverydetails/deliverypostnumber", $BillingAddress->get('Zipcode'));
+#        _xmlset($customer_xml, "root/customer/customerdeliverydetails/deliverycountry", $BillingAddress->get('Country')->{'Code2'});
+#        _xmlSetAttribute($customer_xml, "root/customer/customerdeliverydetails/deliverycountry", "type", "ISO-3166");
 #    }
 
-    _xmlset($customer_xml, "root/customer/customercontactdetails/contactname", "");
-    _xmlset($customer_xml, "root/customer/customercontactdetails/contactperson", $Customer->{'FullName'});
-    _xmlset($customer_xml, "root/customer/customercontactdetails/contactpersonemail", $Customer->{'EMail'});
-    _xmlset($customer_xml, "root/customer/customercontactdetails/contactpersonphone", $Customer->{'Phone'});
+#    _xmlset($customer_xml, "root/customer/customercontactdetails/contactname", "");
+#   _xmlset($customer_xml, "root/customer/customercontactdetails/contactperson", $BillingAddress->get('FullName'));
+#   _xmlset($customer_xml, "root/customer/customercontactdetails/contactpersonemail", $BillingAddress->get('EMail'));
+#   _xmlset($customer_xml, "root/customer/customercontactdetails/contactpersonphone", $BillingAddress->get('Phone'));
 
-#    _xmlset($customer_xml, "root/customer/customeradditionalinformation/comment", $Customer->{'Comment'});
-    _xmlset($customer_xml, "root/customer/customeradditionalinformation/customeragreementidentifier", "");
-    _xmlset($customer_xml, "root/customer/customeradditionalinformation/customerreferencenumber", "");
-    _xmlset($customer_xml, "root/customer/customeradditionalinformation/directdebitbankaccount", "");
- 
-	_xmlset($customer_xml, 			"root/customer/customeradditionalinformation/invoicinglanguage", "FI");
-	_xmlSetAttribute($customer_xml, "root/customer/customeradditionalinformation/invoicinglanguage", "type", "ISO-3166");
-	
-#    _xmlset($customer_xml, 			"root/customer/customeradditionalinformation/invoiceprintchannelformat", "");
-#    _xmlSetAttribute($customer_xml, "root/customer/customeradditionalinformation/invoiceprintchannelformat", "type", "netvisor");
+#   _xmlset($customer_xml, "root/customer/customeradditionalinformation/comment", $Customer->get('Comment'));
+#   _xmlset($customer_xml, "root/customer/customeradditionalinformation/customeragreementidentifier", "");
+#   _xmlset($customer_xml, "root/customer/customeradditionalinformation/customerreferencenumber", "");
+#   _xmlset($customer_xml, "root/customer/customeradditionalinformation/directdebitbankaccount", "");
+#   _xmlset($customer_xml, "root/customer/customeradditionalinformation/invoicinglanguage", "");
+#   _xmlSetAttribute($customer_xml, "root/customer/customeradditionalinformation/invoicinglanguage", "type", "ISO-3166");
+#   _xmlset($customer_xml, "root/customer/customeradditionalinformation/invoiceprintchannelformat", "");
+#   _xmlSetAttribute($customer_xml, "root/customer/customeradditionalinformation/invoiceprintchannelformat", "type", "netvisor");
+#   _xmlset($customer_xml, "root/customer/customeradditionalinformation/yourdefaultreference", "");
+#   _xmlset($customer_xml, "root/customer/customeradditionalinformation/defaulttextbeforeinvoicelines", "");
+#   _xmlset($customer_xml, "root/customer/customeradditionalinformation/defaulttextafterinvoicelines", "");
+#   _xmlset($customer_xml, "root/customer/customeradditionalinformation/defaultsalesperson/salespersonid", "");
+#   _xmlSetAttribute($customer_xml, "root/customer/customeradditionalinformation/defaultsalesperson/salespersonid", "type", "netvisor");
 
-#    _xmlset($customer_xml, "root/customer/customeradditionalinformation/yourdefaultreference", "");
-#    _xmlset($customer_xml, "root/customer/customeradditionalinformation/defaulttextbeforeinvoicelines", "");
-#    _xmlset($customer_xml, "root/customer/customeradditionalinformation/defaulttextafterinvoicelines", "");
-#    _xmlset($customer_xml, "root/customer/customeradditionalinformation/defaultsalesperson/salespersonid", "");
-#    _xmlSetAttribute($customer_xml, "root/customer/customeradditionalinformation/defaultsalesperson/salespersonid", "type", "netvisor");
 
     my $data = $customer_xml->findnodes_as_string('root');
     my $response = $self->SUPER::request("customer.nv", "POST", $data, "?method=$postMethod");
-    GetLog->debug("Response from API: $response->[1]");
+    debug "Response from API: $response->[1]";
     
     return $response;
 }
@@ -613,8 +612,13 @@ sub _xmlset {
 
 
 sub _xmlSetAttribute {
-    my $Tree = shift;
-    my $xpath = shift;
+    #debug $_[0];
+    debug $_[1];
+    #debug $_[2];
+    #debug $_[3];
+
+    my $Tree           = defined($_[0]) ? $_[0] : die("No Tree defined");
+    my $xpath          = defined($_[1]) ? $_[1] : die("No xpath defined");
     my $AttributeKey   = defined($_[2]) ? $_[2] : die("No AttributeKey defined");
     my $AttributeValue = defined($_[3]) ? $_[3] : die("No AttributValue defined");
 
@@ -622,6 +626,7 @@ sub _xmlSetAttribute {
         $Tree->createNode($xpath);
     }
     my $Node = $Tree->find($xpath)->get_node(1);
+    debug($Node);
     my $AttributeNode = XML::XPath::Node::Attribute->new($AttributeKey, $AttributeValue, '');
     $Node->appendAttribute($AttributeNode);
 }
