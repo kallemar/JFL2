@@ -111,6 +111,7 @@ CREATE TABLE suburban (
     fraction    INTEGER DEFAULT 10000,
     seasonid    INTEGER,
     isvisible   INTEGER NOT NULL DEFAULT 1,
+    price       INTEGER, -- price is sum in € * fraction
     FOREIGN KEY(seasonid) REFERENCES season(id)
 );
 
