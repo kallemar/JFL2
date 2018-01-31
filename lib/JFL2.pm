@@ -29,8 +29,8 @@ use JFLRest;
 #-- Export interface
 use JFLExport;
 
-#-- Interface to ProCountor
-use JFLProc;
+#-- Interface to Netvisor
+use JFLNetvisor;
 
 our $VERSION = '1.2';
 
