@@ -9,6 +9,7 @@ use PagerABC;
 use Pager123;
 use POSIX;
 use Hetu;
+use Data::Dumper;
 
 use JFLPlayerAdmin;
 
@@ -991,7 +992,15 @@ get '/edit/suburban/:id' => require_role admin => sub {
                              ["lastname"])
                       ->collection;
     my $contacts_subs = db->contact_suburban->read->collection;
-
+   
+   debug $suburban;
+   
+   #asetaan hinta oikeaan arvoon 
+   if ($suburban->{'price'}) {
+		$suburban->{'price'} = $suburban->{'price'} / $suburban->{'fraction'};
+		$suburban->{'price'} = sprintf("%.2f", $suburban	->{'price'});	
+	}
+	
     template 'admin_edit_suburban', { suburban => $suburban,
                                       contacts => $contacts,
                                       contact_suburban => $contacts_subs,
@@ -1014,10 +1023,15 @@ post '/edit/suburban' => require_role admin => sub {
                             ["lastname"])
                      ->collection;
     my $contacts_subs = db->contact_suburban;
-    debug($data);
+    
 
     if($data->{valid}) {
-
+		my $price;
+		debug Dumper($data);
+		if ($data->{'result'}->{'price'}) {
+			$price = $data->{'result'}->{'price'} * config->{'fraction'};
+		}
+		
         #--handle selected contacts
         #--first delete all contacts for the current suburban
         $contacts_subs->delete({ suburbanid => $params->{'id'} });
@@ -1043,6 +1057,7 @@ post '/edit/suburban' => require_role admin => sub {
         $suburban->update({
                              name        => $data->{'result'}->{'name'},
                              description => $data->{'result'}->{'description'},
+                             price		 => $price,
                              isvisible   => $data->{'result'}->{'isvisible'},
                           },
                           {
