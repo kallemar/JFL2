@@ -1,22 +1,20 @@
-package FI_GAGAR::Netvisor::API::Requests;
-use base FI_GAGAR::Netvisor::API::RESTClient;
+package Requests;
+use base RESTClient;
 
 use strict;
 use warnings;
 
-use DE_EPAGES::Object::API::Factory qw ( LoadRootObject );
 use Data::Dumper;
 use XML::XPath;
-use XML::Simple;
-use XML::LibXML::SAX;
+#use XML::Simple;
+#use XML::LibXML::SAX;
 
 sub new {
     my $class = shift;
     my $Shop = shift;
 
-    my $System = LoadRootObject();
-    my $Url = $System->get('Netvisor_RESTTestUrl');
-    my $hAuth = $class->_getAuthData($Shop);
+    my $Url = $System->get('Netvisor_RESTTestUrl');#FIXME Lue configista
+    my $hAuth = $class->_getAuthData();
     my $self = $class->SUPER::new($Url, $hAuth);
 
     return $self;
@@ -78,14 +76,15 @@ sub PostCustomer {
     my $self = shift;
     #my $Order = shift;
     my $postMethod = shift;
-
+	my $myplayer = shift;
+	
     # Create XML to post
     my $RootNode = XML::XPath::Node::Element->new('root',"");
     my $customer_xml = XML::XPath->new(context => $RootNode);
     _xmlset($customer_xml, "root/customer/customerbaseinformation/internalidentifier", "123465");
     _xmlset($customer_xml, "root/customer/customerbaseinformation/externalidentifier", "123456-7");
     _xmlset($customer_xml, "root/customer/customerbaseinformation/organizationunitnumber", "");
-    _xmlset($customer_xml, "root/customer/customerbaseinformation/name", "Testi Mies");
+    _xmlset($customer_xml, "root/customer/customerbaseinformation/name", $myplayer->first + " " + $myplayer->last );
     _xmlset($customer_xml, "root/customer/customerbaseinformation/nameextension", "Herra");
     _xmlset($customer_xml, "root/customer/customerbaseinformation/streetaddress", "Testikatu 1");
     _xmlset($customer_xml, "root/customer/customerbaseinformation/additionaladdressline", "");
@@ -370,15 +369,12 @@ sub PostSalesInvoice {
 #=============================================================================
     sub _getAuthData {
         my $self = shift;
-        my $Shop = shift;
-
-        my $System = LoadRootObject();
-
-        my $UserId = $Shop->get('NetvisorRESTUserId');
-        my $Key = $Shop->get('NetvisorRESTKey');
-        my $CompanyId = $Shop->get('NetvisorShopVATID');
-        my $PartnerId = $System->get('Netvisor_PartnerId');
-        my $PartnerKey = $System->get('Netvisor_PartnerKey');
+        
+        my $UserId = $Shop->get('NetvisorRESTUserId');#FIXME Lue configista
+        my $Key = $Shop->get('NetvisorRESTKey');#FIXME Lue configista
+        my $CompanyId = $Shop->get('NetvisorShopVATID'); #FIXME Lue configista
+        my $PartnerId = $System->get('Netvisor_PartnerId');#FIXME Lue configista
+        my $PartnerKey = $System->get('Netvisor_PartnerKey');#FIXME Lue configista
         my $hAuth = {
             UserId => $UserId,
             Key => $Key,
