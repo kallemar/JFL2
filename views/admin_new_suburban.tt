@@ -13,6 +13,9 @@
     	<label>Kaupunginosan nimi *</label>
     	<input type="text" name="name" value="[% suburban.name %]"style="width:92%;margin-bottom: 8px;">
 
+		<label>Kauden hinta € (jos eri)</label>
+        <input type="text" name="price" value="[% suburban.price %]" style="width:92%;">
+        
         <label>Näkyvissä rekisteröinissä</label>
         <select style="width:92%;" name="isvisible">
           <option value="1" [%IF suburban.isvisible == 1 %] selected [% END %]> kyllä</option>

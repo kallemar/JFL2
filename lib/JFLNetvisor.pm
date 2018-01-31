@@ -40,27 +40,74 @@ get '/getinvoicestatus' => sub {
 				
 #=======================================================================
 get '/:id' => sub {
+	# luetaan pelaajat jotka pitää laskuttaa
     my $id = params->{'id'};
     my $players = db->player
-                     ->read({ seasonid  => $id,
+                     ->read({ id => 11331111,	#FIXME
+							  seasonid  => $id,
    				              cancelled => undef,
   					          invoiced => undef,
   					          isinvoice => 0,	#FIXME 1
                             })->collection;
-    debug Dumper($players);
+	my $season = db->season->read({ id => $id})->current;
+	my $price_season = $season->{'price'};
+	my $fraction_season = $season->{'fraction'};
+    #debug Dumper($season);
     
-    foreach my $player (@{ $players }) {
-		debug $player->first;
-	}
+    #avataan yhteys netvisoriin
+    my $netvisorconn = Requests->new();
+    debug Dumper($netvisorconn);
     
-    #TODO
-    
-	# 	tarkistetaan että onko $player->netvisorid tyhjä => kutsutaan postcustomer metodia "add" parameterilla, muutoin aina edit
-	# 	lähetetään tuote jokaisen asiakkaan postauksen jälkeen
-	#	lähetetään lasku jokaisen tuotteen lähetyksen jälkeen
-	#	jokainen netvisor lähetys palauttaa netvisorid:n joka talletetaan tietokantaan
-     return "someting";
-
+		my $playerid = $player->{'id'};
+		
+		# luetaan pelaajana kaupunginosa
+		my $suburban = db->suburban->read({id => 8} )->current;
+		my $price_suburban = $suburban->{'price'};
+		my $fraction_suburban = $suburban->{'fraction'};
+		
+		
+		#käytetään kaupunginosan hintaa jos on olemassa, muutoin käytetään kauden hintaan
+		if ($price_suburban) {
+			$player->{'price'} = $price_suburban;
+			$player->{'fraction'} = $fraction_suburban;
+		} else {
+			$player->{'price'} = $price_season;
+			$player->{'fraction'} = $fraction_season;
+		}
+		$player->{'price'} = $player->{'price'} / $player->{'fraction'};
+		#debug Dumper($player);
+		
+		# jos netvisorid on olemassa niin tehdään "Edit", jos sitä ei ole olemassa niin tehdään "Add"
+		if ($player->{'netvisorid' eq ''}) {
+			debug "add";
+			#PostCustomer('', "Add", $player);
+		 }else {
+			debug "edit";
+			#PostCustomer('', "Edit", $player);
+		 }
+		 
+		
+                        
+         #lähetetaan tuote netvisoriin
+         my $product;
+         PostSalesInvoice($product, undef, "Add", $id);
+         debug Dumper($id);
+        
+         #lähetetään lasku
+         my $order;
+         PostSalesInvoice($order, undef, "Add", $id);
+         debug Dumper($id);
+         
+          # talletetaan saatu netvisorid takaisin pelaajatietueelle
+		 db->player->update({
+                             netvisorid => $id,
+                        },
+                        {
+                             id => $playerid,
+                        });
+		 
+		
+	}	
 };
 
 1;
