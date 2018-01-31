@@ -34,26 +34,27 @@ get '/:id' => sub {
 	# luetaan pelaajat jotka pitää laskuttaa
     my $id = params->{'id'};
     my $players = db->player
-                     ->read({ id => 11331111,	#FIXME
-							  seasonid  => $id,
-   				              cancelled => undef,
-  					          invoiced => undef,
-  					          isinvoice => 0,	#FIXME 1
+                     ->read({ id => 3636,	#FIXME
+	#						  seasonid  => $id,
+   	#			              cancelled => undef,
+  	#				          invoiced => undef,
+  	#					          isinvoice => 0,	#FIXME 1
                             })->collection;
 	my $season = db->season->read({ id => $id})->current;
 	my $price_season = $season->{'price'};
 	my $fraction_season = $season->{'fraction'};
     #debug Dumper($season);
+	#debug Dumper($players);
     
     #avataan yhteys netvisoriin
-    my $netvisorconn = Requests->new();
-    debug Dumper($netvisorconn);
-    
+    my $netvisor = Requests->new();
+    #debug Dumper($netvisor);
+   
     foreach my $player (@{ $players }) {
 		#luetaan pelaajan id
 		my $playerid = $player->{'id'};
 		
-		# luetaan pelaajana kaupunginosa
+		# luetaan pelaajan kaupunginosa
 		my $suburban = db->suburban->read({id => 8} )->current;
 		my $price_suburban = $suburban->{'price'};
 		my $fraction_suburban = $suburban->{'fraction'};
@@ -68,28 +69,48 @@ get '/:id' => sub {
 			$player->{'fraction'} = $fraction_season;
 		}
 		$player->{'price'} = $player->{'price'} / $player->{'fraction'};
+		
+		#set parent object
+		my $parentid =
+           db->player_parent->read({ playerid => $player->{'id'} })->current->{'parentid'};
+		if( defined($parentid) ) {
+			$player->{'parent'} = db->parent->read($parentid)->current;
+		}
 		#debug Dumper($player);
 		
-		# jos netvisorid on olemassa niin tehdään "Edit", jos sitä ei ole olemassa niin tehdään "Add"
-		if ($player->{'netvisorid' eq ''}) {
-			debug "add";
-			#PostCustomer('', "Add", $player);
-		 }else {
-			debug "edit";
-			#PostCustomer('', "Edit", $player);
-		 }
-		 
 		
-                        
+		#set Customer object for Netvisor
+		my $Customer;
+#		$Customer->Alias 					= 'TODO';
+		$Customer->{'FullName'} = $player->{'parent'}->{'firstname'} . ' ' . $player->{'parent'}->{'lastname'};
+		$Customer->{'Street'}	= $player->{'street'};
+		$Customer->{'City'}		= $player->{'city'};
+		$Customer->{'Zipcode'}	= $player->{'zip'};
+		$Customer->{'Phone'}	= $player->{'parent'}->{'phone'};
+		$Customer->{'Email'}	= $player->{'parent'}->{'email'};
+		debug Dumper($Customer);
+		
+		# jos netvisorid on olemassa niin tehdään "Edit", jos sitä ei ole olemassa niin tehdään "Add"
+		Requests->PostCustomer('Add', $Customer);
+		debug "PostCustomer:::::::::::::::::::::";
+		
+		
          #lähetetaan tuote netvisoriin
-         my $product;
-         PostSalesInvoice($product, undef, "Add", $id);
-         debug Dumper($id);
+         my $Product;
+		 $Product->{'ListPrices'}		 	= $player->{'price'};
+         $Product->{'Class'}			 	= 'CLASS'; 
+         $Product->{'NameOrAlias'}			= "NAME";
+         $Product->{'Description'}	= "DESCRIPTION";
+         $Product->{'IsAvailable'}	=  1;
+         debug Dumper($Product);
+         
+        # PostProduct($product, undef, "Add", $id);
+       #  debug Dumper($id);
         
          #lähetetään lasku
          my $order;
-         PostSalesInvoice($order, undef, "Add", $id);
-         debug Dumper($id);
+#         PostSalesInvoice($order, undef, "Add", $id);
+        
          
           # talletetaan saatu netvisorid takaisin pelaajatietueelle
 		 db->player->update({
