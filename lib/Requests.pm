@@ -656,7 +656,6 @@ sub DeleteDimension {
 # §input        $Shop  | shop object | object
 # §return       $hAuth | hash with the athentication data | hash
 #=============================================================================
-<<<<<<< HEAD
     sub _getAuthData {
         my $self = shift;
         
@@ -675,27 +674,6 @@ sub DeleteDimension {
 
         return $hAuth;
     }
-=======
-sub _getAuthData {
-    my $self = shift;
->>>>>>> b607578fc35e0c456cc180bbfbe455fc15297d10
-
-    my $UserId = config->{'NetvisorRESTUserId'};
-    my $Key = config->{'NetvisorRESTKey'};
-    my $CompanyId = config->{'NetvisorShopVATID'};
-    my $PartnerId = config->{'Netvisor_PartnerId'};
-    my $PartnerKey = config->{'Netvisor_PartnerKey'};
-    my $hAuth = {
-        UserId => $UserId,
-        Key => $Key,
-        CompanyId => $CompanyId,
-        PartnerId => $PartnerId,
-        PartnerKey => $PartnerKey,
-    };
-
-    return $hAuth;
-}
-
 
 sub _xmlset {
     my ($Tree, $xpath, $value) = @_;
