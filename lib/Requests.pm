@@ -8,10 +8,11 @@ use Data::Dumper;
 use XML::XPath;
 #use XML::Simple;
 #use XML::LibXML::SAX;
+use Dancer ':syntax';
+
 
 sub new {
     my $class = shift;
-    my $Shop = shift;
 
     my $Url = config->{'Netvisor_RESTTestUrl'};
     my $hAuth = $class->_getAuthData();
@@ -218,14 +219,14 @@ sub PostSalesInvoice {
     _xmlSetAttribute($invoice_xml, "root/salesinvoice/salesinvoicedate", "format", "ansi");
     _xmlset($invoice_xml, "root/salesinvoice/salesinvoicevaluedate", ""); 
     _xmlSetAttribute($invoice_xml, "root/salesinvoice/salesinvoicevaluedate", "format", "ansi");
-    _xmlset($inovice_xml, "root/salesinvoice/salesinvoicedeliverydate", "");
+    _xmlset($invoice_xml, "root/salesinvoice/salesinvoicedeliverydate", "");
     _xmlSetAttribute($invoice_xml, "root/salesinvoice/salesinvoicedeliverydate", "format", "ansi");
     _xmlset($invoice_xml, "root/salesinvoice/salesinvoicereferencenumber", "123456");
     _xmlset($invoice_xml, "root/salesinvoice/salesinvoiceamount", "123,34");
     _xmlSetAttribute($invoice_xml, "root/salesinvoice/salesinvoiceamount", "iso4217currencycode", "EUR");
     _xmlSetAttribute($invoice_xml, "root/salesinvoice/salesinvoiceamount", "currencyrate", "");
     _xmlset($invoice_xml, "root/salesinvoice/selleridentifier", "");
-    _xmlSetAttribute($invoice_xml, "root/salesinvoice/selleridentifier", "type", "netvisor");
+    _xmlSetAttribute("$invoice_xml", "root/salesinvoice/selleridentifier", "type", "netvisor");
     _xmlset($invoice_xml, "root/salesinvoice/sellername", "Myyjä");
     _xmlset($invoice_xml, "root/salesinvoice/invoicetype", $InvoiceType);
     _xmlset($invoice_xml, "root/salesinvoice/salesinvoicestatus", "Open");
@@ -370,11 +371,11 @@ sub PostSalesInvoice {
     sub _getAuthData {
         my $self = shift;
         
-        my $UserId = config->('NetvisorRESTUserId');
-        my $Key = config->('NetvisorRESTKey');
-        my $CompanyId = config->('NetvisorShopVATID'); 
-        my $PartnerId = config->('Netvisor_PartnerId');
-        my $PartnerKey = config->('Netvisor_PartnerKey');
+        my $UserId = config->{'NetvisorRESTUserId'};
+        my $Key = config->{'NetvisorRESTKey'};
+        my $CompanyId = config->{'NetvisorShopVATID'}; 
+        my $PartnerId = config->{'Netvisor_PartnerId'};
+        my $PartnerKey = config->{'Netvisor_PartnerKey'};
         my $hAuth = {
             UserId => $UserId,
             Key => $Key,

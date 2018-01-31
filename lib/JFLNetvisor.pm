@@ -15,6 +15,15 @@ use Requests;
 prefix '/netvisor';
 
 
+get '/getinvoicestatus' => sub {
+        # TODO haetaan maksamattomat laskut ja tarkistetaan että onko ne maksettu
+
+    my $netvisor = Requests->new();
+    debug $netvisor;
+    return Dumper($netvisor);
+};
+
+
 #=======================================================================
 # route        	/netvisor/
 # state        	private auth needed
@@ -50,12 +59,8 @@ get '/:id' => sub {
 	# 	lähetetään tuote jokaisen asiakkaan postauksen jälkeen
 	#	lähetetään lasku jokaisen tuotteen lähetyksen jälkeen
 	#	jokainen netvisor lähetys palauttaa netvisorid:n joka talletetaan tietokantaan
-	#
-	
-};
+     return "someting";
 
-get '/getinvoicestatus' => sub {
-	# TODO haetaan maksamattomat laskut ja tarkistetaan että onko ne maksettu
 };
 
 1;
