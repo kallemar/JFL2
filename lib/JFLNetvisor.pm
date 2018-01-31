@@ -15,6 +15,15 @@ use Requests;
 prefix '/netvisor';
 
 
+get '/getinvoicestatus' => sub {
+        # TODO haetaan maksamattomat laskut ja tarkistetaan että onko ne maksettu
+
+    my $netvisor = Requests->new();
+    debug $netvisor;
+    return Dumper($netvisor);
+};
+
+
 #=======================================================================
 # route        	/netvisor/
 # state        	private auth needed
@@ -47,11 +56,17 @@ get '/:id' => sub {
 	#debug Dumper($players);
     
     #avataan yhteys netvisoriin
+<<<<<<< HEAD
     my $netvisor = Requests->new();
     #debug Dumper($netvisor);
    
     foreach my $player (@{ $players }) {
 		#luetaan pelaajan id
+=======
+    my $netvisorconn = Requests->new();
+    debug Dumper($netvisorconn);
+    
+>>>>>>> 6e3e0f4e232ee10ae193c26162eb3f50d9f127c4
 		my $playerid = $player->{'id'};
 		
 		# luetaan pelaajan kaupunginosa
@@ -122,10 +137,6 @@ get '/:id' => sub {
 		 
 		
 	}	
-};
-
-get '/getinvoicestatus' => sub {
-	# TODO haetaan maksamattomat laskut ja tarkistetaan että onko ne maksettu
 };
 
 1;

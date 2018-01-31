@@ -8,6 +8,7 @@ use Dancer ':syntax';
 use Data::Dumper;
 use DateTime;
 use XML::XPath;
+use Dancer ':syntax';
 use XML::Simple;
 use XML::LibXML::SAX;
 use Data::Dumper;
@@ -239,6 +240,16 @@ sub PostSalesInvoice {
     _xmlset($invoice_xml, "root/salesinvoice/salesinvoicenumber", $Order->{'Alias'});
     _xmlset($invoice_xml, "root/salesinvoice/salesinvoicedate", $Order->{'CreationDate'}->strftime("%Y-%m-%d"));
     _xmlSetAttribute($invoice_xml, "root/salesinvoice/salesinvoicedate", "format", "ansi");
+<<<<<<< HEAD
+    _xmlset($invoice_xml, "root/salesinvoice/salesinvoicevaluedate", ""); 
+    _xmlSetAttribute($invoice_xml, "root/salesinvoice/salesinvoicevaluedate", "format", "ansi");
+    _xmlset($invoice_xml, "root/salesinvoice/salesinvoicedeliverydate", "");
+    _xmlSetAttribute($invoice_xml, "root/salesinvoice/salesinvoicedeliverydate", "format", "ansi");
+    _xmlset($invoice_xml, "root/salesinvoice/salesinvoicereferencenumber", "123456");
+    _xmlset($invoice_xml, "root/salesinvoice/salesinvoiceamount", "123,34");
+    _xmlSetAttribute($invoice_xml, "root/salesinvoice/salesinvoiceamount", "iso4217currencycode", "EUR");
+    _xmlSetAttribute($invoice_xml, "root/salesinvoice/salesinvoiceamount", "currencyrate", "");
+=======
     
     if(defined $Order->{'PaidOn'}) {
         _xmlset($invoice_xml, "root/salesinvoice/salesinvoicevaluedate", $Order->{'PaidOn'}->strftime("%Y-%m-%d")); 
@@ -254,8 +265,9 @@ sub PostSalesInvoice {
     #_xmlset($invoice_xml, "root/salesinvoice/salesinvoiceamount", $LineItemContainer->{'GrandTotal'});
     #_xmlSetAttribute($invoice_xml, "root/salesinvoice/salesinvoiceamount", "iso4217currencycode", $LineItemContainer->{'CurrencyID'});
     _xmlSetAttribute($invoice_xml, "root/salesinvoice/salesinvoiceamount", "currencyrate", "0,00");
+>>>>>>> b607578fc35e0c456cc180bbfbe455fc15297d10
     _xmlset($invoice_xml, "root/salesinvoice/selleridentifier", "");
-    _xmlSetAttribute($invoice_xml, "root/salesinvoice/selleridentifier", "type", "netvisor");
+    _xmlSetAttribute("$invoice_xml", "root/salesinvoice/selleridentifier", "type", "netvisor");
     _xmlset($invoice_xml, "root/salesinvoice/sellername", "Myyjä");
     _xmlset($invoice_xml, "root/salesinvoice/invoicetype", $InvoiceType);
     
@@ -571,25 +583,24 @@ sub DeleteDimension {
 # §input        $Shop  | shop object | object
 # §return       $hAuth | hash with the athentication data | hash
 #=============================================================================
-sub _getAuthData {
-    my $self = shift;
+    sub _getAuthData {
+        my $self = shift;
+        
+        my $UserId = config->{'NetvisorRESTUserId'};
+        my $Key = config->{'NetvisorRESTKey'};
+        my $CompanyId = config->{'NetvisorShopVATID'}; 
+        my $PartnerId = config->{'Netvisor_PartnerId'};
+        my $PartnerKey = config->{'Netvisor_PartnerKey'};
+        my $hAuth = {
+            UserId => $UserId,
+            Key => $Key,
+            CompanyId => $CompanyId,
+            PartnerId => $PartnerId,
+            PartnerKey => $PartnerKey,
+        };
 
-    my $UserId = config->{'NetvisorRESTUserId'};
-    my $Key = config->{'NetvisorRESTKey'};
-    my $CompanyId = config->{'NetvisorShopVATID'};
-    my $PartnerId = config->{'Netvisor_PartnerId'};
-    my $PartnerKey = config->{'Netvisor_PartnerKey'};
-    my $hAuth = {
-        UserId => $UserId,
-        Key => $Key,
-        CompanyId => $CompanyId,
-        PartnerId => $PartnerId,
-        PartnerKey => $PartnerKey,
-    };
-
-    return $hAuth;
-}
-
+        return $hAuth;
+    }
 
 sub _xmlset {
     my ($Tree, $xpath, $value) = @_;
