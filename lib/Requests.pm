@@ -4,9 +4,7 @@ use base FI_GAGAR::Netvisor::API::RESTClient;
 use strict;
 use warnings;
 
-use DE_EPAGES::Core::API::Log qw ( GetLog LogDebug );
 use DE_EPAGES::Object::API::Factory qw ( LoadRootObject );
-use DE_EPAGES::Core::API::PerlTools qw ( GenerateGUID );
 use Data::Dumper;
 use XML::XPath;
 use XML::Simple;
@@ -314,7 +312,7 @@ sub PostSalesInvoice {
 
         my $data = $invoice_xml->findnodes_as_string('root');
         my $response = $self->SUPER::request("salesinvoice.nv", "POST", $data, "?method=$postMethod");
-        GetLog->debug("Response from API: $response->[1]");
+        LogDebug("Response from API: $response->[1]");
 
     }
 
