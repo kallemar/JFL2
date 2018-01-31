@@ -38,11 +38,14 @@ get '/:id' => sub {
   					          invoiced => undef,
   					          isinvoice => 0,	#FIXME 1
                             })->collection;
-	
     debug Dumper($players);
     
+    foreach my $player (@{ $players }) {
+		debug $player->first;
+	}
+    
     #TODO
-    # loopataan läpi $players
+    
 	# 	tarkistetaan että onko $player->netvisorid tyhjä => kutsutaan postcustomer metodia "add" parameterilla, muutoin aina edit
 	# 	lähetetään tuote jokaisen asiakkaan postauksen jälkeen
 	#	lähetetään lasku jokaisen tuotteen lähetyksen jälkeen
@@ -53,5 +56,6 @@ get '/:id' => sub {
 
 get '/getinvoicestatus' => sub {
 	# TODO haetaan maksamattomat laskut ja tarkistetaan että onko ne maksettu
-}
+};
+
 1;

@@ -18,7 +18,7 @@ use constant HTTP_CODE_OK => 200;
 use constant REQUIREDKEYS => qw ( UserId Key CompanyId PartnerId PartnerKey ); # Remember to add stuff to ErrorDefinition in uc if you add data here
 
 sub LogDebug {
-    my $str = shift
+    my $str = shift;
     my $struct = shift;
     debug $str, $struct;
 }

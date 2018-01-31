@@ -1,8 +1,8 @@
 package Requests;
 use base RESTClient;
 
-use strict;
-use warnings;
+#use strict;
+#use warnings;
 
 use Data::Dumper;
 use XML::XPath;
@@ -13,7 +13,7 @@ sub new {
     my $class = shift;
     my $Shop = shift;
 
-    my $Url = $System->get('Netvisor_RESTTestUrl');#FIXME Lue configista
+    my $Url = config->{'Netvisor_RESTTestUrl'};
     my $hAuth = $class->_getAuthData();
     my $self = $class->SUPER::new($Url, $hAuth);
 
@@ -263,10 +263,10 @@ sub PostSalesInvoice {
     _xmlset($invoice_xml, "root/salesinvoice/overridevouchersalesreceivablesaccountnumber", "");
     _xmlset($invoice_xml, "root/salesinvoice/salesinvoiceagreementidentifier", "");
     _xmlset($invoice_xml, "root/salesinvoice/printchannelformat", "");
-    _xmlSetAttribute($invoice_xml, "root/salesinvoice/printchannelformat", "type", "netvisor"
+    _xmlSetAttribute($invoice_xml, "root/salesinvoice/printchannelformat", "type", "netvisor");
         _xmlset($invoice_xml, "root/salesinvoice/secondname", "");
         _xmlSetAttribute($invoice_xml, "root/salesinvoice/secondname", "type", "netvisor");
-        _xmlset($invoice_xml, "root/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productidentifier" "1234");
+        _xmlset($invoice_xml, "root/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productidentifier", "1234");
         _xmlSetAttribute($invoice_xml, "root/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productidentifier", "type", "customer");
         _xmlset($invoice_xml, "root/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productname", "testituote");
         _xmlset($invoice_xml, "root/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productunitprice", "123,50");
@@ -301,7 +301,7 @@ sub PostSalesInvoice {
         _xmlset($invoice_xml, "root/salesinvoice/salesinvoiceaccrual/accrualvoucherentry/sum", "100");
         _xmlset($invoice_xml, "root/salesinvoice/salesinvoiceattachments/salesinvoiceattachment/mimetype", "Application/pdf");
         _xmlset($invoice_xml, "root/salesinvoice/salesinvoiceattachments/salesinvoiceattachment/attachmentdescription", "testi");
-        _xmlset($invoice_xml, "root/salesinvoice/salesinvoiceattachments/salesinvoiceattachment/filename" "testi.pdf");
+        _xmlset($invoice_xml, "root/salesinvoice/salesinvoiceattachments/salesinvoiceattachment/filename", "testi.pdf");
         _xmlset($invoice_xml, "root/salesinvoice/salesinvoiceattachments/salesinvoiceattachment/documentdata", "");
         _xmlSetAttribute($invoice_xml, "root/salesinvoice/salesinvoiceattachments/salesinvoiceattachment/documentdata", "type", "pdf");
         _xmlset($invoice_xml, "root/salesinvoice/salesinvoiceattachments/salesinvoiceattachment/printbydefault", "1");
@@ -370,11 +370,11 @@ sub PostSalesInvoice {
     sub _getAuthData {
         my $self = shift;
         
-        my $UserId = $Shop->get('NetvisorRESTUserId');#FIXME Lue configista
-        my $Key = $Shop->get('NetvisorRESTKey');#FIXME Lue configista
-        my $CompanyId = $Shop->get('NetvisorShopVATID'); #FIXME Lue configista
-        my $PartnerId = $System->get('Netvisor_PartnerId');#FIXME Lue configista
-        my $PartnerKey = $System->get('Netvisor_PartnerKey');#FIXME Lue configista
+        my $UserId = config->('NetvisorRESTUserId');
+        my $Key = config->('NetvisorRESTKey');
+        my $CompanyId = config->('NetvisorShopVATID'); 
+        my $PartnerId = config->('Netvisor_PartnerId');
+        my $PartnerKey = config->('Netvisor_PartnerKey');
         my $hAuth = {
             UserId => $UserId,
             Key => $Key,
