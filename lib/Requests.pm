@@ -353,7 +353,7 @@ sub PostSalesInvoice {
     my $response = $self->SUPER::request("salesinvoice.nv", "POST", $data, "?method=$postMethod");
     GetLog->debug("Response from API: $response->[1]");
     return $response;
-    }
+}
 
 #=============================================================================
 # §function     GetProductList
