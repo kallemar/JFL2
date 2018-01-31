@@ -1,5 +1,5 @@
 {
-    fields  => [ qw/id name contactid description isvisible/],
+    fields  => [ qw/id name contactid description price isvisible/],
 
     filters => [ # Remove spaces from all
                  qr/.+/ => filter(qw/trim strip/),

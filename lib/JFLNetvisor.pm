@@ -31,17 +31,29 @@ prefix '/netvisor';
 				
 #=======================================================================
 get '/:id' => sub {
+	# luetaan pelaajat jotka pitää laskuttaa
     my $id = params->{'id'};
     my $players = db->player
-                     ->read({ seasonid  => $id,
+                     ->read({ id => 1133,	#FIXME
+							  seasonid  => $id,
    				              cancelled => undef,
   					          invoiced => undef,
   					          isinvoice => 0,	#FIXME 1
                             })->collection;
-    debug Dumper($players);
+    
+    #avataan yhteys netvisoriin
+    my $netvisor = Requests::new();
+    debug $netvisor;
     
     foreach my $player (@{ $players }) {
-		debug $player->first;
+		debug $player;
+		if ($player->{'netvisorid'} eq '') {
+			#PostCustomer('', "Add", $player);
+		} else {
+			#PostCustomer('', "Edit", $player);
+		}
+
+	
 	}
     
     #TODO
