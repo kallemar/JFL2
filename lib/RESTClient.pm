@@ -5,9 +5,6 @@ use warnings;
 
 use Encode;
 use REST::Client;
-use DE_EPAGES::Core::API::TestParameter qw ( TestObject );
-use DE_EPAGES::Core::API::Error qw ( Error CallerError ExistsError );
-use DE_EPAGES::Core::API::Log qw ( LogDebug );
 use DateTime;
 use Time::HiRes qw(time);
 use Data::Dumper;
@@ -20,6 +17,11 @@ use constant CALL_TIMEOUT => 20;   #in seconds. Default is 300 (5 minutes)
 use constant HTTP_CODE_OK => 200;
 use constant REQUIREDKEYS => qw ( UserId Key CompanyId PartnerId PartnerKey ); # Remember to add stuff to ErrorDefinition in uc if you add data here
 
+sub LogDebug {
+    my $str = sift
+    my $struct = sift;
+    debug "$str, $struct;
+}
 
 sub ErrorDefinition {
     return {
@@ -72,12 +74,9 @@ sub new {
     my @RequiredKeys = (REQUIREDKEYS);
     foreach my $RequiredKey (@RequiredKeys) {
         my $RequiredKeyUC = uc $RequiredKey;
-        CallerError("NO_" . $RequiredKeyUC . "_SET") unless exists $args->{$RequiredKey};
     };
 
     my $Client = _getClient();
-    TestObject('Client', $Client, 'REST::Client');
-
 
     return bless {
         Url => $URL,
@@ -125,17 +124,13 @@ sub request {
     my $data = shift;
     my $querystr = shift;
 
-    CallerError("NO_PATH_FOR_REQUEST") unless defined $path;
-    CallerError("NO_METHOD_FOR_REQUEST") unless defined $method;
-
     my $xmlData = undef;
     if ( defined $data ) {
         eval {
             $xmlData = &_hash2xml($data);
         };
-        if ( ExistsError() ) {
-            my $Error = GetError();
-            Error("CANT_PARSE_HASH",$Error->longMessage);
+        if ( $@ ) {
+            LogDebug('Eval:', $@);
         }
     }
 
@@ -148,7 +143,7 @@ sub request {
     my $response = $Client->request($method,$url,$xmlData ,$Headers);
     LogDebug("Response",$response);
     if ( $response->responseCode() != HTTP_CODE_OK ) {
-        Error( 'CONNECTION_FAILED', { 'responsecode' => $response->responseCode()} );
+        LogDebug( 'CONNECTION_FAILED', { 'responsecode' => $response->responseCode()} );
     }
 
     return [$response->responseContent, $response];
