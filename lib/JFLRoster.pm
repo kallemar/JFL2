@@ -5,6 +5,7 @@ use Dancer::Plugin::ORMesque;
 use Dancer::Plugin::Database;
 use Dancer::Plugin::Auth::Extensible;
 use POSIX;
+use Data::Dumper;
 
 prefix '/roster';
 
@@ -176,36 +177,37 @@ get '/suburban/:id' => require_any_role [qw(admin coach contact)] => sub {
 };
 
 get '/team/:id' => require_any_role [qw(admin coach contact)] => sub {
-     #TODO
-     #- add 'deactivate' function for a player
-     #- add 'edit' function for a player
-     #- export email addresses function
-     #- finetune player and coach data: what to display and what to not
+	#TODO
+	#- add 'deactivate' function for a player
+	#- add 'edit' function for a player
+	#- export email addresses function
+	#- finetune player and coach data: what to display and what to not
 
-     my $user = logged_in_user;
-     my $params = params;
-     my $id = $params->{'id'};
-     my $players = '';
-     my $coaches = '';
-     my $team = '';
-     my $suburban = '';
-     my $parentid;
+	my $user = logged_in_user;
+	my $params = params;
+	my $id = $params->{'id'};
+	my $players = '';
+	my $coaches = '';
+	my $team = '';
+	my $suburban = '';
+	my $parentid;
 
-        $players = db->player
-                             ->read({ teamid => $id }, ['birthyear DESC', 'lastname'])
-                             ->collection;
+	#get players
+	$players = db->player
+				 ->read({ teamid => $id }, ['birthyear DESC', 'lastname'])
+				 ->collection;
 
-        #- very dangerous coding. Makes sql injection possible!
-        $coaches = db->query('SELECT id as coachid,firstname,lastname,phone,email FROM coach WHERE teamid=' . $id)->hashes;
+	#Get coaches
+	$coaches = db->coach->read({ teamid => $id } )->collection;
 
-        $team = db->team->read($id)->current;
-        $suburban = db->suburban->read($team->{'suburbanid'})->current;
+	$team = db->team->read($id)->current;
+	$suburban = db->suburban->read($team->{'suburbanid'})->current;
 
-     #--Contacts
-     my $contactids = db->contact_suburban
-                        ->read( { suburbanid => $suburban->{'id'} } )
-                        ->collection;
-     my @contacts;
+	#--Contacts
+    my $contactids = db->contact_suburban
+				->read( { suburbanid => $suburban->{'id'} } )
+				->collection;
+	my @contacts;
         foreach my $csid (@{ $contactids })  {
             push(@contacts, db->contact
                               ->read($csid->{'contactid'})
