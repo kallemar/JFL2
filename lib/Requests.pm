@@ -615,8 +615,8 @@ sub _xmlset {
 sub _xmlSetAttribute {
     my $Tree = shift;
     my $xpath = shift;
-    my $AttributeKey = shift;
-    my $AttributeValue = shift;
+    my $AttributeKey   = defined($_[2]) ? $_[2] : die("No AttributeKey defined");
+    my $AttributeValue = defined($_[3]) ? $_[3] : die("No AttributValue defined");
 
     if(!$Tree->exists($xpath)) {
         $Tree->createNode($xpath);
