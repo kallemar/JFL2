@@ -135,8 +135,12 @@ sub PostCustomer {
     _xmlSetAttribute($customer_xml, "/customer/customeradditionalinformation/defaultsalesperson/salespersonid", "type", "netvisor");
 
     my $data = $customer_xml->findnodes_as_string('/');
-    my $response = $self->SUPER::request("customer.nv", "POST", $data, "?method=$postMethod");
- 
+    my $response;
+    if ($postMethod eq 'add') {
+		$response = $self->SUPER::request("customer.nv", "POST", $data, "?method=$postMethod");
+	} else {
+		$response = $self->SUPER::request("customer.nv", "POST", $data, "?method=$postMethod&id=$player->{'netvisorid'}");
+	}
     return $response;
 }
 
