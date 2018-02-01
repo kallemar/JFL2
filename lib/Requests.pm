@@ -135,12 +135,13 @@ sub PostCustomer {
     _xmlset($customer_xml, "/customer/customeradditionalinformation/defaultsalesperson/salespersonid", "");
     _xmlSetAttribute($customer_xml, "/customer/customeradditionalinformation/defaultsalesperson/salespersonid", "type", "netvisor");
 
-    #my $data = $customer_xml->findnodes_as_string('root');
-    my $data = ($customer_xml->findnodes('/'))[0]->toString();
+    my $data = $customer_xml->findnodes_as_string('/');
+    #my $data = ($customer_xml->findnodes('/'))[0]->toString();
     debug $data;
 
     my $response = $self->SUPER::request("customer.nv", "POST", $data, "?method=$postMethod");
-    
+    debug $response;
+
     return $response;
 }
 
@@ -655,8 +656,18 @@ sub _xmlSetAttribute {
         $Tree->createNode($xpath);
     }
 
-    my $Node = $Tree->find($xpath)->get_node(1);
     my $AttributeNode = XML::XPath::Node::Attribute->new($AttributeKey, $AttributeValue, '');
+
+    my $nodeset = $Tree->findnodes($xpath);
+    if (!$nodeset->isa('XML::XPath::NodeSet')) {
+        foreach my $Node ($nodeset->get_nodelist) {
+            $Node->appendAttribute($AttributeNode);
+        }
+    }
+        
+
+    #my $Node = $Tree->find($xpath)->get_node(1);
+    #my $AttributeNode = XML::XPath::Node::Attribute->new($AttributeKey, $AttributeValue, '');
     #$Node->appendAttribute($AttributeNode);
 }
 
