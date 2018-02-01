@@ -80,64 +80,64 @@ sub PostCustomer {
     my $player = shift;
     my $postMethod = shift;
     
-    # Create XML for post
+    # Create XML for post   
     my $RootNode = XML::XPath::Node::Element->new('root',"");
     my $customer_xml = XML::XPath->new(context => $RootNode);
  
-    _xmlset($customer_xml, "root/customer/customerbaseinformation/internalidentifier", "123456");
-    _xmlset($customer_xml, "root/customer/customerbaseinformation/externalidentifier", "654321");
-    _xmlset($customer_xml, "root/customer/customerbaseinformation/organizationunitnumber", "");
-    _xmlset($customer_xml, "root/customer/customerbaseinformation/name", "");
-    _xmlset($customer_xml, "root/customer/customerbaseinformation/nameextension", '');
-    _xmlset($customer_xml, "root/customer/customerbaseinformation/streetaddress", "");
-    _xmlset($customer_xml, "root/customer/customerbaseinformation/additionaladdressline", '');
-    _xmlset($customer_xml, "root/customer/customerbaseinformation/city", "");
-    _xmlset($customer_xml, "root/customer/customerbaseinformation/postnumber", "");
-    _xmlset($customer_xml, "root/customer/customerbaseinformation/country", "FI");
-    _xmlSetAttribute($customer_xml, "root/customer/customerbaseinformation/country", "type", "ISO-3166");
-    _xmlset($customer_xml, "root/customer/customerbaseinformation/customergroupname", "Futisklubi");
-    _xmlset($customer_xml, "root/customer/customerbaseinformation/phonenumber", "");
-    _xmlset($customer_xml, "root/customer/customerbaseinformation/faxnumber", '');
-    _xmlset($customer_xml, "root/customer/customerbaseinformation/email", "");
-    _xmlset($customer_xml, "root/customer/customerbaseinformation/homepageuri", '');
-    _xmlset($customer_xml, "root/customer/customerbaseinformation/isactive", "1");
-    _xmlset($customer_xml, "root/customer/customerbaseinformation/isprivatecustomer", "1");
-    _xmlset($customer_xml, "root/customer/customerbaseinformation/emailinvoicingaddress", "");
+    _xmlset($customer_xml, "/customer/customerbaseinformation/internalidentifier", "123456");
+    _xmlset($customer_xml, "/customer/customerbaseinformation/externalidentifier", "654321");
+    _xmlset($customer_xml, "/customer/customerbaseinformation/organizationunitnumber", "");
+    _xmlset($customer_xml, "/customer/customerbaseinformation/name", "");
+    _xmlset($customer_xml, "/customer/customerbaseinformation/nameextension", '');
+    _xmlset($customer_xml, "/customer/customerbaseinformation/streetaddress", "");
+    _xmlset($customer_xml, "/customer/customerbaseinformation/additionaladdressline", '');
+    _xmlset($customer_xml, "/customer/customerbaseinformation/city", "");
+    _xmlset($customer_xml, "/customer/customerbaseinformation/postnumber", "");
+    _xmlset($customer_xml, "/customer/customerbaseinformation/country", "FI");
+    _xmlSetAttribute($customer_xml, "/customer/customerbaseinformation/country", "type", "ISO-3166");
+    _xmlset($customer_xml, "/customer/customerbaseinformation/customergroupname", "Futisklubi");
+    _xmlset($customer_xml, "/customer/customerbaseinformation/phonenumber", "");
+    _xmlset($customer_xml, "/customer/customerbaseinformation/faxnumber", '');
+    _xmlset($customer_xml, "/customer/customerbaseinformation/email", "");
+    _xmlset($customer_xml, "/customer/customerbaseinformation/homepageuri", '');
+    _xmlset($customer_xml, "/customer/customerbaseinformation/isactive", "1");
+    _xmlset($customer_xml, "/customer/customerbaseinformation/isprivatecustomer", "1");
+    _xmlset($customer_xml, "/customer/customerbaseinformation/emailinvoicingaddress", "");
     
-    _xmlset($customer_xml, "root/customer/customerfinvoicedetails/finvoiceaddress", '');
-    _xmlset($customer_xml, "root/customer/customerfinvoicedetails/finvoiceroutercode", '');
+    _xmlset($customer_xml, "/customer/customerfinvoicedetails/finvoiceaddress", '');
+    _xmlset($customer_xml, "/customer/customerfinvoicedetails/finvoiceroutercode", '');
 
 
-    _xmlset($customer_xml, "root/customer/customerdeliverydetails/deliveryname", "");
-    _xmlset($customer_xml, "root/customer/customerdeliverydetails/deliverystreetaddress", "");
-    _xmlset($customer_xml, "root/customer/customerdeliverydetails/deliverycity", "");
-    _xmlset($customer_xml, "root/customer/customerdeliverydetails/deliverypostnumber", "");
-    _xmlset($customer_xml, "root/customer/customerdeliverydetails/deliverycountry", 'FI');
+    _xmlset($customer_xml, "/customer/customerdeliverydetails/deliveryname", "");
+    _xmlset($customer_xml, "/customer/customerdeliverydetails/deliverystreetaddress", "");
+    _xmlset($customer_xml, "/customer/customerdeliverydetails/deliverycity", "");
+    _xmlset($customer_xml, "/customer/customerdeliverydetails/deliverypostnumber", "");
+    _xmlset($customer_xml, "/customer/customerdeliverydetails/deliverycountry", 'FI');
     _xmlSetAttribute($customer_xml, "root/customer/customerdeliverydetails/deliverycountry", "type", "ISO-3166");
     
 
-    _xmlset($customer_xml, "root/customer/customercontactdetails/contactname", "");
-    _xmlset($customer_xml, "root/customer/customercontactdetails/contactperson", "");
-    _xmlset($customer_xml, "root/customer/customercontactdetails/contactpersonemail", "");
-    _xmlset($customer_xml, "root/customer/customercontactdetails/contactpersonphone", "");
+    _xmlset($customer_xml, "/customer/customercontactdetails/contactname", "");
+    _xmlset($customer_xml, "/customer/customercontactdetails/contactperson", "");
+    _xmlset($customer_xml, "/customer/customercontactdetails/contactpersonemail", "");
+    _xmlset($customer_xml, "/customer/customercontactdetails/contactpersonphone", "");
 
-    _xmlset($customer_xml, "root/customer/customeradditionalinformation/comment", '');
-    _xmlset($customer_xml, "root/customer/customeradditionalinformation/customeragreementidentifier", "");
-    _xmlset($customer_xml, "root/customer/customeradditionalinformation/customerreferencenumber", "");
-    _xmlset($customer_xml, "root/customer/customeradditionalinformation/directdebitbankaccount", "");
-    _xmlset($customer_xml, "root/customer/customeradditionalinformation/invoicinglanguage", "");
-    _xmlSetAttribute($customer_xml, "root/customer/customeradditionalinformation/invoicinglanguage", "type", "ISO-3166");
-    _xmlset($customer_xml, "root/customer/customeradditionalinformation/invoiceprintchannelformat", "");
-    _xmlSetAttribute($customer_xml, "root/customer/customeradditionalinformation/invoiceprintchannelformat", "type", "netvisor");
-    _xmlset($customer_xml, "root/customer/customeradditionalinformation/yourdefaultreference", "");
-    _xmlset($customer_xml, "root/customer/customeradditionalinformation/defaulttextbeforeinvoicelines", "");
-    _xmlset($customer_xml, "root/customer/customeradditionalinformation/defaulttextafterinvoicelines", "");
-    _xmlset($customer_xml, "root/customer/customeradditionalinformation/defaultsalesperson/salespersonid", "");
-    _xmlSetAttribute($customer_xml, "root/customer/customeradditionalinformation/defaultsalesperson/salespersonid", "type", "netvisor");
+    _xmlset($customer_xml, "/customer/customeradditionalinformation/comment", '');
+    _xmlset($customer_xml, "/customer/customeradditionalinformation/customeragreementidentifier", "");
+    _xmlset($customer_xml, "/customer/customeradditionalinformation/customerreferencenumber", "");
+    _xmlset($customer_xml, "/customer/customeradditionalinformation/directdebitbankaccount", "");
+    _xmlset($customer_xml, "/customer/customeradditionalinformation/invoicinglanguage", "");
+    _xmlSetAttribute($customer_xml, "/customer/customeradditionalinformation/invoicinglanguage", "type", "ISO-3166");
+    _xmlset($customer_xml, "/customer/customeradditionalinformation/invoiceprintchannelformat", "");
+    _xmlSetAttribute($customer_xml, "/customer/customeradditionalinformation/invoiceprintchannelformat", "type", "netvisor");
+    _xmlset($customer_xml, "/customer/customeradditionalinformation/yourdefaultreference", "");
+    _xmlset($customer_xml, "/customer/customeradditionalinformation/defaulttextbeforeinvoicelines", "");
+    _xmlset($customer_xml, "/customer/customeradditionalinformation/defaulttextafterinvoicelines", "");
+    _xmlset($customer_xml, "/customer/customeradditionalinformation/defaultsalesperson/salespersonid", "");
+    _xmlSetAttribute($customer_xml, "/customer/customeradditionalinformation/defaultsalesperson/salespersonid", "type", "netvisor");
 
-    my $data = $customer_xml->findnodes_as_string('/');
+    #my $data = $customer_xml->findnodes_as_string('root');
+    my $data = ($customer_xml->findnodes('/'))[0]->toString();
     debug $data;
-    #debug $customer_xml;
 
     my $response = $self->SUPER::request("customer.nv", "POST", $data, "?method=$postMethod");
     
@@ -640,7 +640,7 @@ sub _xmlset {
         $Tree->createNode($xpath);
     }
     if((defined $value) and ($value ne '')) {
-        $Tree->setNodeText($xpath, "as $value");
+        $Tree->setNodeText($xpath, $value);
     }
 }
 
