@@ -9,6 +9,7 @@ use Dancer::Plugin::ORMesque;
 use Dancer::Plugin::REST;
 use Dancer::Plugin::Auth::Basic;
 use Data::Dumper;
+use XML::Simple;	
 use Requests;
 
 #-- set url prefix to .../netvisor/
@@ -18,9 +19,6 @@ prefix '/netvisor';
 get '/getinvoicestatus' => sub {
         # TODO haetaan maksamattomat laskut ja tarkistetaan että onko ne maksettu
 
-    my $netvisor = Requests->new();
-    debug $netvisor;
-    return Dumper($netvisor);
 };
 
 
@@ -55,9 +53,21 @@ get '/:id' => sub {
     #debug Dumper($season);
 	#debug Dumper($players);
     
-    #avataan yhteys netvisoriin
-    my $netvisor = Requests->new();
-    #debug Dumper($netvisor);
+
+
+	# get Netvisor auth details from config
+    my $hAuth = {
+        UserId => config->{'NetvisorRESTUserId'},
+        Key => config->{'NetvisorRESTKey'},
+        CompanyId => config->{'NetvisorShopVATID'},
+        PartnerId => config->{'Netvisor_PartnerId'},
+        PartnerKey => config->{'Netvisor_PartnerKey'},
+		URL => config->{'Netvisor_RESTTestUrl'},
+    };
+
+	my $NetvisorClient = Requests->new($hAuth, config->{'Netvisor_RESTTestUrl'});
+
+
    
     foreach my $player (@{ $players }) {
 		#luetaan pelaajan id
@@ -86,13 +96,37 @@ get '/:id' => sub {
 			$player->{'parent'} = db->parent->read($parentid)->current;
 		}
 		#debug Dumper($player);
-		
-				
+
 		# jos netvisorid on olemassa niin tehdään "Edit", jos sitä ei ole olemassa niin tehdään "Add"
-		Requests->PostCustomer('Add', $player);
-		debug "PostCustomer:::::::::::::::::::::";
+		my $response;
+		if (defined $player->{'netvisorid'}) {
+			debug "EDIT";
+			$response = $NetvisorClient->PostCustomer($player, 'edit');
+		} else {
+			debug "ADD";
+			$response = $NetvisorClient->PostCustomer($player, 'add', $player->{'netvisorid'});
+		}
 		
-		
+		debug @{ $response }[0];
+		my $xml = new XML::Simple;
+		my $data = $xml->XMLin(@{ $response }[0]);
+		my $netvisorid;
+		my $status = $data->{ResponseStatus}->{Status}->[0];
+		if ( $status eq 'FAILED') {
+			debug "FAILED";
+			debug "REASON: $data->{ResponseStatus}->{Status}->[1]";
+			return "DONE"
+			
+		} elsif ( $status eq 'FAILED') {
+			debug "SUCCESS";
+			$netvisorid = "$data->{Replies}->{InsertedDataIdentifier}";
+			debug "NEW ID: $netvisorid";
+			
+		} else {
+			return "DONE";
+		}
+return "DONE";		
+
          #lähetetaan tuote netvisoriin
          my $Product;
 		 $Product->{'ListPrices'}		 	= $player->{'price'};
@@ -111,12 +145,12 @@ get '/:id' => sub {
         
          
           # talletetaan saatu netvisorid takaisin pelaajatietueelle
-		 db->player->update({
-                             netvisorid => $id,
-                        },
-                        {
-                             id => $playerid,
-                        });
+		 #db->player->update({
+         #                    netvisorid => $id,
+         #               },
+         #               {
+         #                    id => $playerid,
+         #               });
 		 
 		
 	}	
