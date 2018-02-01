@@ -10,7 +10,6 @@ use XML::XPath;
 use XML::XPath::XMLParser;
 use XML::Simple;
 use XML::LibXML::SAX;
-use Dancer ':syntax';
 
 sub new {
     my $class = shift;
@@ -84,21 +83,21 @@ sub PostCustomer {
     my $RootNode = XML::XPath::Node::Element->new('root',"");
     my $customer_xml = XML::XPath->new(context => $RootNode);
  
-    _xmlset($customer_xml, "/customer/customerbaseinformation/internalidentifier", "123456");
-    _xmlset($customer_xml, "/customer/customerbaseinformation/externalidentifier", "654321");
+    _xmlset($customer_xml, "/customer/customerbaseinformation/internalidentifier", $player->{'id'});
+    _xmlset($customer_xml, "/customer/customerbaseinformation/externalidentifier", $player->{'id'});
     _xmlset($customer_xml, "/customer/customerbaseinformation/organizationunitnumber", "");
-    _xmlset($customer_xml, "/customer/customerbaseinformation/name", "");
+    _xmlset($customer_xml, "/customer/customerbaseinformation/name", "$player->{'parent'}->{'firstname'} $player->{'parent'}->{'lastname'}");
     _xmlset($customer_xml, "/customer/customerbaseinformation/nameextension", '');
-    _xmlset($customer_xml, "/customer/customerbaseinformation/streetaddress", "");
+    _xmlset($customer_xml, "/customer/customerbaseinformation/streetaddress", $player->{'street'});
     _xmlset($customer_xml, "/customer/customerbaseinformation/additionaladdressline", '');
-    _xmlset($customer_xml, "/customer/customerbaseinformation/city", "");
-    _xmlset($customer_xml, "/customer/customerbaseinformation/postnumber", "");
+    _xmlset($customer_xml, "/customer/customerbaseinformation/city", $player->{'street'});
+    _xmlset($customer_xml, "/customer/customerbaseinformation/postnumber", $player->{'zip'});
     _xmlset($customer_xml, "/customer/customerbaseinformation/country", "FI");
     _xmlSetAttribute($customer_xml, "/customer/customerbaseinformation/country", "type", "ISO-3166");
     _xmlset($customer_xml, "/customer/customerbaseinformation/customergroupname", "Futisklubi");
-    _xmlset($customer_xml, "/customer/customerbaseinformation/phonenumber", "");
+    _xmlset($customer_xml, "/customer/customerbaseinformation/phonenumber", $player->{'phone'});
     _xmlset($customer_xml, "/customer/customerbaseinformation/faxnumber", '');
-    _xmlset($customer_xml, "/customer/customerbaseinformation/email", "");
+    _xmlset($customer_xml, "/customer/customerbaseinformation/email", $player->{'email'});
     _xmlset($customer_xml, "/customer/customerbaseinformation/homepageuri", '');
     _xmlset($customer_xml, "/customer/customerbaseinformation/isactive", "1");
     _xmlset($customer_xml, "/customer/customerbaseinformation/isprivatecustomer", "1");
@@ -113,7 +112,7 @@ sub PostCustomer {
     _xmlset($customer_xml, "/customer/customerdeliverydetails/deliverycity", "");
     _xmlset($customer_xml, "/customer/customerdeliverydetails/deliverypostnumber", "");
     _xmlset($customer_xml, "/customer/customerdeliverydetails/deliverycountry", 'FI');
-    _xmlSetAttribute($customer_xml, "root/customer/customerdeliverydetails/deliverycountry", "type", "ISO-3166");
+    _xmlSetAttribute($customer_xml, "/customer/customerdeliverydetails/deliverycountry", "type", "ISO-3166");
     
 
     _xmlset($customer_xml, "/customer/customercontactdetails/contactname", "");
@@ -136,12 +135,8 @@ sub PostCustomer {
     _xmlSetAttribute($customer_xml, "/customer/customeradditionalinformation/defaultsalesperson/salespersonid", "type", "netvisor");
 
     my $data = $customer_xml->findnodes_as_string('/');
-    #my $data = ($customer_xml->findnodes('/'))[0]->toString();
-    debug $data;
-
     my $response = $self->SUPER::request("customer.nv", "POST", $data, "?method=$postMethod");
-    debug $response;
-
+ 
     return $response;
 }
 
@@ -237,138 +232,138 @@ sub PostSalesInvoice {
 
     my $RootNode = XML::XPath::Node::Element->new('root',"");
     my $invoice_xml = XML::XPath->new(context => $RootNode);
-    _xmlset($invoice_xml, "root/salesinvoice/salesinvoicenumber", $Order->get('Alias'));
-    _xmlset($invoice_xml, "root/salesinvoice/salesinvoicedate", $Order->get('CreationDate')->strftime("%Y-%m-%d"));
-    _xmlSetAttribute($invoice_xml, "root/salesinvoice/salesinvoicedate", "format", "ansi");
+    _xmlset($invoice_xml, "/salesinvoice/salesinvoicenumber", $Order->get('Alias'));
+    _xmlset($invoice_xml, "/salesinvoice/salesinvoicedate", $Order->get('CreationDate')->strftime("%Y-%m-%d"));
+    _xmlSetAttribute($invoice_xml, "/salesinvoice/salesinvoicedate", "format", "ansi");
     
     if(defined $Order->get('PaidOn')) {
-        _xmlset($invoice_xml, "root/salesinvoice/salesinvoicevaluedate", $Order->get->('PaidOn')->strftime("%Y-%m-%d")); 
-        _xmlSetAttribute($invoice_xml, "root/salesinvoice/salesinvoicevaluedate", "format", "ansi");
+        _xmlset($invoice_xml, "/salesinvoice/salesinvoicevaluedate", $Order->get->('PaidOn')->strftime("%Y-%m-%d")); 
+        _xmlSetAttribute($invoice_xml, "/salesinvoice/salesinvoicevaluedate", "format", "ansi");
     }
 
     if(defined $Order->get('InvoicedOn')) {
-        _xmlset($invoice_xml, "root/salesinvoice/salesinvoicedeliverydate", $Order->get('InvoicedOn')->strftime("%Y-%m-%d"));
-        _xmlSetAttribute($invoice_xml, "root/salesinvoice/salesinvoicedeliverydate", "format", "ansi");
+        _xmlset($invoice_xml, "/salesinvoice/salesinvoicedeliverydate", $Order->get('InvoicedOn')->strftime("%Y-%m-%d"));
+        _xmlSetAttribute($invoice_xml, "/salesinvoice/salesinvoicedeliverydate", "format", "ansi");
     }
 
-    _xmlset($invoice_xml, "root/salesinvoice/salesinvoicereferencenumber", $Order->get('ReferenceNumber'));
-    _xmlset($invoice_xml, "root/salesinvoice/salesinvoiceamount", $LineItemContainer->get('GrandTotal'));
-    _xmlSetAttribute($invoice_xml, "root/salesinvoice/salesinvoiceamount", "iso4217currencycode", $LineItemContainer->get('CurrencyID'));
-    _xmlSetAttribute($invoice_xml, "root/salesinvoice/salesinvoiceamount", "currencyrate", "0,00");
-    _xmlset($invoice_xml, "root/salesinvoice/selleridentifier", "");
-    _xmlSetAttribute($invoice_xml, "root/salesinvoice/selleridentifier", "type", "netvisor");
-    _xmlset($invoice_xml, "root/salesinvoice/sellername", "Myyjä");
-    _xmlset($invoice_xml, "root/salesinvoice/invoicetype", $InvoiceType);
+    _xmlset($invoice_xml, "/salesinvoice/salesinvoicereferencenumber", $Order->get('ReferenceNumber'));
+    _xmlset($invoice_xml, "/salesinvoice/salesinvoiceamount", $LineItemContainer->get('GrandTotal'));
+    _xmlSetAttribute($invoice_xml, "/salesinvoice/salesinvoiceamount", "iso4217currencycode", $LineItemContainer->get('CurrencyID'));
+    _xmlSetAttribute($invoice_xml, "/salesinvoice/salesinvoiceamount", "currencyrate", "0,00");
+    _xmlset($invoice_xml, "/salesinvoice/selleridentifier", "");
+    _xmlSetAttribute($invoice_xml, "/salesinvoice/selleridentifier", "type", "netvisor");
+    _xmlset($invoice_xml, "/salesinvoice/sellername", "Myyjä");
+    _xmlset($invoice_xml, "/salesinvoice/invoicetype", $InvoiceType);
     
     if($InvoiceType eq "Order") {
-        _xmlset($invoice_xml, "root/salesinvoice/salesinvoicestatus", $IsDelivered);
+        _xmlset($invoice_xml, "/salesinvoice/salesinvoicestatus", $IsDelivered);
     } else {
         if(defined $Order->get('InvoicedOn')) {
-            _xmlset($invoice_xml, "root/salesinvoice/salesinvoicestatus", "open");    
+            _xmlset($invoice_xml, "/salesinvoice/salesinvoicestatus", "open");    
         } else {
-            _xmlset($invoice_xml, "root/salesinvoice/salesinvoicestatus", "unsent");
+            _xmlset($invoice_xml, "/salesinvoice/salesinvoicestatus", "unsent");
         }
     }
 
-    _xmlSetAttribute($invoice_xml, "root/salesinvoice/salesinvoicestatus", "type", "netvisor");
-    _xmlset($invoice_xml, "root/salesinvoice/salesinvoicefreetextbeforelines", "");
-    _xmlset($invoice_xml, "root/salesinvoice/salesinvoicefreetextafterlines", "");
-    _xmlset($invoice_xml, "root/salesinvoice/salesinvoiceourreference", "");
-    _xmlset($invoice_xml, "root/salesinvoice/salesinvoiceyourreference", "");
-    _xmlset($invoice_xml, "root/salesinvoice/salesinvoiceprivatecomment", "testimeininkiä");
-    _xmlset($invoice_xml, "root/salesinvoice/invoicingcustomeridentifier", $Customer->get('Alias'));
-    _xmlSetAttribute($invoice_xml, "root/salesinvoice/invoicingcustomeridentifier", "type", "customer");
-    _xmlset($invoice_xml, "root/salesinvoice/invoicingcustomername", $Customer->get('FullName'));
-    _xmlset($invoice_xml, "root/salesinvoice/invoicingcustomernameextension", $Customer->get('JobTitle'));
-    _xmlset($invoice_xml, "root/salesinvoice/invoicingcustomeraddressline", $Customer->get('BillingAddress')->get('Street'));
-    _xmlset($invoice_xml, "root/salesinvoice/invoicingcustomeradditionaladdressline", $Customer->get('BillingAddress')->get('Street2'));
-    _xmlset($invoice_xml, "root/salesinvoice/invoicingcustomerpostnumber", $Customer->get('BillingAddress')->get('Zipcode'));
-    _xmlset($invoice_xml, "root/salesinvoice/invoicingcustomertown", $Customer->get('BillingAddress')->get('City'));
-    _xmlset($invoice_xml, "root/salesinvoice/invoicingcustomercountrycode", $Customer->get('BillingAddress')->get('CountryCode')->{'Code2'});
-    _xmlSetAttribute($invoice_xml, "root/salesinvoice/invoicingcustomercountrycode", "type", "ISO 3316");
+    _xmlSetAttribute($invoice_xml, "/salesinvoice/salesinvoicestatus", "type", "netvisor");
+    _xmlset($invoice_xml, "/salesinvoice/salesinvoicefreetextbeforelines", "");
+    _xmlset($invoice_xml, "/salesinvoice/salesinvoicefreetextafterlines", "");
+    _xmlset($invoice_xml, "/salesinvoice/salesinvoiceourreference", "");
+    _xmlset($invoice_xml, "/salesinvoice/salesinvoiceyourreference", "");
+    _xmlset($invoice_xml, "/salesinvoice/salesinvoiceprivatecomment", "testimeininkiä");
+    _xmlset($invoice_xml, "/salesinvoice/invoicingcustomeridentifier", $Customer->get('Alias'));
+    _xmlSetAttribute($invoice_xml, "/salesinvoice/invoicingcustomeridentifier", "type", "customer");
+    _xmlset($invoice_xml, "/salesinvoice/invoicingcustomername", $Customer->get('FullName'));
+    _xmlset($invoice_xml, "/salesinvoice/invoicingcustomernameextension", $Customer->get('JobTitle'));
+    _xmlset($invoice_xml, "/salesinvoice/invoicingcustomeraddressline", $Customer->get('BillingAddress')->get('Street'));
+    _xmlset($invoice_xml, "/salesinvoice/invoicingcustomeradditionaladdressline", $Customer->get('BillingAddress')->get('Street2'));
+    _xmlset($invoice_xml, "/salesinvoice/invoicingcustomerpostnumber", $Customer->get('BillingAddress')->get('Zipcode'));
+    _xmlset($invoice_xml, "/salesinvoice/invoicingcustomertown", $Customer->get('BillingAddress')->get('City'));
+    _xmlset($invoice_xml, "/salesinvoice/invoicingcustomercountrycode", $Customer->get('BillingAddress')->get('CountryCode')->{'Code2'});
+    _xmlSetAttribute($invoice_xml, "/salesinvoice/invoicingcustomercountrycode", "type", "ISO 3316");
     
     if(defined $Order->get('ShippingAddress')) {
-        _xmlset($invoice_xml, "root/salesinvoice/deliveryaddressname", $Order->get('ShippingAddress')->get('FullName'));
-        _xmlset($invoice_xml, "root/salesinvoice/deliveryaddressline", $Order->get('ShippingAddress')->get('Street'));
-        _xmlset($invoice_xml, "root/salesinvoice/deliveryaddresspostnumber", $Order->get('ShippingAddress')->get('Zipcode'));
-        _xmlset($invoice_xml, "root/salesinvoice/deliveryaddresstown", $Order->get('ShippingAddress')->get('City'));
-        _xmlset($invoice_xml, "root/salesinvoice/deliveryaddresscountrycode", $Order->get('ShippingAddress')->get('CountryCode')->{'Code2'});
+        _xmlset($invoice_xml, "/salesinvoice/deliveryaddressname", $Order->get('ShippingAddress')->get('FullName'));
+        _xmlset($invoice_xml, "/salesinvoice/deliveryaddressline", $Order->get('ShippingAddress')->get('Street'));
+        _xmlset($invoice_xml, "/salesinvoice/deliveryaddresspostnumber", $Order->get('ShippingAddress')->get('Zipcode'));
+        _xmlset($invoice_xml, "/salesinvoice/deliveryaddresstown", $Order->get('ShippingAddress')->get('City'));
+        _xmlset($invoice_xml, "/salesinvoice/deliveryaddresscountrycode", $Order->get('ShippingAddress')->get('CountryCode')->{'Code2'});
     } else {
-        _xmlset($invoice_xml, "root/salesinvoice/deliveryaddressname", $Customer->get('BillingAddress')->get('FullName'));
-        _xmlset($invoice_xml, "root/salesinvoice/deliveryaddressline", $Customer->get('BillingAddress')->get('Street'));
-        _xmlset($invoice_xml, "root/salesinvoice/deliveryaddresspostnumber", $Customer->get('BillingAddress')->get('Zipcode'));
-        _xmlset($invoice_xml, "root/salesinvoice/deliveryaddresstown", $Customer->get('BillingAddress')->get('City'));
-        _xmlset($invoice_xml, "root/salesinvoice/deliveryaddresscountrycode", $Customer->get('BillingAddress')->get('CountryCode')->{'Code2'});
+        _xmlset($invoice_xml, "/salesinvoice/deliveryaddressname", $Customer->get('BillingAddress')->get('FullName'));
+        _xmlset($invoice_xml, "/salesinvoice/deliveryaddressline", $Customer->get('BillingAddress')->get('Street'));
+        _xmlset($invoice_xml, "/salesinvoice/deliveryaddresspostnumber", $Customer->get('BillingAddress')->get('Zipcode'));
+        _xmlset($invoice_xml, "/salesinvoice/deliveryaddresstown", $Customer->get('BillingAddress')->get('City'));
+        _xmlset($invoice_xml, "/salesinvoice/deliveryaddresscountrycode", $Customer->get('BillingAddress')->get('CountryCode')->{'Code2'});
     }
 
-    _xmlSetAttribute($invoice_xml, "root/salesinvoice/deliveryaddresscountrycode", "type", "ISO 3316");
-    _xmlset($invoice_xml, "root/salesinvoice/deliverymethod", $LineItemContainer->get('LineItemShipping')->get('NameOrAlias', $LanguageID));
-    _xmlset($invoice_xml, "root/salesinvoice/deliveryterm", "");
-    _xmlset($invoice_xml, "root/salesinvoice/salesinvoicetaxhandlingtype", "countrygroup");
-    _xmlset($invoice_xml, "root/salesinvoice/paymenttermnetdays", $Shop->get('NetvisorDefaultDueDate'));
-    _xmlset($invoice_xml, "root/salesinvoice/paymenttermcashdiscountdays", "");
-    _xmlset($invoice_xml, "root/salesinvoice/paymenttermcashdiscount", "");
-    _xmlSetAttribute($invoice_xml, "root/salesinvoice/paymenttermcashdiscount", "type", "percentage");
-    _xmlset($invoice_xml, "root/salesinvoice/expectpartialpayments", "0");
-    _xmlset($invoice_xml, "root/salesinvoice/trydirectdebitlink", "");
-    _xmlSetAttribute($invoice_xml, "root/salesinvoice/trydirectdebitlink", "mode", "ignore_error");
-    _xmlset($invoice_xml, "root/salesinvoice/overridevouchersalesreceivablesaccountnumber", "");
-    _xmlset($invoice_xml, "root/salesinvoice/salesinvoiceagreementidentifier", "");
-    _xmlset($invoice_xml, "root/salesinvoice/printchannelformat", "");
-    _xmlSetAttribute($invoice_xml, "root/salesinvoice/printchannelformat", "type", "netvisor");
-    _xmlset($invoice_xml, "root/salesinvoice/secondname", "");
-    _xmlSetAttribute($invoice_xml, "root/salesinvoice/secondname", "type", "netvisor");
+    _xmlSetAttribute($invoice_xml, "/salesinvoice/deliveryaddresscountrycode", "type", "ISO 3316");
+    _xmlset($invoice_xml, "/salesinvoice/deliverymethod", $LineItemContainer->get('LineItemShipping')->get('NameOrAlias', $LanguageID));
+    _xmlset($invoice_xml, "/salesinvoice/deliveryterm", "");
+    _xmlset($invoice_xml, "/salesinvoice/salesinvoicetaxhandlingtype", "countrygroup");
+    _xmlset($invoice_xml, "/salesinvoice/paymenttermnetdays", $Shop->get('NetvisorDefaultDueDate'));
+    _xmlset($invoice_xml, "/salesinvoice/paymenttermcashdiscountdays", "");
+    _xmlset($invoice_xml, "/salesinvoice/paymenttermcashdiscount", "");
+    _xmlSetAttribute($invoice_xml, "/salesinvoice/paymenttermcashdiscount", "type", "percentage");
+    _xmlset($invoice_xml, "/salesinvoice/expectpartialpayments", "0");
+    _xmlset($invoice_xml, "/salesinvoice/trydirectdebitlink", "");
+    _xmlSetAttribute($invoice_xml, "/salesinvoice/trydirectdebitlink", "mode", "ignore_error");
+    _xmlset($invoice_xml, "/salesinvoice/overridevouchersalesreceivablesaccountnumber", "");
+    _xmlset($invoice_xml, "/salesinvoice/salesinvoiceagreementidentifier", "");
+    _xmlset($invoice_xml, "/salesinvoice/printchannelformat", "");
+    _xmlSetAttribute($invoice_xml, "/salesinvoice/printchannelformat", "type", "netvisor");
+    _xmlset($invoice_xml, "/salesinvoice/secondname", "");
+    _xmlSetAttribute($invoice_xml, "/salesinvoice/secondname", "type", "netvisor");
     
     foreach my $LineItem (@$LineItems) {
-        _xmlset($invoice_xml, "root/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productidentifier", $LineItem->get('Product')->get('Alias'));
-        _xmlSetAttribute($invoice_xml, "root/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productidentifier", "type", "customer");
-        _xmlset($invoice_xml, "root/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productname", $LineItem->get('Product')->get('NameOrAlias'));
-        _xmlset($invoice_xml, "root/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productunitprice", $LineItem->get('BasePrice'));
+        _xmlset($invoice_xml, "/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productidentifier", $LineItem->get('Product')->get('Alias'));
+        _xmlSetAttribute($invoice_xml, "/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productidentifier", "type", "customer");
+        _xmlset($invoice_xml, "/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productname", $LineItem->get('Product')->get('NameOrAlias'));
+        _xmlset($invoice_xml, "/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productunitprice", $LineItem->get('BasePrice'));
         if($LineItemContainer->get('TaxModel') == 0) {
-            _xmlSetAttribute($invoice_xml, "root/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productunitprice", "type", "net");
+            _xmlSetAttribute($invoice_xml, "/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productunitprice", "type", "net");
         } else {
-            _xmlSetAttribute($invoice_xml, "root/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productunitprice", "type", "gross");
+            _xmlSetAttribute($invoice_xml, "/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productunitprice", "type", "gross");
         }
-        _xmlset($invoice_xml, "root/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productunitpurchaseprice", "");
-        _xmlSetAttribute($invoice_xml, "root/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productunitpurchaseprice", "type", "gross");
-        _xmlset($invoice_xml, "root/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productvatpercentage", $LineItem->get('TaxRate') * 100);
-        _xmlSetAttribute($invoice_xml, "root/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productvatpercentage", "vatcode", $VATCode);
-        _xmlset($invoice_xml, "root/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/salesinvoiceproductlinequantity", $LineItem->get('Quantity'));
-        _xmlset($invoice_xml, "root/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/salesinvoiceproductlinediscountpercentage", "");
-        _xmlset($invoice_xml, "root/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/salesinvoiceproductlinefreetext", "");
-        _xmlset($invoice_xml, "root/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/salesinvoiceproductlinevatsum", "");
-        _xmlset($invoice_xml, "root/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/salesinvoiceproductlinesum", "");
-        _xmlset($invoice_xml, "root/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/accountingaccountsuggestion", "");
-        _xmlset($invoice_xml, "root/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/skipaccrual", "");
-        _xmlset($invoice_xml, "root/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/dimension/dimensionname", "Testi dimensio");
-        _xmlset($invoice_xml, "root/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/dimension/dimensionitem", "Testi dimension item");
-        _xmlSetAttribute($invoice_xml, "root/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/dimension/dimensionitem", "integrationdimensiondetailguid", "1");
+        _xmlset($invoice_xml, "/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productunitpurchaseprice", "");
+        _xmlSetAttribute($invoice_xml, "/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productunitpurchaseprice", "type", "gross");
+        _xmlset($invoice_xml, "/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productvatpercentage", $LineItem->get('TaxRate') * 100);
+        _xmlSetAttribute($invoice_xml, "/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productvatpercentage", "vatcode", $VATCode);
+        _xmlset($invoice_xml, "/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/salesinvoiceproductlinequantity", $LineItem->get('Quantity'));
+        _xmlset($invoice_xml, "/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/salesinvoiceproductlinediscountpercentage", "");
+        _xmlset($invoice_xml, "/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/salesinvoiceproductlinefreetext", "");
+        _xmlset($invoice_xml, "/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/salesinvoiceproductlinevatsum", "");
+        _xmlset($invoice_xml, "/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/salesinvoiceproductlinesum", "");
+        _xmlset($invoice_xml, "/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/accountingaccountsuggestion", "");
+        _xmlset($invoice_xml, "/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/skipaccrual", "");
+        _xmlset($invoice_xml, "/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/dimension/dimensionname", "Testi dimensio");
+        _xmlset($invoice_xml, "/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/dimension/dimensionitem", "Testi dimension item");
+        _xmlSetAttribute($invoice_xml, "/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/dimension/dimensionitem", "integrationdimensiondetailguid", "1");
     }
 
-    #_xmlset($invoice_xml, "root/salesinvoice/invoicelines/invoiceline/salesinvoicecommentline", "Testilasku");
-    #_xmlset($invoice_xml, "root/salesinvoice/invoicevoucherlines/voucherline/linesum", "100");
-    #_xmlSetAttribute($invoice_xml, "root/salesinvoice/invoicevoucherlines/voucherline/linesum", "type", "net");
-    #_xmlset($invoice_xml, "root/salesinvoice/invoicevoucherlines/voucherline/description", "");
-    #_xmlset($invoice_xml, "root/salesinvoice/invoicevoucherlines/voucherline/accountnumber", "3000");
-    #_xmlset($invoice_xml, "root/salesinvoice/invoicevoucherlines/voucherline/vatpercent", "22");
-    #_xmlSetAttribute($invoice_xml, "root/salesinvoice/invoicevoucherlines/voucherline/vatpercent", "vatcode", "KOMY");
-    #_xmlset($invoice_xml, "root/salesinvoice/invoicevoucherlines/voucherline/skipaccrual", "0");
-    #_xmlset($invoice_xml, "root/salesinvoice/invoicevoucherlines/voucherline/dimension/dimensionname", "Testi dimensio");
-    #_xmlset($invoice_xml, "root/salesinvoice/invoicevoucherlines/voucherline/dimension/dimensionitem", "Testi dimension item");
-    #_xmlset($invoice_xml, "root/salesinvoice/salesinvoiceaccrual/overridedefaultsalesaccrualaccountnumber", "0");
-    #_xmlset($invoice_xml, "root/salesinvoice/salesinvoiceaccrual/salesinvoiceaccrualtype", "");
-    #_xmlset($invoice_xml, "root/salesinvoice/salesinvoiceaccrual/accrualvoucherentry/month", "1");
-    #_xmlset($invoice_xml, "root/salesinvoice/salesinvoiceaccrual/accrualvoucherentry/year", "2018");
-    #_xmlset($invoice_xml, "root/salesinvoice/salesinvoiceaccrual/accrualvoucherentry/sum", "100");
-    #_xmlset($invoice_xml, "root/salesinvoice/salesinvoiceattachments/salesinvoiceattachment/mimetype", "Application/pdf");
-    #_xmlset($invoice_xml, "root/salesinvoice/salesinvoiceattachments/salesinvoiceattachment/attachmentdescription", "testi");
-    #_xmlset($invoice_xml, "root/salesinvoice/salesinvoiceattachments/salesinvoiceattachment/filename", "testi.pdf");
-    #_xmlset($invoice_xml, "root/salesinvoice/salesinvoiceattachments/salesinvoiceattachment/documentdata", "");
-    #_xmlSetAttribute($invoice_xml, "root/salesinvoice/salesinvoiceattachments/salesinvoiceattachment/documentdata", "type", "pdf");
-    #_xmlset($invoice_xml, "root/salesinvoice/salesinvoiceattachments/salesinvoiceattachment/printbydefault", "1");
-    #_xmlset($invoice_xml, "root/salesinvoice/customtags/tag/tagname", "testitagi");
-    #_xmlset($invoice_xml, "root/salesinvoice/customtags/tag/tagvalue", "2018-01-08");
-    #_xmlSetAttribute($invoice_xml, "root/salesinvoice/customtags/tag/tagvalue", "datatype", "date");
+    #_xmlset($invoice_xml, "/salesinvoice/invoicelines/invoiceline/salesinvoicecommentline", "Testilasku");
+    #_xmlset($invoice_xml, "/salesinvoice/invoicevoucherlines/voucherline/linesum", "100");
+    #_xmlSetAttribute($invoice_xml, "/salesinvoice/invoicevoucherlines/voucherline/linesum", "type", "net");
+    #_xmlset($invoice_xml, "/salesinvoice/invoicevoucherlines/voucherline/description", "");
+    #_xmlset($invoice_xml, "/salesinvoice/invoicevoucherlines/voucherline/accountnumber", "3000");
+    #_xmlset($invoice_xml, "/salesinvoice/invoicevoucherlines/voucherline/vatpercent", "22");
+    #_xmlSetAttribute($invoice_xml, "/salesinvoice/invoicevoucherlines/voucherline/vatpercent", "vatcode", "KOMY");
+    #_xmlset($invoice_xml, "/salesinvoice/invoicevoucherlines/voucherline/skipaccrual", "0");
+    #_xmlset($invoice_xml, "/salesinvoice/invoicevoucherlines/voucherline/dimension/dimensionname", "Testi dimensio");
+    #_xmlset($invoice_xml, "/salesinvoice/invoicevoucherlines/voucherline/dimension/dimensionitem", "Testi dimension item");
+    #_xmlset($invoice_xml, "/salesinvoice/salesinvoiceaccrual/overridedefaultsalesaccrualaccountnumber", "0");
+    #_xmlset($invoice_xml, "/salesinvoice/salesinvoiceaccrual/salesinvoiceaccrualtype", "");
+    #_xmlset($invoice_xml, "/salesinvoice/salesinvoiceaccrual/accrualvoucherentry/month", "1");
+    #_xmlset($invoice_xml, "/salesinvoice/salesinvoiceaccrual/accrualvoucherentry/year", "2018");
+    #_xmlset($invoice_xml, "/salesinvoice/salesinvoiceaccrual/accrualvoucherentry/sum", "100");
+    #_xmlset($invoice_xml, "/salesinvoice/salesinvoiceattachments/salesinvoiceattachment/mimetype", "Application/pdf");
+    #_xmlset($invoice_xml, "/salesinvoice/salesinvoiceattachments/salesinvoiceattachment/attachmentdescription", "testi");
+    #_xmlset($invoice_xml, "/salesinvoice/salesinvoiceattachments/salesinvoiceattachment/filename", "testi.pdf");
+    #_xmlset($invoice_xml, "/salesinvoice/salesinvoiceattachments/salesinvoiceattachment/documentdata", "");
+    #_xmlSetAttribute($invoice_xml, "/salesinvoice/salesinvoiceattachments/salesinvoiceattachment/documentdata", "type", "pdf");
+    #_xmlset($invoice_xml, "/salesinvoice/salesinvoiceattachments/salesinvoiceattachment/printbydefault", "1");
+    #_xmlset($invoice_xml, "/salesinvoice/customtags/tag/tagname", "testitagi");
+    #_xmlset($invoice_xml, "/salesinvoice/customtags/tag/tagvalue", "2018-01-08");
+    #_xmlSetAttribute($invoice_xml, "/salesinvoice/customtags/tag/tagvalue", "datatype", "date");
 
     my $data = $invoice_xml->findnodes_as_string('root');
     my $response = $self->SUPER::request("salesinvoice.nv", "POST", $data, "?method=$postMethod");
@@ -455,25 +450,25 @@ sub PostProduct {
 
     my $RootNode = XML::XPath::Node::Element->new('root',"");
     my $product_xml = XML::XPath->new(context => $RootNode);
-    _xmlset($product_xml, "root/product/productbaseinformation/productcode", $Product->get('Alias'));
-    _xmlset($product_xml, "root/product/productbaseinformation/productgroup", $Product->get('Class')->get('Alias'));
-    _xmlset($product_xml, "root/product/productbaseinformation/name", $Product->get('NameOrAlias', $LanguageID));
-    _xmlset($product_xml, "root/product/productbaseinformation/description", $Product->get('Description', $LanguageID));
-    _xmlset($product_xml, "root/product/productbaseinformation/unitprice", $Price);
-    _xmlSetAttribute($product_xml, "root/product/productbaseinformation/unitprice", "type", "net");
+    _xmlset($product_xml, "/product/productbaseinformation/productcode", $Product->get('Alias'));
+    _xmlset($product_xml, "/product/productbaseinformation/productgroup", $Product->get('Class')->get('Alias'));
+    _xmlset($product_xml, "/product/productbaseinformation/name", $Product->get('NameOrAlias', $LanguageID));
+    _xmlset($product_xml, "/product/productbaseinformation/description", $Product->get('Description', $LanguageID));
+    _xmlset($product_xml, "/product/productbaseinformation/unitprice", $Price);
+    _xmlSetAttribute($product_xml, "/product/productbaseinformation/unitprice", "type", "net");
     
     if (defined $Product->get('OrderUnit')) {
-        _xmlset($product_xml, "root/product/productbaseinformation/unit", $Product->get('OrderUnit')->get('NameOrAlias', $LanguageID));
+        _xmlset($product_xml, "/product/productbaseinformation/unit", $Product->get('OrderUnit')->get('NameOrAlias', $LanguageID));
     }
 
-    _xmlset($product_xml, "root/product/productbaseinformation/unitweight", $Product->get('Weight'));
-    _xmlset($product_xml, "root/product/productbaseinformation/purchaseprice", "");
-    _xmlset($product_xml, "root/product/productbaseinformation/tariffheading", $Product->get('NameOrAlias', $LanguageID));
-    _xmlset($product_xml, "root/product/productbaseinformation/comissionpercentage", "");
-    _xmlset($product_xml, "root/product/productbaseinformation/isactive", $Product->get('IsAvailable'));
-    _xmlset($product_xml, "root/product/productbaseinformation/issalesproduct", "1");
-    _xmlset($product_xml, "root/product/productbaseinformation/inventoryenabled", "1");
-    _xmlset($product_xml, "root/product/productbookkeepingdetails/defaultvatpercentage", "24");
+    _xmlset($product_xml, "/product/productbaseinformation/unitweight", $Product->get('Weight'));
+    _xmlset($product_xml, "/product/productbaseinformation/purchaseprice", "");
+    _xmlset($product_xml, "/product/productbaseinformation/tariffheading", $Product->get('NameOrAlias', $LanguageID));
+    _xmlset($product_xml, "/product/productbaseinformation/comissionpercentage", "");
+    _xmlset($product_xml, "/product/productbaseinformation/isactive", $Product->get('IsAvailable'));
+    _xmlset($product_xml, "/product/productbaseinformation/issalesproduct", "1");
+    _xmlset($product_xml, "/product/productbaseinformation/inventoryenabled", "1");
+    _xmlset($product_xml, "/product/productbookkeepingdetails/defaultvatpercentage", "24");
     my $data = $product_xml->findnodes_as_string('root');
     my $response = $self->SUPER::request("product.nv", "POST", $data, "?method=$postMethod&id=$id");
 
@@ -656,19 +651,9 @@ sub _xmlSetAttribute {
         $Tree->createNode($xpath);
     }
 
+    my $Node = $Tree->find($xpath)->get_node(1);
     my $AttributeNode = XML::XPath::Node::Attribute->new($AttributeKey, $AttributeValue, '');
-
-    my $nodeset = $Tree->findnodes($xpath);
-    if (!$nodeset->isa('XML::XPath::NodeSet')) {
-        foreach my $Node ($nodeset->get_nodelist) {
-            $Node->appendAttribute($AttributeNode);
-        }
-    }
-        
-
-    #my $Node = $Tree->find($xpath)->get_node(1);
-    #my $AttributeNode = XML::XPath::Node::Attribute->new($AttributeKey, $AttributeValue, '');
-    #$Node->appendAttribute($AttributeNode);
+    $Node->appendAttribute($AttributeNode);
 }
 
 

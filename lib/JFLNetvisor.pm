@@ -18,9 +18,6 @@ prefix '/netvisor';
 get '/getinvoicestatus' => sub {
         # TODO haetaan maksamattomat laskut ja tarkistetaan että onko ne maksettu
 
-    my $netvisor = Requests->new();
-    debug $netvisor;
-    return Dumper($netvisor);
 };
 
 
@@ -55,6 +52,8 @@ get '/:id' => sub {
     #debug Dumper($season);
 	#debug Dumper($players);
     
+
+
 	# get Netvisor auth details from config
     my $hAuth = {
         UserId => config->{'NetvisorRESTUserId'},
@@ -66,7 +65,8 @@ get '/:id' => sub {
     };
 
 	my $NetvisorClient = Requests->new($hAuth, config->{'Netvisor_RESTTestUrl'});
-   # debug Dumper($NetvisorClient, config->{'Netvisor_RESTTestUrl'});
+
+
    
     foreach my $player (@{ $players }) {
 		#luetaan pelaajan id
@@ -95,12 +95,15 @@ get '/:id' => sub {
 			$player->{'parent'} = db->parent->read($parentid)->current;
 		}
 		#debug Dumper($player);
-				
+
+
+
 		# jos netvisorid on olemassa niin tehdään "Edit", jos sitä ei ole olemassa niin tehdään "Add"
-		my $response = $NetvisorClient->PostCustomer($player, 'Add');
-		debug "PostCustomer:::::::::::::::::::::";
-		return Dumper($response);
+		my $response = $NetvisorClient->PostCustomer($player, 'add');
+		debug $response;
 		
+return "DONE";		
+
          #lähetetaan tuote netvisoriin
          my $Product;
 		 $Product->{'ListPrices'}		 	= $player->{'price'};
