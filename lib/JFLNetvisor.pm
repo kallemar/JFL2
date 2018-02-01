@@ -87,20 +87,9 @@ get '/:id' => sub {
 		}
 		#debug Dumper($player);
 		
-		
-		#set Customer object for Netvisor
-		my $Customer;
-#		$Customer->Alias 					= 'TODO';
-		$Customer->{'FullName'} = $player->{'parent'}->{'firstname'} . ' ' . $player->{'parent'}->{'lastname'};
-		$Customer->{'Street'}	= $player->{'street'};
-		$Customer->{'City'}		= $player->{'city'};
-		$Customer->{'Zipcode'}	= $player->{'zip'};
-		$Customer->{'Phone'}	= $player->{'parent'}->{'phone'};
-		$Customer->{'Email'}	= $player->{'parent'}->{'email'};
-		debug Dumper($Customer);
-		
+				
 		# jos netvisorid on olemassa niin tehdään "Edit", jos sitä ei ole olemassa niin tehdään "Add"
-		Requests->PostCustomer('Add', $Customer);
+		Requests->PostCustomer('Add', $player);
 		debug "PostCustomer:::::::::::::::::::::";
 		
 		
