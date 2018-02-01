@@ -10,14 +10,29 @@ use XML::XPath;
 my $RootNode = XML::XPath::Node::Element->new('root',"");
 my $customer_xml = XML::XPath->new(context => $RootNode);
 
-$customer_xml->createNode("root/customer/customerbaseinformation/internalidentifier");
-$customer_xml->setNodeText("root/customer/customerbaseinformation/internalidentifier", '123456');
+$customer_xml->createNode("/customer/customerbaseinformation/internalidentifier");
+$customer_xml->setNodeText("/customer/customerbaseinformation/internalidentifier", '123456');
+my $text = $customer_xml->getNodeText("/customer/customerbaseinformation/internalidentifier");
+print $text . "\n";
 
-my $text = $customer_xml->getNodeText("root/customer/customerbaseinformation/internalidentifier");
-print $text;
+my $data = $customer_xml->findnodes_as_string('/');
+print $data . "\n";
 
-my $data = $customer_xml->findnodes_as_string('root');
-#my $data = ($customer_xml->findnodes('/'))[0]->toString();
-print $data;
+#if(!$Tree->exists($xpath)) {
+#        $Tree->createNode($xpath);
+#}
 
-print Dumper($customer_xml);
+ my $AttributeNode = XML::XPath::Node::Attribute->new("TYPE", "KUKKUU", '');
+
+#my $nodeset = $customer_xml->find("/customer/customerbaseinformation/internalidentifier");
+#if (!$nodeset->isa('XML::XPath::NodeSet')) {
+#    foreach my $Node ($nodeset->get_nodelist) {
+#        print "HEP\n";
+#        $Node->appendAttribute($AttributeNode);
+#    }
+#}
+        
+my $Node = $customer_xml->find("/customer/customerbaseinformation/internalidentifier")->get_node(1);
+#my $AttributeNode = XML::XPath::Node::Attribute->new($AttributeKey, $AttributeValue, '');
+$Node->appendAttribute($AttributeNode);
+
