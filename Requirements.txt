@@ -19,3 +19,8 @@ cpanm Dancer::Plugin::Auth::Basic
 cpanm DateTime
 cpanm Text::CSV::Encoded
 cpanm REST::Client
+cpanm XML::Simple
+cpanm Tie::IxHash
+cpanm Data::UUID
+cpanm XML::XPath
+cpanm XML::LibXML::SAX

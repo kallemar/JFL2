@@ -55,22 +55,18 @@ get '/:id' => sub {
     #debug Dumper($season);
 	#debug Dumper($players);
     
-    #avataan yhteys netvisoriin
-    my $netvisor = Requests->new();
-    #debug Dumper($netvisor);
-
 	# get Netvisor auth details from config
     my $hAuth = {
-        UserId => config->{'NetvisorRESTUserId'};,
+        UserId => config->{'NetvisorRESTUserId'},
         Key => config->{'NetvisorRESTKey'},
         CompanyId => config->{'NetvisorShopVATID'},
         PartnerId => config->{'Netvisor_PartnerId'},
         PartnerKey => config->{'Netvisor_PartnerKey'},
-		URL => config->{'Netvisor_RESTTestUrl'},
+		#URL => config->{'Netvisor_RESTTestUrl'},
     };
 
-	my $NetvisorClient = Request->new($hAuth);
-
+	my $NetvisorClient = Requests->new($hAuth, config->{'Netvisor_RESTTestUrl'});
+   # debug Dumper($NetvisorClient, config->{'Netvisor_RESTTestUrl'});
    
     foreach my $player (@{ $players }) {
 		#luetaan pelaajan id
@@ -99,23 +95,11 @@ get '/:id' => sub {
 			$player->{'parent'} = db->parent->read($parentid)->current;
 		}
 		#debug Dumper($player);
-		
-		
-		#set Customer object for Netvisor
-		my $Customer;
-#		$Customer->Alias 					= 'TODO';
-		$Customer->{'FullName'} = $player->{'parent'}->{'firstname'} . ' ' . $player->{'parent'}->{'lastname'};
-		$Customer->{'Street'}	= $player->{'street'};
-		$Customer->{'City'}		= $player->{'city'};
-		$Customer->{'Zipcode'}	= $player->{'zip'};
-		$Customer->{'Phone'}	= $player->{'parent'}->{'phone'};
-		$Customer->{'Email'}	= $player->{'parent'}->{'email'};
-		debug Dumper($Customer);
-		
+				
 		# jos netvisorid on olemassa niin tehdään "Edit", jos sitä ei ole olemassa niin tehdään "Add"
-		Requests->PostCustomer('Add', $Customer);
+		my $response = $NetvisorClient->PostCustomer($player, 'Add');
 		debug "PostCustomer:::::::::::::::::::::";
-		
+		return Dumper($response);
 		
          #lähetetaan tuote netvisoriin
          my $Product;
@@ -135,12 +119,12 @@ get '/:id' => sub {
         
          
           # talletetaan saatu netvisorid takaisin pelaajatietueelle
-		 db->player->update({
-                             netvisorid => $id,
-                        },
-                        {
-                             id => $playerid,
-                        });
+		 #db->player->update({
+         #                    netvisorid => $id,
+         #               },
+         #               {
+         #                    id => $playerid,
+         #               });
 		 
 		
 	}	

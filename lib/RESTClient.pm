@@ -12,6 +12,7 @@ use Digest::SHA qw(sha256_hex);
 use XML::Simple;
 use Tie::IxHash;
 use Data::UUID;
+use Dancer ':syntax';
 
 use constant CALL_TIMEOUT => 20;   #in seconds. Default is 300 (5 minutes)
 use constant HTTP_CODE_OK => 200;
@@ -141,9 +142,9 @@ sub request {
     my $Client = $self->{Client};
 
     my $response = $Client->request($method,$url,$xmlData ,$Headers);
-    LogDebug("Response",$response);
+    #LogDebug("Response",$response);
     if ( $response->responseCode() != HTTP_CODE_OK ) {
-        LogDebug( 'CONNECTION_FAILED', { 'responsecode' => $response->responseCode()} );
+       # LogDebug( 'CONNECTION_FAILED', { 'responsecode' => $response->responseCode()} );
     }
 
     return [$response->responseContent, $response];
@@ -248,7 +249,7 @@ sub _getHeaders {
 
     $NetvisorHeader->{'X-Netvisor-Authentication-MAC'} = $MACSHA256;
 
-    LogDebug("NetvisorHeader",$NetvisorHeader);
+    #LogDebug("NetvisorHeader",$NetvisorHeader);
 
     return $NetvisorHeader;
 }
