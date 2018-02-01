@@ -58,6 +58,19 @@ get '/:id' => sub {
     #avataan yhteys netvisoriin
     my $netvisor = Requests->new();
     #debug Dumper($netvisor);
+
+	# get Netvisor auth details from config
+    my $hAuth = {
+        UserId => config->{'NetvisorRESTUserId'};,
+        Key => config->{'NetvisorRESTKey'},
+        CompanyId => config->{'NetvisorShopVATID'},
+        PartnerId => config->{'Netvisor_PartnerId'},
+        PartnerKey => config->{'Netvisor_PartnerKey'},
+		URL => config->{'Netvisor_RESTTestUrl'},
+    };
+
+	my $NetvisorClient = Request->new($hAuth);
+
    
     foreach my $player (@{ $players }) {
 		#luetaan pelaajan id

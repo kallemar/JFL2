@@ -1,0 +1,21 @@
+cpanm install Dancer::Plugin::Database
+cpanm install Dancer::Plugin::Auth::Extensible
+cpanm install Template YAML
+cpanm install Template Dancer::Session::Storable
+cpanm install Template JSON Dancer::Plugin::I18N Dancer::Plugin::Ajax
+cpanm install Dancer::Plugin::ValidateTiny
+cpanm install DBD::SQLite
+cpanm Dancer::Plugin::ORMesque
+cpanm Template
+cpanm Dancer::Template::TemplateToolkit
+cpanm Dancer::Plugin::ValidateTiny
+cpanm Dancer::Plugin::Email
+cpanm Net::SSLeay
+cpanm Dancer::Plugin::Email
+cpanm Dancer::Plugin::Database
+cpanm Dancer::Plugin::Auth::Extensible
+cpanm Dancer::Plugin::REST
+cpanm Dancer::Plugin::Auth::Basic
+cpanm DateTime
+cpanm Text::CSV::Encoded
+cpanm REST::Client
