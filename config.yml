@@ -77,7 +77,7 @@ reset_password_secret: ejkto37JKds
 reset_password_timeout: 3600
 
 #Netvisor settings
-Netvisor_RESTTestUrl: http://integrationdemo.netvisor.fi
+Netvisor_RESTTestUrl: integrationdemo.netvisor.fi
 NetvisorRESTUserId: VD_83694_23334
 NetvisorRESTKey: 68A55E1969BF4FE331E714BB26A31CC8
 NetvisorShopVATID: FI16806367
