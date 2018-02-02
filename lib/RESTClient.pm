@@ -12,7 +12,7 @@ use Digest::SHA qw(sha256_hex);
 use XML::Simple;
 use Tie::IxHash;
 use Data::UUID;
-use Dancer ':syntax';
+#use Dancer ':syntax';
 
 use constant CALL_TIMEOUT => 20;   #in seconds. Default is 300 (5 minutes)
 use constant HTTP_CODE_OK => 200;
@@ -75,6 +75,7 @@ sub new {
     my @RequiredKeys = (REQUIREDKEYS);
     foreach my $RequiredKey (@RequiredKeys) {
         my $RequiredKeyUC = uc $RequiredKey;
+        die("NO_" . $RequiredKeyUC . "_SET") unless exists $args->{$RequiredKey};
     };
 
     my $Client = _getClient();
@@ -274,7 +275,7 @@ sub _hash2xml {
         KeyAttr => 'content',
         RootName => 'root',
     );
-    print $data;
+    #print $data;
     return $data;
 }
 

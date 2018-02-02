@@ -139,7 +139,7 @@ sub PostCustomer {
     if ($postMethod eq 'add') {
 		$response = $self->SUPER::request("customer.nv", "POST", $data, "?method=$postMethod");
 	} else {
-		$response = $self->SUPER::request("customer.nv", "POST", $data, "?method=$postMethod&id=$player->{'netvisorid'}");
+		$response = $self->SUPER::request("customer.nv", "POST", $data, "?method=$postMethod&id=$player->{'netvisorid_customer'}");
 	}
     return $response;
 }

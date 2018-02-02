@@ -98,16 +98,17 @@ get '/:id' => sub {
 		}
 		#debug Dumper($player);
 
+
 		# jos netvisorid on olemassa niin tehdään "Edit", jos sitä ei ole olemassa niin tehdään "Add"
 		my $response;
 		if (defined $player->{'netvisorid_customer'}) {
 			debug "EDIT";
-			$response = $NetvisorClient->PostCustomer($player, 'edit');
+			$response = $NetvisorClient->PostCustomer($player, 'edit', $player->{'netvisorid_customer'});
 		} else {
 			debug "ADD";
-			$response = $NetvisorClient->PostCustomer($player, 'add', $player->{'netvisorid'});
+			$response = $NetvisorClient->PostCustomer($player, 'add');
 		}
-		
+
 		debug @{ $response }[0];
 		my $xml = new XML::Simple;
 		my $data = $xml->XMLin(@{ $response }[0]);
@@ -119,7 +120,7 @@ get '/:id' => sub {
    			if ( $status eq 'FAILED') {
 				debug "FAILED";
 				debug "REASON: $data->{ResponseStatus}->{Status}->[1]";
-				return "DONE"
+				return "DONE";
 			}
 		}
 		$status = $data->{ResponseStatus}->{Status};	#works only of one Status node in response
@@ -127,7 +128,7 @@ get '/:id' => sub {
 			debug "SUCCESS";
 			$netvisorid = "$data->{Replies}->{InsertedDataIdentifier}";
 			debug "NEW ID: $netvisorid";
-			
+
 		} else {
 			debug $status;
 			return "DONE";
