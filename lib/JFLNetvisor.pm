@@ -111,13 +111,18 @@ get '/:id' => sub {
 		my $xml = new XML::Simple;
 		my $data = $xml->XMLin(@{ $response }[0]);
 		my $netvisorid;
-		my $status = $data->{ResponseStatus}->{Status};	#works only of one Status node in response
-		if ( $status eq 'FAILED') {
-			debug "FAILED";
-			debug "REASON: $data->{ResponseStatus}->{Status}->[1]";
-			return "DONE"
-			
-		} elsif ( $status eq 'OK') {
+	
+		my $status;
+		if(ref($data->{ResponseStatus}->{Status}) eq 'ARRAY') {
+			$status = $data->{ResponseStatus}->{Status}->[0];
+   			if ( $status eq 'FAILED') {
+				debug "FAILED";
+				debug "REASON: $data->{ResponseStatus}->{Status}->[1]";
+				return "DONE"
+			}
+		}
+		$status = $data->{ResponseStatus}->{Status};	#works only of one Status node in response
+		if ( $status eq 'OK') {
 			debug "SUCCESS";
 			$netvisorid = "$data->{Replies}->{InsertedDataIdentifier}";
 			debug "NEW ID: $netvisorid";
