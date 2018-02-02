@@ -10,6 +10,7 @@ use Dancer::Plugin::REST;
 use Dancer::Plugin::Auth::Basic;
 use Data::Dumper;
 use Requests;
+use XML::Simple;
 
 #-- set url prefix to .../netvisor/
 prefix '/netvisor';
@@ -100,9 +101,9 @@ get '/:id' => sub {
 
 		# jos netvisorid on olemassa niin tehdään "Edit", jos sitä ei ole olemassa niin tehdään "Add"
 		my $response = $NetvisorClient->PostCustomer($player, 'add');
-		debug $response;
+		debug  XMLin($response->[0]);
 		
-return "DONE";		
+return XMLin($response->[0]);		
 
          #lähetetaan tuote netvisoriin
          my $Product;
