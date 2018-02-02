@@ -21,7 +21,7 @@ use constant REQUIREDKEYS => qw ( UserId Key CompanyId PartnerId PartnerKey ); #
 sub LogDebug {
     my $str = shift;
     my $struct = shift;
-    debug $str, $struct;
+    #debug $str, $struct;
 }
 
 sub ErrorDefinition {
