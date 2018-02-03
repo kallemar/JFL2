@@ -22,47 +22,6 @@ sub new {
 }
 
 #=============================================================================
-# §function     GetCustomerList
-# §state        public
-#-----------------------------------------------------------------------------
-# §syntax
-#-----------------------------------------------------------------------------
-# §description  gets customer list from API
-#-----------------------------------------------------------------------------
-# §input
-# §return       $hResults | hash with customers' data | hash
-#=============================================================================
-sub GetCustomerList {
-    my $self = shift;
-
-    my $response = $self->SUPER::request("customerlist.nv", "GET");
-    my $hCustomerList = $self->_xml2hash($response->[0]);
-
-    return $hCustomerList;
-}
-
-#=============================================================================
-# §function     GetCustomer
-# §state        public
-#-----------------------------------------------------------------------------
-# §syntax
-#-----------------------------------------------------------------------------
-# §description  gets requested customer information
-#-----------------------------------------------------------------------------
-# §input        $customerId | customer's ID | string
-# §return       $hResults | hash with customer's detailed information | hash
-#=============================================================================
-sub GetCustomer {
-    my $self = shift;
-    my $customerId = shift;
-
-    my $response = $self->SUPER::request("getcustomer.nv", "GET", undef, "?id=$customerId");
-    my $hCustomer = $self->_xml2hash($response->[0]);
-
-    return $hCustomer;
-}
-
-#=============================================================================
 # §function     PostCustomer
 # §state        public
 #-----------------------------------------------------------------------------
@@ -166,7 +125,7 @@ sub PostProduct {
     my $RootNode = XML::XPath::Node::Element->new('root',"");
     my $product_xml = XML::XPath->new(context => $RootNode);
     
-    _xmlset($product_xml, "/product/productbaseinformation/productcode", $Product->{id} );
+    _xmlset($product_xml, "/product/productbaseinformation/productcode", $Product->{'id'} );
     _xmlset($product_xml, "/product/productbaseinformation/productgroup", 'Futisklubitoiminta');
     _xmlset($product_xml, "/product/productbaseinformation/name", $Product->{name});
     _xmlset($product_xml, "/product/productbaseinformation/description", '');
@@ -179,8 +138,8 @@ sub PostProduct {
     _xmlset($product_xml, "/product/productbaseinformation/comissionpercentage", "");
     _xmlset($product_xml, "/product/productbaseinformation/isactive", "1");
     _xmlset($product_xml, "/product/productbaseinformation/issalesproduct", "1");
-    _xmlset($product_xml, "/product/productbaseinformation/inventoryenabled", "1");
-    _xmlset($product_xml, "/product/productbookkeepingdetails/defaultvatpercentage", "24");
+    _xmlset($product_xml, "/product/productbaseinformation/inventoryenabled", "0");
+    _xmlset($product_xml, "/product/productbookkeepingdetails/defaultvatpercentage", "0");
     my $data = $product_xml->findnodes_as_string('/');
     
 	my $response;

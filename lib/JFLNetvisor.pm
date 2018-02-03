@@ -39,7 +39,7 @@ get '/getinvoicestatus' => sub {
 #=======================================================================
 get '/:id' => sub {
 	# luetaan pelaajat jotka pitää laskuttaa
-    my $id = params->{'id'};
+    my $seasonid = params->{'id'};
     my $players = db->player
                      ->read({ id => 3636,	#FIXME
 	#						  seasonid  => $id,
@@ -47,13 +47,12 @@ get '/:id' => sub {
   	#				          invoiced => undef,
   	#					          isinvoice => 0,	#FIXME 1
                             })->collection;
-	my $season = db->season->read({ id => $id})->current;
-	my $price_season = $season->{'price'};
-	my $fraction_season = $season->{'fraction'};
-    #debug Dumper($season);
-	#debug Dumper($players);
-    
-
+	my $season = db->season->read({ id => $seasonid})->current;
+	my $xml = new XML::Simple;
+	my $Product;
+	my $netvisorid;
+	my $status;
+		
 
 	# get Netvisor auth details from config
     my $hAuth = {
@@ -64,9 +63,7 @@ get '/:id' => sub {
         PartnerKey => config->{'Netvisor_PartnerKey'},
 		URL => config->{'Netvisor_RESTTestUrl'},
     };
-
 	my $NetvisorClient = Requests->new($hAuth, config->{'Netvisor_RESTTestUrl'});
-
 
    
     foreach my $player (@{ $players }) {
@@ -74,45 +71,46 @@ get '/:id' => sub {
 		my $playerid = $player->{'id'};
 		
 		# luetaan pelaajan kaupunginosa
-		my $suburban = db->suburban->read({id => 8} )->current;
-		my $price_suburban = $suburban->{'price'};
-		my $fraction_suburban = $suburban->{'fraction'};
+		my $suburban = db->suburban->read({id => $player->{'suburbanid'} } )->current;
 		
 		
-		#käytetään kaupunginosan hintaa jos on olemassa, muutoin käytetään kauden hintaan
-		if ($price_suburban) {
-			$player->{'price'} = $price_suburban;
-			$player->{'fraction'} = $fraction_suburban;
+		#Product can be season or suburban. By default it is season but of suburban.price is defined then it is suburban
+		if (defined $suburban->{'price'}) {
+			$Product->{'id'} = "A$suburban->{'id'}";
+			$Product->{'name'} = "Futisklubitoiminta/kaupunginosa: $suburban->{'name'}";
+			$Product->{'type'} = "suburban";
+			$Product->{'price'} = $suburban->{'price'}/$suburban->{'fraction'};
+			$Product->{'netvisorid'} =  $suburban->{'netvisorid'};         
 		} else {
-			$player->{'price'} = $price_season;
-			$player->{'fraction'} = $fraction_season;
+			$Product->{'id'} = "B$season->{'id'}";
+			$Product->{'name'} = "Futisklubitoiminta: $season->{'name'}";
+			$Product->{'type'} = "season";
+			$Product->{'price'} = $season->{'price'}/$season->{'fraction'};
+			$Product->{'netvisorid'} =  $season->{'netvisorid'};         
 		}
-		$player->{'price'} = $player->{'price'} / $player->{'fraction'};
 		
-		#set parent object
+		#set $parent object for $player
 		my $parentid =
            db->player_parent->read({ playerid => $player->{'id'} })->current->{'parentid'};
 		if( defined($parentid) ) {
 			$player->{'parent'} = db->parent->read($parentid)->current;
 		}
-		#debug Dumper($player);
+		
 
 		# jos netvisorid on olemassa niin tehdään "Edit", jos sitä ei ole olemassa niin tehdään "Add"
 		my $response;
+		my $mode;
 		if (defined $player->{'netvisorid_customer'}) {
-			debug "EDIT";
-			$response = $NetvisorClient->PostCustomer($player, 'edit');
+			$mode = "edit";
 		} else {
-			debug "ADD";
-			$response = $NetvisorClient->PostCustomer($player, 'add', $player->{'netvisorid'});
+			$mode = "add";
 		}
+		$response = $NetvisorClient->PostCustomer($player, $mode, $player->{'netvisorid_customer'});
 		
-		debug @{ $response }[0];
-		my $xml = new XML::Simple;
+		
+		#read the response
 		my $data = $xml->XMLin(@{ $response }[0]);
-		my $netvisorid;
-	
-		my $status;
+		
 		if(ref($data->{ResponseStatus}->{Status}) eq 'ARRAY') {
 			$status = $data->{ResponseStatus}->{Status}->[0];
    			if ( $status eq 'FAILED') {
@@ -120,73 +118,78 @@ get '/:id' => sub {
 				debug "REASON: $data->{ResponseStatus}->{Status}->[1]";
 				return "DONE"
 			}
-		}
-		$status = $data->{ResponseStatus}->{Status};	#works only of one Status node in response
-		if ( $status eq 'OK') {
-			debug "SUCCESS";
-			$netvisorid = "$data->{Replies}->{InsertedDataIdentifier}";
-			debug "NEW ID: $netvisorid";
-			
 		} else {
-			debug $status;
-			return "DONE";
+			$status = $data->{ResponseStatus}->{Status};
+			if ( $status eq 'OK') {
+				debug "SUCCESS PostCustomer";
+				if ($mode eq "add") {
+					$netvisorid = "$data->{Replies}->{InsertedDataIdentifier}";
+					debug "ID: $netvisorid";
+				}
+			} else {
+				debug $status;
+				return "DONE";
+			}
 		}
+		
 		if (!defined $player->{'netvisorid_customer'}) {
-			db->player->update({
-		                    netvisorid_customer => $netvisorid,
-		               },
-		               {
-		                    id => $playerid,
-		               });
-		 }
-
-		#Product can be season or suburban. By default it is season but of suburban.price is defined then it is suburban
-		my $Product;
-		$Product->{'id'} = $season->{'id'};
-		$Product->{'price'} = $player->{'price'};
-		$Product->{'name'} = $season->{name};
-		$Product->{'netvisorid'}	=  $season->{netvisorid};         
-		#debug Dumper($Product);
+			db->player->update({netvisorid_customer => $netvisorid }, {id => $playerid});
+		}
+		
 		
 		# jos netvisorid on olemassa niin tehdään "Edit", jos sitä ei ole olemassa niin tehdään "Add"
 		if (defined $Product->{'netvisorid'}) {
-			debug "EDIT";
-			$response = $NetvisorClient->PostCustomer($Product, 'edit');
+			$mode = "edit";
 		} else {
-			debug "ADD";
-			$response = $NetvisorClient->PostProduct($Product, 'add', $Product->{'netvisorid'});
+			$mode = "add";
 		}
-		debug Dumper($response);	
-        #my $xml = new XML::Simple;
+		$response = $NetvisorClient->PostProduct($Product, $mode, $Product->{'netvisorid'});
+		
+       
+        #read the response
 		$data = $xml->XMLin(@{ $response }[0]);
-		$status = $data->{ResponseStatus}->{Status};
-		if ( $status eq 'FAILED') {
-			debug "FAILED";
-			debug "REASON: $data->{ResponseStatus}->{Status}->[1]";
-			return "DONE"
-			
-		} elsif ( $status eq 'OK') {
-			debug "SUCCESS";
-			$netvisorid = "$data->{Replies}->{InsertedDataIdentifier}";
-			debug "NEW ID: $netvisorid";
-			
+		#debug Dumper($Product);
+		#debug @{ $response }[0];
+		debug $data;
+		if(ref($data->{ResponseStatus}->{Status}) eq 'ARRAY') {
+			$status = $data->{ResponseStatus}->{Status}->[0];
+   			if ( $status eq 'FAILED') {
+				debug "FAILED";
+				debug "REASON: $data->{ResponseStatus}->{Status}->[1]";
+				return "DONE"
+			}
 		} else {
-			return "DONE";
+			$status = $data->{ResponseStatus}->{Status};
+			if ( $status eq 'FAILED') {
+				debug "FAILED";
+				debug "REASON: $data->{ResponseStatus}->{Status}->[1]";
+				return "DONE"
+				
+			} elsif ( $status eq 'OK') {
+				debug "SUCCESS";
+				if ($mode eq "add") {
+					$netvisorid = "$data->{Replies}->{InsertedDataIdentifier}";
+					debug "ID: $netvisorid";
+				}		
+			} else {
+				return "DONE";
+			}
 		}
-		if (!defined $season->{'netvisorid'}) {
-			db->player->update({
-		                    netvisorid => $netvisorid,
-		               },
-		               {
-		                    id => $Product->{id},
-		               });
-		 }
-		return "DONE";
+
+		if (!defined $Product->{'netvisorid'}) {
+			if ($Product->{'type'} eq "season") {;
+				db->season->update({netvisorid => $netvisorid }, {id => $seasonid});
+			} else {
+				db->suburban->update({netvisorid => $netvisorid }, {id => $player->{'suburbanid'}});
+			}			
+		}
+		return "DONE PostProduct";
 		
 		
         #send invoice
-        my $order;
-		PostSalesInvoice($order, undef, "Add", $id);        
+        my $id;
+#        my $order;
+#		PostSalesInvoice($order, undef, "Add", $id);        
         
          
 		# talletetaan saatu netvisorid takaisin pelaajatietueelle
