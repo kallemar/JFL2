@@ -148,7 +148,6 @@ get '/:id' => sub {
 		
 		#read the response
 		my $data = $xml->XMLin(@{ $response }[0]);
-		debug Dumper($data);
 		if(ref($data->{ResponseStatus}->{Status}) eq 'ARRAY') {
 			$status = $data->{ResponseStatus}->{Status}->[0];
    			if ( $status eq 'FAILED') {
@@ -160,7 +159,7 @@ get '/:id' => sub {
 		} else {
 			$status = $data->{ResponseStatus}->{Status};
 			if ( $status eq 'OK') {
-				debug "SUCCESS PostCustomer";
+				#debug "SUCCESS PostCustomer";
 				if ($mode eq "add") {
 					$netvisorid = "$data->{Replies}->{InsertedDataIdentifier}";
 					debug "ID: $netvisorid";
@@ -201,7 +200,7 @@ get '/:id' => sub {
 				debug "REASON: $data->{ResponseStatus}->{Status}->[1]";
 				return "DONE";		
 			} elsif ( $status eq 'OK') {
-				debug "SUCCESS";
+				#debug "SUCCESS";
 				if ($mode eq "add") {
 					$netvisorid = "$data->{Replies}->{InsertedDataIdentifier}";
 					debug "ID: $netvisorid";
@@ -223,12 +222,14 @@ get '/:id' => sub {
 		#make and send invoice
         my $id;
 		$response = $NetvisorClient->PostSalesInvoice($player, $Product, $id);        
+#        debug "ID: $id";
         
         #read the response
-        debug Dumper($response);
+#        debug Dumper($response);
 		$data = $xml->XMLin(@{ $response }[0]);
 		debug Dumper($data);
-         
+		return "DONE";
+		
 		# talletetaan saatu netvisorid takaisin pelaajatietueelle
 		db->player->update({
 		                    netvisorid => $id,
