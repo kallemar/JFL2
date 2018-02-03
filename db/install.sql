@@ -21,8 +21,11 @@ CREATE TABLE season (
     enddate     INTEGER,
     isactive    BOOLEAN,
     price       INTEGER, -- price is sum in € * fraction
-    fraction    INTEGER DEFAULT 10000 --fraction to the price
+    fraction    INTEGER DEFAULT 10000, --fraction to the price
+	netvisorid INTEGER
 );
+
+
 
 CREATE TABLE player (
     id          INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -50,6 +53,8 @@ CREATE TABLE player (
     seasonid    INTEGER,
     shirtsizeid  INTEGER,
 	cancelmsgsent INTEGER DEFAULT 0, -- 1 = sent, 0 = not sent
+	netvisorid_customer INTEGER,
+	netvisorid_invoice INTEGER,
     FOREIGN KEY(seasonid) REFERENCES season(id)
 );
 
@@ -113,6 +118,7 @@ CREATE TABLE suburban (
     isvisible   INTEGER NOT NULL DEFAULT 1,
     price       INTEGER, -- price is sum in € * fraction
     fraction    INTEGER DEFAULT 10000 --fraction to the price
+	netvisorid INTEGER,
     FOREIGN KEY(seasonid) REFERENCES season(id)
 );
 
