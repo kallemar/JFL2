@@ -179,61 +179,57 @@ sub PostSalesInvoice {
     my $invoice_xml = XML::XPath->new(context => $RootNode);
 
     _xmlset($invoice_xml, "/salesinvoice/salesinvoicenumber", "");
-    _xmlset($invoice_xml, 			"/salesinvoice/salesinvoicedate", localtime()->strftime("%Y-%m-%d"));			
+    _xmlset($invoice_xml, 			"/salesinvoice/salesinvoicedate", localtime->strftime("%Y-%m-%d"));			
     _xmlSetAttribute($invoice_xml, 	"/salesinvoice/salesinvoicedate", "format", "ansi");
     
     
-    _xmlset($invoice_xml, "/salesinvoice/salesinvoicereferencenumber", "");
-    _xmlset($invoice_xml, "/salesinvoice/salesinvoiceamount", $Product->{'price'});
-    _xmlSetAttribute($invoice_xml, "/salesinvoice/salesinvoiceamount", "iso4217currencycode", "EUR");
-    _xmlSetAttribute($invoice_xml, "/salesinvoice/salesinvoiceamount", "currencyrate", "0,00");
-    _xmlset($invoice_xml, "/salesinvoice/selleridentifier", "");
-    _xmlSetAttribute($invoice_xml, "/salesinvoice/selleridentifier", "type", "netvisor");
-    _xmlset($invoice_xml, "/salesinvoice/sellername", "Myyjä");
-    _xmlset($invoice_xml, "/salesinvoice/invoicetype", '');
-    
-	#_xmlset($invoice_xml, "/salesinvoice/salesinvoicestatus", "open");    
-	_xmlset($invoice_xml, "/salesinvoice/salesinvoicestatus", "unsent");
-	
-    _xmlSetAttribute($invoice_xml, "/salesinvoice/salesinvoicestatus", "type", "netvisor");
-    _xmlset($invoice_xml, "/salesinvoice/salesinvoicefreetextbeforelines", "");
-    _xmlset($invoice_xml, "/salesinvoice/salesinvoicefreetextafterlines", "");
-    _xmlset($invoice_xml, "/salesinvoice/salesinvoiceourreference", "");
-    _xmlset($invoice_xml, "/salesinvoice/salesinvoiceyourreference", "");
-    _xmlset($invoice_xml, "/salesinvoice/salesinvoiceprivatecomment", "");
+    _xmlset($invoice_xml, 			"/salesinvoice/salesinvoicereferencenumber", "");
+    _xmlset($invoice_xml, 			"/salesinvoice/salesinvoiceamount", $Product->{'price'});
+    _xmlSetAttribute($invoice_xml, 	"/salesinvoice/salesinvoiceamount", "iso4217currencycode", "EUR");
+    _xmlSetAttribute($invoice_xml, 	"/salesinvoice/salesinvoiceamount", "currencyrate", "0,00");
+    _xmlset($invoice_xml, 			"/salesinvoice/selleridentifier", "");
+    _xmlSetAttribute($invoice_xml, 	"/salesinvoice/selleridentifier", "type", "netvisor");
+    _xmlset($invoice_xml, 			"/salesinvoice/sellername", "JFL");
+    _xmlset($invoice_xml, 			"/salesinvoice/invoicetype", undef);
+	_xmlset($invoice_xml, 			"/salesinvoice/salesinvoicestatus", "unsent");	# or "open"
+    _xmlSetAttribute($invoice_xml, 	"/salesinvoice/salesinvoicestatus", "type", "netvisor");
+    _xmlset($invoice_xml, 			"/salesinvoice/salesinvoicefreetextbeforelines", "");
+    _xmlset($invoice_xml, 			"/salesinvoice/salesinvoicefreetextafterlines", "");
+    _xmlset($invoice_xml, 			"/salesinvoice/salesinvoiceourreference", "");
+    _xmlset($invoice_xml, 			"/salesinvoice/salesinvoiceyourreference", "");
+    _xmlset($invoice_xml, 			"/salesinvoice/salesinvoiceprivatecomment", "");
     
     
     _xmlset($invoice_xml, 			"/salesinvoice/invoicingcustomeridentifier", $player->{'netvisorid_customer'}) ;
     _xmlSetAttribute($invoice_xml, 	"/salesinvoice/invoicingcustomeridentifier", "type", "customer");
-    _xmlset($invoice_xml, "/salesinvoice/invoicingcustomername", "$player->{'parent'}->{'firstname'} $player->{'parent'}->{'lastname'}");
-    _xmlset($invoice_xml, "/salesinvoice/invoicingcustomernameextension", "");
-    _xmlset($invoice_xml, "/salesinvoice/invoicingcustomeraddressline", $player->{'street'});
-    _xmlset($invoice_xml, "/salesinvoice/invoicingcustomeradditionaladdressline", $player->{'street'});
-    _xmlset($invoice_xml, "/salesinvoice/invoicingcustomerpostnumber", $player->{'zip'});
-    _xmlset($invoice_xml, "/salesinvoice/invoicingcustomertown", $player->{'city'});
+    _xmlset($invoice_xml, 			"/salesinvoice/invoicingcustomername", "$player->{'parent'}->{'firstname'} $player->{'parent'}->{'lastname'}");
+    _xmlset($invoice_xml, 			"/salesinvoice/invoicingcustomernameextension", "");
+    _xmlset($invoice_xml, 			"/salesinvoice/invoicingcustomeraddressline", $player->{'street'});
+    _xmlset($invoice_xml, 			"/salesinvoice/invoicingcustomeradditionaladdressline", $player->{'street'});
+    _xmlset($invoice_xml, 			"/salesinvoice/invoicingcustomerpostnumber", $player->{'zip'});
+    _xmlset($invoice_xml, 			"/salesinvoice/invoicingcustomertown", $player->{'city'});
     _xmlset($invoice_xml, 			"/salesinvoice/invoicingcustomercountrycode", "FI");
     _xmlSetAttribute($invoice_xml, 	"/salesinvoice/invoicingcustomercountrycode", "type", "ISO 3316");
     
-	_xmlset($invoice_xml, "/salesinvoice/deliveryaddressname", "$player->{'parent'}->{'firstname'} $player->{'parent'}->{'lastname'}");
-	_xmlset($invoice_xml, "/salesinvoice/deliveryaddressline", $player->{'street'});
-	_xmlset($invoice_xml, "/salesinvoice/deliveryaddresspostnumber", $player->{'zip'});
-	_xmlset($invoice_xml, "/salesinvoice/deliveryaddresstown", $player->{'city'});
-	_xmlset($invoice_xml, "/salesinvoice/deliveryaddresscountrycode", "FI");
-    
-	_xmlSetAttribute($invoice_xml, "/salesinvoice/deliveryaddresscountrycode", "type", "ISO 3316");
-	_xmlset($invoice_xml, "/salesinvoice/deliverymethod", "");
-    _xmlset($invoice_xml, "/salesinvoice/deliveryterm", "");
-    _xmlset($invoice_xml, "/salesinvoice/salesinvoicetaxhandlingtype", "countrygroup");
-    _xmlset($invoice_xml, "/salesinvoice/paymenttermnetdays", "14");
-    _xmlset($invoice_xml, "/salesinvoice/paymenttermcashdiscountdays", "");
-    _xmlset($invoice_xml, "/salesinvoice/paymenttermcashdiscount", "");
-    _xmlSetAttribute($invoice_xml, "/salesinvoice/paymenttermcashdiscount", "type", "percentage");
-    _xmlset($invoice_xml, "/salesinvoice/expectpartialpayments", "0");
-    _xmlset($invoice_xml, "/salesinvoice/trydirectdebitlink", "");
-    _xmlSetAttribute($invoice_xml, "/salesinvoice/trydirectdebitlink", "mode", "ignore_error");
-    _xmlset($invoice_xml, "/salesinvoice/overridevouchersalesreceivablesaccountnumber", "");
-    _xmlset($invoice_xml, "/salesinvoice/salesinvoiceagreementidentifier", "");
-    _xmlset($invoice_xml, "/salesinvoice/printchannelformat", "");
+	_xmlset($invoice_xml, 			"/salesinvoice/deliveryaddressname", "$player->{'parent'}->{'firstname'} $player->{'parent'}->{'lastname'}");
+	_xmlset($invoice_xml, 			"/salesinvoice/deliveryaddressline", $player->{'street'});
+	_xmlset($invoice_xml,	 		"/salesinvoice/deliveryaddresspostnumber", $player->{'zip'});
+	_xmlset($invoice_xml, 			"/salesinvoice/deliveryaddresstown", $player->{'city'});
+	_xmlset($invoice_xml, 			"/salesinvoice/deliveryaddresscountrycode", "FI");
+	_xmlSetAttribute($invoice_xml, 	"/salesinvoice/deliveryaddresscountrycode", "type", "ISO 3316");
+	_xmlset($invoice_xml, 			"/salesinvoice/deliverymethod", "");
+    _xmlset($invoice_xml, 			"/salesinvoice/deliveryterm", "");
+    _xmlset($invoice_xml, 			"/salesinvoice/salesinvoicetaxhandlingtype", "countrygroup");
+    _xmlset($invoice_xml, 			"/salesinvoice/paymenttermnetdays", "14");
+    _xmlset($invoice_xml, 			"/salesinvoice/paymenttermcashdiscountdays", "");
+    _xmlset($invoice_xml, 			"/salesinvoice/paymenttermcashdiscount", "");
+    _xmlSetAttribute($invoice_xml, 	"/salesinvoice/paymenttermcashdiscount", "type", "percentage");
+    _xmlset($invoice_xml, 			"/salesinvoice/expectpartialpayments", "0");
+    _xmlset($invoice_xml, 			"/salesinvoice/trydirectdebitlink", "");
+    _xmlSetAttribute($invoice_xml, 	"/salesinvoice/trydirectdebitlink", "mode", "ignore_error");
+    _xmlset($invoice_xml, 			"/salesinvoice/overridevouchersalesreceivablesaccountnumber", "");
+    _xmlset($invoice_xml, 			"/salesinvoice/salesinvoiceagreementidentifier", "");
+    _xmlset($invoice_xml, 			"/salesinvoice/printchannelformat", "");
     _xmlSetAttribute($invoice_xml, "/salesinvoice/printchannelformat", "type", "netvisor");
     _xmlset($invoice_xml, 			"/salesinvoice/secondname", "");
     _xmlSetAttribute($invoice_xml, 	"/salesinvoice/secondname", "type", "netvisor"); 
@@ -259,39 +255,37 @@ sub PostSalesInvoice {
 	_xmlSetAttribute($invoice_xml, 	"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/dimension/dimensionitem", "integrationdimensiondetailguid", "1");
     
     #_xmlset($invoice_xml, 			"/salesinvoice/invoicelines/invoiceline/salesinvoicecommentline", "");
-    _xmlset($invoice_xml, "/salesinvoice/invoicevoucherlines/voucherline/linesum", "100");
-    _xmlSetAttribute($invoice_xml, "/salesinvoice/invoicevoucherlines/voucherline/linesum", "type", "net");
-    _xmlset($invoice_xml, "/salesinvoice/invoicevoucherlines/voucherline/description", "");
-    _xmlset($invoice_xml, "/salesinvoice/invoicevoucherlines/voucherline/accountnumber", "3000");
-    _xmlset($invoice_xml, "/salesinvoice/invoicevoucherlines/voucherline/vatpercent", "22");
-    _xmlSetAttribute($invoice_xml, "/salesinvoice/invoicevoucherlines/voucherline/vatpercent", "vatcode", "KOMY");
-    _xmlset($invoice_xml, "/salesinvoice/invoicevoucherlines/voucherline/skipaccrual", "0");
-    _xmlset($invoice_xml, "/salesinvoice/invoicevoucherlines/voucherline/dimension/dimensionname", "Testi dimensio");
-    _xmlset($invoice_xml, "/salesinvoice/invoicevoucherlines/voucherline/dimension/dimensionitem", "Testi dimension item");
-    _xmlset($invoice_xml, "/salesinvoice/salesinvoiceaccrual/overridedefaultsalesaccrualaccountnumber", "0");
-    _xmlset($invoice_xml, "/salesinvoice/salesinvoiceaccrual/salesinvoiceaccrualtype", "");
-    _xmlset($invoice_xml, "/salesinvoice/salesinvoiceaccrual/accrualvoucherentry/month", "1");
-    _xmlset($invoice_xml, "/salesinvoice/salesinvoiceaccrual/accrualvoucherentry/year", "2018");
-    _xmlset($invoice_xml, "/salesinvoice/salesinvoiceaccrual/accrualvoucherentry/sum", "100");
-    _xmlset($invoice_xml, "/salesinvoice/salesinvoiceattachments/salesinvoiceattachment/mimetype", "Application/pdf");
-    _xmlset($invoice_xml, "/salesinvoice/salesinvoiceattachments/salesinvoiceattachment/attachmentdescription", "lasku");
-    _xmlset($invoice_xml, "/salesinvoice/salesinvoiceattachments/salesinvoiceattachment/filename", "lasku.pdf");
-    _xmlset($invoice_xml, "/salesinvoice/salesinvoiceattachments/salesinvoiceattachment/documentdata", "");
-    _xmlSetAttribute($invoice_xml, "/salesinvoice/salesinvoiceattachments/salesinvoiceattachment/documentdata", "type", "pdf");
-    _xmlset($invoice_xml, "/salesinvoice/salesinvoiceattachments/salesinvoiceattachment/printbydefault", "1");
-    _xmlset($invoice_xml, "/salesinvoice/customtags/tag/tagname", "");
-    _xmlset($invoice_xml, "/salesinvoice/customtags/tag/tagvalue", "");
-	_xmlSetAttribute($invoice_xml, "/salesinvoice/customtags/tag/tagvalue", "datatype", "date");
+    _xmlset($invoice_xml, 			"/salesinvoice/invoicevoucherlines/voucherline/linesum", "100");
+    _xmlSetAttribute($invoice_xml, 	"/salesinvoice/invoicevoucherlines/voucherline/linesum", "type", "net");
+    _xmlset($invoice_xml, 			"/salesinvoice/invoicevoucherlines/voucherline/description", "");
+    _xmlset($invoice_xml, 			"/salesinvoice/invoicevoucherlines/voucherline/accountnumber", "3000");
+    _xmlset($invoice_xml, 			"/salesinvoice/invoicevoucherlines/voucherline/vatpercent", "22");
+    _xmlSetAttribute($invoice_xml, 	"/salesinvoice/invoicevoucherlines/voucherline/vatpercent", "vatcode", "KOMY");
+    _xmlset($invoice_xml, 			"/salesinvoice/invoicevoucherlines/voucherline/skipaccrual", "0");
+    _xmlset($invoice_xml, 			"/salesinvoice/invoicevoucherlines/voucherline/dimension/dimensionname", "Testi dimensio");
+    _xmlset($invoice_xml, 			"/salesinvoice/invoicevoucherlines/voucherline/dimension/dimensionitem", "Testi dimension item");
+    _xmlset($invoice_xml, 			"/salesinvoice/salesinvoiceaccrual/overridedefaultsalesaccrualaccountnumber", "0");
+    _xmlset($invoice_xml, 			"/salesinvoice/salesinvoiceaccrual/salesinvoiceaccrualtype", "");
+    _xmlset($invoice_xml, 			"/salesinvoice/salesinvoiceaccrual/accrualvoucherentry/month", "1");
+    _xmlset($invoice_xml, 			"/salesinvoice/salesinvoiceaccrual/accrualvoucherentry/year", "2018");
+    _xmlset($invoice_xml, 			"/salesinvoice/salesinvoiceaccrual/accrualvoucherentry/sum", "100");
+    _xmlset($invoice_xml, 			"/salesinvoice/salesinvoiceattachments/salesinvoiceattachment/mimetype", "Application/pdf");
+    _xmlset($invoice_xml, 			"/salesinvoice/salesinvoiceattachments/salesinvoiceattachment/attachmentdescription", "lasku");
+    _xmlset($invoice_xml, 			"/salesinvoice/salesinvoiceattachments/salesinvoiceattachment/filename", "lasku.pdf");
+    _xmlset($invoice_xml, 			"/salesinvoice/salesinvoiceattachments/salesinvoiceattachment/documentdata", "");
+    _xmlSetAttribute($invoice_xml, 	"/salesinvoice/salesinvoiceattachments/salesinvoiceattachment/documentdata", "type", "pdf");
+    _xmlset($invoice_xml, 			"/salesinvoice/salesinvoiceattachments/salesinvoiceattachment/printbydefault", "1");
+    _xmlset($invoice_xml, 			"/salesinvoice/customtags/tag/tagname", "");
+    _xmlset($invoice_xml, 			"/salesinvoice/customtags/tag/tagvalue", "");
+	_xmlSetAttribute($invoice_xml, 	"/salesinvoice/customtags/tag/tagvalue", "datatype", "date");
 	
     my $data = $invoice_xml->findnodes_as_string('/');
+    debug Dumper($data);
+    #return "DONE";
+    
     my $response = $self->SUPER::request("salesinvoice.nv", "POST", $data, "?method=add");
     #GetLog->debug("Response from API: $response->[1]");
-    return $response;
-    
-	#my $response = $self->SUPER::request("customerlist.nv", "GET");
-    #my $hCustomerList = $self->_xml2hash($response->[0]);
-    #return $hCustomerList;
-    
+    return $response;    
 }
 
 #=============================================================================

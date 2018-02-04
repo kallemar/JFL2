@@ -6,7 +6,6 @@
 package JFLNetvisor;
 use Dancer ':syntax';
 use Dancer::Plugin::Database;
-use Dancer::Plugin::ORMesque;
 use Dancer::Plugin::REST;
 use Dancer::Plugin::Auth::Basic;
 use Data::Dumper;
@@ -78,14 +77,17 @@ get '/getinvoicestatus' => sub {
 get '/:id' => sub {
 	# luetaan pelaajat jotka pitää laskuttaa
     my $seasonid = params->{'id'};
-    my $players = db->player
-                     ->read({ id => 3636,	#FIXME
-	#						  seasonid  => $id,
-   	#			              cancelled => undef,
-  	#				          invoiced => undef,
-  	#					          isinvoice => 0,	#FIXME 1
-                            })->collection;
-	my $season = db->season->read({ id => $seasonid})->current;
+    my @players = database->quick_select('player', 
+													{ 	
+														id => 3636,	#FIXME	
+														#seasonid  => $seasonid,
+														#cancelled => undef,
+														#netvisorid_invoice => undef,
+														#isinvoice => 1,
+													});
+
+	my $season = database->quick_select('season', { id => $seasonid} );
+	
 	my $xml = new XML::Simple;
 	my $Product;
 	my $netvisorid;
@@ -104,13 +106,12 @@ get '/:id' => sub {
 	my $NetvisorClient = Requests->new($hAuth, config->{'Netvisor_RESTTestUrl'});
 
    
-    foreach my $player (@{ $players }) {
+    foreach my $player (@players) {
 		#luetaan pelaajan id
 		my $playerid = $player->{'id'};
 		
 		# luetaan pelaajan kaupunginosa
-		my $suburban = db->suburban->read({id => $player->{'suburbanid'} } )->current;
-		
+		my $suburban = database->quick_select('suburban', { id => $player->{'suburbanid'} });
 		
 		#Product can be season or suburban. By default it is season but of suburban.price is defined then it is suburban
 		if (defined $suburban->{'price'}) {
@@ -128,10 +129,9 @@ get '/:id' => sub {
 		}
 		
 		#set $parent object for $player
-		my $parentid =
-           db->player_parent->read({ playerid => $player->{'id'} })->current->{'parentid'};
+		my $parentid = database->quick_select('player_parent',  { playerid => $playerid })->{'parentid'};
 		if( defined($parentid) ) {
-			$player->{'parent'} = db->parent->read($parentid)->current;
+			$player->{'parent'} = database->quick_select('parent',  { id => $parentid });
 		}
 		
 
@@ -222,17 +222,18 @@ get '/:id' => sub {
 		#make and send invoice
         my $id;
 		$response = $NetvisorClient->PostSalesInvoice($player, $Product, $id);        
-#        debug "ID: $id";
+#       debug "ID: $id";
         
         #read the response
-#        debug Dumper($response);
+#       debug Dumper($response);
 		$data = $xml->XMLin(@{ $response }[0]);
 		debug Dumper($data);
 		return "DONE";
 		
 		# talletetaan saatu netvisorid takaisin pelaajatietueelle
 		db->player->update({
-		                    netvisorid => $id,
+		                    netvisorid_invoice => $id,
+		                    invoiced => time,
 		               },
 		               {
 		                    id => $playerid,
