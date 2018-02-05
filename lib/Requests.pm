@@ -172,12 +172,14 @@ sub PostSalesInvoice {
     my $self = shift;
     my $player = shift;
     my $Product = shift;
+    my $Discount = shift;
     my $id = shift; # NetvisorKey
 	
      
     my $RootNode = XML::XPath::Node::Element->new('root',"");
     my $invoice_xml = XML::XPath->new(context => $RootNode);
 
+	#INVOICE HEADER
     _xmlset($invoice_xml, "/salesinvoice/salesinvoicenumber", "");
     _xmlset($invoice_xml, 			"/salesinvoice/salesinvoicedate", localtime->strftime("%Y-%m-%d"));			
     _xmlSetAttribute($invoice_xml, 	"/salesinvoice/salesinvoicedate", "format", "ansi");
@@ -234,6 +236,7 @@ sub PostSalesInvoice {
     _xmlset($invoice_xml, 			"/salesinvoice/secondname", "");
     _xmlSetAttribute($invoice_xml, 	"/salesinvoice/secondname", "type", "netvisor"); 
      
+     #INVOICE LINE 1
 	_xmlset($invoice_xml, 			"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productidentifier", $Product->{'netvisorid'});
 	_xmlSetAttribute($invoice_xml, 	"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productidentifier", "type", "netvisor");
 	_xmlset($invoice_xml, 			"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productname", $Product->{'name'});
@@ -255,6 +258,20 @@ sub PostSalesInvoice {
 	#_xmlSetAttribute($invoice_xml, 	"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/dimension/dimensionitem", "integrationdimensiondetailguid", "1");
     
     #_xmlset($invoice_xml, 			"/salesinvoice/invoicelines/invoiceline/salesinvoicecommentline", "");
+
+     #SET INVOICE LINE 2
+     if (defined $Discount) {
+#		_xmlset($invoice_xml, 			"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productidentifier", config->{'Netvisor_TShirtDiscountProductID'});
+#		_xmlSetAttribute($invoice_xml, 	"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productidentifier", "type", "netvisor");
+#		_xmlset($invoice_xml, 			"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productname", $Discount->{'name'});
+#		_xmlset($invoice_xml, 			"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productunitprice", $Discount->{'price'});
+#		_xmlSetAttribute($invoice_xml, 	"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productunitprice", "type", "net");
+#		_xmlset($invoice_xml, 			"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productvatpercentage", "0");
+#		_xmlSetAttribute($invoice_xml, 	"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productvatpercentage", "vatcode", "KOMY");
+#		_xmlset($invoice_xml, 			"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/salesinvoiceproductlinequantity", "1");
+	}
+
+     #INVOICE FOOTER
     _xmlset($invoice_xml, 			"/salesinvoice/invoicevoucherlines/voucherline/linesum", "100");
     _xmlSetAttribute($invoice_xml, 	"/salesinvoice/invoicevoucherlines/voucherline/linesum", "type", "net");
     _xmlset($invoice_xml, 			"/salesinvoice/invoicevoucherlines/voucherline/description", "");
@@ -366,5 +383,11 @@ sub _xml2hash {
     return XMLin($xmlString);
 }
 
+sub _xmlCreateNode {
+	 my ($Tree, $xpath) = @_;
+
+	$Tree->createNode($xpath);
+ 
+}
 
 1;

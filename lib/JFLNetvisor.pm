@@ -89,18 +89,10 @@ get '/:id' => sub {
 														isinvoice => 1,
 													});
 	my $runstatus;
-    $runstatus->{'all invoiceable players'} = database->quick_count('player', 
-													{ 	
-														seasonid  => $seasonid,
-														cancelled => undef,
-														netvisorid_invoice => undef,
-														isinvoice => 1,
-													});
-
-#	return Dumper($runstatus);		
+    $runstatus->{'all invoiceable players'} = @players;
+	#return Dumper($runstatus);		
 	
 	my $season = database->quick_select('season', { id => $seasonid} );
-	
 	my $xml = new XML::Simple;
 	my $Product;
 	my $netvisorid;
@@ -141,6 +133,17 @@ get '/:id' => sub {
 			$Product->{'netvisorid'} =  $season->{'netvisorid'};         
 		}
 		
+		#set discounts. A discount is a separate product that has a negative price
+		my $Discount;
+		#a t-shirt case
+		if ($player->{'shirtsizeid'} eq -1) {
+			$Discount->{'id'} = "C1";
+			$Discount->{'name'} = "Pelipaitavähennys";
+			$Discount->{'type'} = "discount";
+			$Discount->{'price'} = "-10";
+			$Discount->{'netvisorid'} =  config->{'Netvisor_TShirtDiscountProductID'};         
+		}
+		
 		#set $parent object for $player
 		my $parentid = database->quick_select('player_parent',  { playerid => $playerid })->{'parentid'};
 		if( defined($parentid) ) {
@@ -150,12 +153,7 @@ get '/:id' => sub {
 
 		# jos netvisorid on olemassa niin tehdään "Edit", jos sitä ei ole olemassa niin tehdään "Add"
 		my $response;
-		my $mode;
-		if (defined $player->{'netvisorid_customer'}) {
-			$mode = "edit";
-		} else {
-			$mode = "add";
-		}
+		my $mode  = defined( $player->{'netvisorid_customer'}) ? "edit" : "add";
 		$response = $NetvisorClient->PostCustomer($player, $mode, $player->{'netvisorid_customer'});
 		
 		
@@ -164,10 +162,7 @@ get '/:id' => sub {
 		if(ref($data->{ResponseStatus}->{Status}) eq 'ARRAY') {
 			$status = $data->{ResponseStatus}->{Status}->[0];
    			if ( $status eq 'FAILED') {
-				debug Dumper($player);
-				debug $mode;
-				debug "FAILED: $data->{ResponseStatus}->{Status}->[1]";
-				return "DONE"
+				return $status;
 			}
 		} else {
 			$status = $data->{ResponseStatus}->{Status};
@@ -175,7 +170,6 @@ get '/:id' => sub {
 				#debug "SUCCESS PostCustomer";
 				if ($mode eq "add") {
 					$netvisorid = "$data->{Replies}->{InsertedDataIdentifier}";
-					debug "ID: $netvisorid";
 				}
 			} else {
 				debug $status;
@@ -186,42 +180,32 @@ get '/:id' => sub {
 		if (!defined $player->{'netvisorid_customer'}) {
 			db->player->update({netvisorid_customer => $netvisorid }, {id => $playerid});
 		}
+
 		
-		
-		# jos netvisorid on olemassa niin tehdään "Edit", jos sitä ei ole olemassa niin tehdään "Add"
-		if (defined $Product->{'netvisorid'}) {
-			$mode = "edit";
-		} else {
-			$mode = "add";
-		}
+		### Add/Edit a product
+		$mode  = defined($Product->{'netvisorid'}) ? "edit" : "add";
 		$response = $NetvisorClient->PostProduct($Product, $mode, $Product->{'netvisorid'});
-		
-       
-        #read the response
 		$data = $xml->XMLin(@{ $response }[0]);
+		debug $data;
 		if(ref($data->{ResponseStatus}->{Status}) eq 'ARRAY') {
 			$status = $data->{ResponseStatus}->{Status}->[0];
    			if ( $status eq 'FAILED') {
-				debug "FAILED";
-				debug "REASON: $data->{ResponseStatus}->{Status}->[1]";
-				return "DONE";
+				return $status;
 			}
 		} else {
 			$status = $data->{ResponseStatus}->{Status};
 			if ( $status eq 'FAILED') {
-				debug "FAILED";
-				debug "REASON: $data->{ResponseStatus}->{Status}->[1]";
-				return "DONE";		
+				return $status;		
 			} elsif ( $status eq 'OK') {
 				#debug "SUCCESS";
 				if ($mode eq "add") {
 					$netvisorid = "$data->{Replies}->{InsertedDataIdentifier}";
-					debug "ID: $netvisorid";
 				}		
 			} else {
 				return "DONE";
 			}
 		}
+
 
 		if (!defined $Product->{'netvisorid'}) {
 			if ($Product->{'type'} eq "season") {;
@@ -231,12 +215,38 @@ get '/:id' => sub {
 			}			
 		}
 		
-		#make and send invoice
-        my $id;
-		$response = $NetvisorClient->PostSalesInvoice($player, $Product, $id);        
-        
-        #read the response
+		### Post Discount products
+		$mode  = "edit";
+		$response = $NetvisorClient->PostProduct($Discount, $mode, $Product->{'netvisorid'});
 		$data = $xml->XMLin(@{ $response }[0]);
+		debug "discount";
+		if(ref($data->{ResponseStatus}->{Status}) eq 'ARRAY') {
+			$status = $data->{ResponseStatus}->{Status}->[0];
+   			if ( $status eq 'FAILED') {
+				return $status;
+			}
+		} else {
+			$status = $data->{ResponseStatus}->{Status};
+			if ( $status eq 'FAILED') {
+				return $status;
+			} elsif ( $status eq 'OK') {
+				#debug "SUCCESS";
+				if ($mode eq "add") {
+					$netvisorid = "$data->{Replies}->{InsertedDataIdentifier}";
+				}		
+			} else {
+				return "DONE";
+			}
+		}
+		
+		
+		###make and send invoice
+        my $id;
+		$response = $NetvisorClient->PostSalesInvoice($player, $Product, $Discount, $id);        
+		$data = $xml->XMLin(@{ $response }[0]);
+		debug "send invoice";
+		debug Dumper($data);
+		debug Dumper($response);
 		my $netvisorid_invoice = $data->{'Replies'}->{'InsertedDataIdentifier'};
 		
 		#TODO Error handling
@@ -253,8 +263,7 @@ get '/:id' => sub {
 		               }
 					);	
 	}	
-	debug Dumper($runstatus);
-	return "DONE";
+	return Dumper($runstatus);
 };
 
 1;
