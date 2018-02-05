@@ -42,20 +42,24 @@ get '/getinvoicestatus' => sub {
     };
 	my $NetvisorClient = Requests->new($hAuth, config->{'Netvisor_RESTTestUrl'});
 	
-	#loop all invoices
-	#FIXME: for some reason "netvisorid_invoice is not null and paid is null" query is not working
-	my @invoices = database->quick_select('player', { 	paid => undef, 
-														netvisorid_invoice => { 'ne', undef },
-										});
-	foreach my $invoice (@invoices) {
+	#get all unpaid invoices
+	my $sth = database->prepare(
+		'select * from player where netvisorid_invoice is not null and paid is null',
+	);
+	$sth->execute();
+	
+	my $runstatus->{'all unpaid invoices'} = 0;
+	while( my $invoice= $sth->fetchrow_hashref) {
+		++$runstatus->{'all unpaid invoices'};
 		my $response = $NetvisorClient->GetSalesInvoice($invoice->{'netvisorid_invoice'});
+		#TODO: error handling for $response get from Netvisor
+		
 		#status options: 'Unsent', 'Due for payment', 'Paid'
 		if ($response->{'SalesInvoice'}->{'InvoiceStatus'} eq 'Paid') {
-			#update player.paid to 1
 			database->quick_update('player', { id => $invoice->{'id'} }, { paid => 1 });
 		}
 	}
-	return "DONE";
+	return Dumper($runstatus);
 };
 
 
@@ -79,13 +83,22 @@ get '/:id' => sub {
     my $seasonid = params->{'id'};
     my @players = database->quick_select('player', 
 													{ 	
-														id => 3636,	#FIXME	
-														#seasonid  => $seasonid,
-														#cancelled => undef,
-														#netvisorid_invoice => undef,
-														#isinvoice => 1,
+														seasonid  => $seasonid,
+														cancelled => undef,
+														netvisorid_invoice => undef,
+														isinvoice => 1,
+													});
+	my $runstatus;
+    $runstatus->{'all invoiceable players'} = database->quick_count('player', 
+													{ 	
+														seasonid  => $seasonid,
+														cancelled => undef,
+														netvisorid_invoice => undef,
+														isinvoice => 1,
 													});
 
+#	return Dumper($runstatus);		
+	
 	my $season = database->quick_select('season', { id => $seasonid} );
 	
 	my $xml = new XML::Simple;
@@ -218,29 +231,30 @@ get '/:id' => sub {
 			}			
 		}
 		
-		
 		#make and send invoice
         my $id;
 		$response = $NetvisorClient->PostSalesInvoice($player, $Product, $id);        
-#       debug "ID: $id";
         
         #read the response
-#       debug Dumper($response);
 		$data = $xml->XMLin(@{ $response }[0]);
-		debug Dumper($data);
-		return "DONE";
+		my $netvisorid_invoice = $data->{'Replies'}->{'InsertedDataIdentifier'};
+		
+		#TODO Error handling
 		
 		# talletetaan saatu netvisorid takaisin pelaajatietueelle
-		db->player->update({
-		                    netvisorid_invoice => $id,
-		                    invoiced => time,
-		               },
-		               {
+		database->quick_update(
+						'player',
+					   {
 		                    id => $playerid,
-		               });
-		 
-		
+		               },
+					   {
+		                    netvisorid_invoice => $netvisorid_invoice,
+		                    invoiced => time,
+		               }
+					);	
 	}	
+	debug Dumper($runstatus);
+	return "DONE";
 };
 
 1;
