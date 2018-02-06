@@ -180,15 +180,17 @@ sub convert_to_utf8 {
 # §return       $client | REST client object | object
 #========================================================================================
 sub _getClient {
-    return REST::Client->new( { 'timeout' => CALL_TIMEOUT } );
+    my $client = REST::Client->new( { 'timeout' => CALL_TIMEOUT } );
+    $client->addHeader('charset', 'utf-8');
+    return $client;
 }
 
-#========================================================================================
+#=============================================================  
 # §function     _getHeaders
 # §state        private
 #----------------------------------------------------------------------------------------
 # §syntax       $client = $self->_getHeaders($args,$URL);
-#----------------------------------------------------------------------------------------
+#----------------------------_hash2xml------------------------------------------------------------
 # §description  Builds the header and calculates the SHA256 MAC to it
 #----------------------------------------------------------------------------------------
 # §input        $args | arguments | hash
@@ -215,7 +217,7 @@ sub _getHeaders {
     # Use UUID from DATA::UUID as unique transaction identifier
     my $ug = Data::UUID->new;
     my $UUID = $ug->create();
-    my $UUIDString = $ug->to_string($UUID);
+    my $UUIDString = $ug->to__hash2xmlstring($UUID);
     $NetvisorHeader->{'X-Netvisor-Authentication-TransactionId'} = $UUIDString;
 
 
@@ -273,7 +275,6 @@ sub _hash2xml {
         KeyAttr => 'content',
         RootName => 'root',
     );
-    print $data;
     return $data;
 }
 
