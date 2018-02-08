@@ -41,6 +41,7 @@ print $data . "\n";
 
 
 sub _xmlset {
+    use File::Basename;
     my ($Tree, $xpath, $value) = @_;
 
     if (!$Tree->exists($xpath)) {
@@ -50,7 +51,43 @@ sub _xmlset {
         $Tree->setNodeText($xpath, $value);
         }
     }
+    else {
+        my $nodeSet = $Tree->find($xpath);
+        my $parentNode = $nodeSet->get_node(1)->getParentNode;
+        my $base = basename $xpath;
+        my $newNode = XML::XPath::Node::Element->new($base, "");
+        $parentNode->appendChild($newNode);
+
+    }
 }
+
+#========================================================================================
+# §function     _xmladd
+# §state        public
+#----------------------------------------------------------------------------------------
+# §syntax       _xmladd( $XmlTree, 'PurchaseOrder/ListofOrderDetails/OrderLine');
+#----------------------------------------------------------------------------------------
+# §description  Method adds new xml child elelent to the XML request
+#----------------------------------------------------------------------------------------
+# §input        $xpath | xpath to the parent element | String
+# §return       none
+#========================================================================================
+sub _xmladd {
+    use File::Basename;
+    my ( $Tree, $xpath ) = @_;
+    TestString('Set xpath', $xpath);
+    if ( ! $Tree->exists($xpath) ) {
+        $Tree->createNode($xpath);
+    }
+    else {
+        my $nodeSet = $Tree->find($xpath);
+        my $parentNode = $nodeSet->get_node(1)->getParentNode;
+        my $base = basename $xpath;
+        my $newNode = XML::XPath::Node::Element->new($base, "");
+        $parentNode->appendChild($newNode);
+    }
+}
+
 
 
 sub _xmlSetAttribute {
