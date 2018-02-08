@@ -89,8 +89,8 @@ get '/:id' => sub {
 														isinvoice => 1,
 													});
 	my $runstatus;
-    $runstatus->{'all invoiceable players'} = @players;
-	#return Dumper($runstatus);		
+	$runstatus->{'all invoiceable players'} = @players;
+	debug $runstatus;
 	
 	my $season = database->quick_select('season', { id => $seasonid} );
 	my $xml = new XML::Simple;
@@ -156,9 +156,9 @@ get '/:id' => sub {
 		my $mode  = defined( $player->{'netvisorid_customer'}) ? "edit" : "add";
 		$response = $NetvisorClient->PostCustomer($player, $mode, $player->{'netvisorid_customer'});
 		
-		
 		#read the response
 		my $data = $xml->XMLin(@{ $response }[0]);
+		
 		if(ref($data->{ResponseStatus}->{Status}) eq 'ARRAY') {
 			$status = $data->{ResponseStatus}->{Status}->[0];
    			if ( $status eq 'FAILED') {
@@ -186,7 +186,7 @@ get '/:id' => sub {
 		$mode  = defined($Product->{'netvisorid'}) ? "edit" : "add";
 		$response = $NetvisorClient->PostProduct($Product, $mode, $Product->{'netvisorid'});
 		$data = $xml->XMLin(@{ $response }[0]);
-		debug $data;
+		
 		if(ref($data->{ResponseStatus}->{Status}) eq 'ARRAY') {
 			$status = $data->{ResponseStatus}->{Status}->[0];
    			if ( $status eq 'FAILED') {
@@ -197,7 +197,6 @@ get '/:id' => sub {
 			if ( $status eq 'FAILED') {
 				return $status;		
 			} elsif ( $status eq 'OK') {
-				#debug "SUCCESS";
 				if ($mode eq "add") {
 					$netvisorid = "$data->{Replies}->{InsertedDataIdentifier}";
 				}		
@@ -219,7 +218,6 @@ get '/:id' => sub {
 		$mode  = "edit";
 		$response = $NetvisorClient->PostProduct($Discount, $mode, $Product->{'netvisorid'});
 		$data = $xml->XMLin(@{ $response }[0]);
-		debug "discount";
 		if(ref($data->{ResponseStatus}->{Status}) eq 'ARRAY') {
 			$status = $data->{ResponseStatus}->{Status}->[0];
    			if ( $status eq 'FAILED') {
@@ -230,7 +228,6 @@ get '/:id' => sub {
 			if ( $status eq 'FAILED') {
 				return $status;
 			} elsif ( $status eq 'OK') {
-				#debug "SUCCESS";
 				if ($mode eq "add") {
 					$netvisorid = "$data->{Replies}->{InsertedDataIdentifier}";
 				}		
@@ -238,15 +235,14 @@ get '/:id' => sub {
 				return "DONE";
 			}
 		}
-		
+		#debug Dumper($response);
 		
 		###make and send invoice
         my $id;
 		$response = $NetvisorClient->PostSalesInvoice($player, $Product, $Discount, $id);        
 		$data = $xml->XMLin(@{ $response }[0]);
-		debug "send invoice";
-		debug Dumper($data);
-		debug Dumper($response);
+		#debug Dumper($response);
+		#debug Dumper($data);
 		my $netvisorid_invoice = $data->{'Replies'}->{'InsertedDataIdentifier'};
 		
 		#TODO Error handling
@@ -262,6 +258,7 @@ get '/:id' => sub {
 		                    invoiced => time,
 		               }
 					);	
+		#debug "invoice sent $netvisorid_invoice";
 	}	
 	return Dumper($runstatus);
 };
