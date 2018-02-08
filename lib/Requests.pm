@@ -261,6 +261,29 @@ sub PostSalesInvoice {
 
      #SET INVOICE LINE 2
      if (defined $Discount) {
+        
+        _xmladd($invoice_xml, "/salesinvoice/invoicelines/invoiceline");
+        _xmladd($invoice_xml, "/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline");
+
+        _xmladd($invoice_xml, "/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productidentifier");
+        _xmlSetAttribute($invoice_xml, 	"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productidentifier", "type", "netvisor");
+        $invoice_xml->setNodeText("//invoiceline[last()]/salesinvoiceproductline/productidentifier", config->{'Netvisor_TShirtDiscountProductID'});
+        
+        _xmladd($invoice_xml, "/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productname");
+        $invoice_xml->setNodeText("//invoiceline[last()]/salesinvoiceproductline/productname", $Discount->{'name'});
+
+        _xmladd($invoice_xml, "/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productunitprice");
+        _xmlSetAttribute($invoice_xml, 	"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productunitprice", "type", "net");
+        $invoice_xml->setNodeText("//invoiceline[last()]/salesinvoiceproductline/productunitprice", $Discount->{'price'}); 
+
+        _xmladd($invoice_xml, "/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productvatpercentage");
+        $invoice_xml->setNodeText("//invoiceline[last()]/salesinvoiceproductline/productvatpercentage", "0");
+        _xmlSetAttribute($invoice_xml, 	"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productvatpercentage", "vatcode", "KOMY");
+
+		_xmladd($invoice_xml, "/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/salesinvoiceproductlinequantity");
+        $invoice_xml->setNodeText("//invoiceline[last()]/salesinvoiceproductline/salesinvoiceproductlinequantity", "1");
+
+
 #		_xmlset($invoice_xml, 			"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productidentifier", config->{'Netvisor_TShirtDiscountProductID'});
 #		_xmlSetAttribute($invoice_xml, 	"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productidentifier", "type", "netvisor");
 #		_xmlset($invoice_xml, 			"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productname", $Discount->{'name'});
@@ -359,6 +382,25 @@ sub _xmlset {
     }
 }
 
+sub _xmladd {
+    use File::Basename;
+  
+    my ( $Tree, $xpath ) = @_;
+
+    my $base = basename $xpath;
+    $xpath = dirname $xpath;
+   
+    if ( ! $Tree->exists($xpath) ) {
+        $Tree->createNode($xpath);
+    }
+    else {
+        my $nodeSet = $Tree->find($xpath . "[last()]");
+        my $parentNode = $nodeSet->get_node($nodeSet->size());
+        my $newNode = XML::XPath::Node::Element->new($base, "");
+        $parentNode->appendChild($newNode);
+
+    }
+}
 
 sub _xmlSetAttribute {
     my $Tree = shift;
@@ -369,8 +411,8 @@ sub _xmlSetAttribute {
     if(!$Tree->exists($xpath)) {
         $Tree->createNode($xpath);
     }
-
-    my $Node = $Tree->find($xpath)->get_node(1);
+    my $nodeSet = $Tree->find($xpath);
+    my $Node = $nodeSet->get_node($nodeSet->size());
     my $AttributeNode = XML::XPath::Node::Attribute->new($AttributeKey, $AttributeValue, '');
     $Node->appendAttribute($AttributeNode);
 }
