@@ -140,7 +140,7 @@ get '/:id' => sub {
 			$Discount->{'id'} = "C1";
 			$Discount->{'name'} = "Pelipaitavähennys";
 			$Discount->{'type'} = "discount";
-			$Discount->{'price'} = "-10";
+			$Discount->{'price'} = "10";
 			$Discount->{'netvisorid'} =  config->{'Netvisor_TShirtDiscountProductID'};         
 		}
 		

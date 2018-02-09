@@ -186,8 +186,6 @@ sub PostSalesInvoice {
     
     
     _xmlset($invoice_xml, 			"/salesinvoice/salesinvoicereferencenumber", "");
-    #_xmlset($invoice_xml, 			"/salesinvoice/salesinvoiceamount", "1000" 	);
-    #_xmlSetAttribute($invoice_xml, 	"/salesinvoice/salesinvoiceamount", "iso4217currencycode", "EUR");
     _xmlSetAttribute($invoice_xml, 	"/salesinvoice/salesinvoiceamount", "currencyrate", "0,00");
     _xmlset($invoice_xml, 			"/salesinvoice/selleridentifier", "");
     _xmlSetAttribute($invoice_xml, 	"/salesinvoice/selleridentifier", "type", "netvisor");
@@ -236,28 +234,19 @@ sub PostSalesInvoice {
     _xmlset($invoice_xml, 			"/salesinvoice/secondname", "");
     _xmlSetAttribute($invoice_xml, 	"/salesinvoice/secondname", "type", "netvisor"); 
      
+
      #INVOICE LINE 1
 	_xmlset($invoice_xml, 			"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productidentifier", $Product->{'netvisorid'});
 	_xmlSetAttribute($invoice_xml, 	"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productidentifier", "type", "netvisor");
 	_xmlset($invoice_xml, 			"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productname", $Product->{'name'});
 	_xmlset($invoice_xml, 			"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productunitprice", $Product->{'price'});
 	_xmlSetAttribute($invoice_xml, 	"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productunitprice", "type", "net");
-	#xmlset($invoice_xml, 			"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productunitpurchaseprice", "");
-	#xmlSetAttribute($invoice_xml, 	"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productunitpurchaseprice", "type", "netvisor");
 	_xmlset($invoice_xml, 			"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productvatpercentage", "0");
 	_xmlSetAttribute($invoice_xml, 	"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productvatpercentage", "vatcode", "KOMY");
 	_xmlset($invoice_xml, 			"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/salesinvoiceproductlinequantity", "1");
-	#_xmlset($invoice_xml, 			"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/salesinvoiceproductlinediscountpercentage", "");
-	#_xmlset($invoice_xml, 			"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/salesinvoiceproductlinefreetext", "");
 	_xmlset($invoice_xml, 			"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/salesinvoiceproductlinevatsum", "");
 	_xmlset($invoice_xml, 			"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/salesinvoiceproductlinesum", "");
-	#_xmlset($invoice_xml, 			"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/accountingaccountsuggestion", "");
-	#_xmlset($invoice_xml, 			"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/skipaccrual", "");
-	#_xmlset($invoice_xml, 			"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/dimension/dimensionname", "Testi dimensio");
-	#_xmlset($invoice_xml, 			"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/dimension/dimensionitem", "Testi dimension item");
-	#_xmlSetAttribute($invoice_xml, 	"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/dimension/dimensionitem", "integrationdimensiondetailguid", "1");
-    
-    #_xmlset($invoice_xml, 			"/salesinvoice/invoicelines/invoiceline/salesinvoicecommentline", "");
+
 
      #SET INVOICE LINE 2
      if (defined $Discount) {
@@ -281,51 +270,8 @@ sub PostSalesInvoice {
         _xmlSetAttribute($invoice_xml, 	"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productvatpercentage", "vatcode", "KOMY");
 
 		_xmladd($invoice_xml, "/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/salesinvoiceproductlinequantity");
-        $invoice_xml->setNodeText("//invoiceline[last()]/salesinvoiceproductline/salesinvoiceproductlinequantity", "1");
-
-
-#		_xmlset($invoice_xml, 			"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productidentifier", config->{'Netvisor_TShirtDiscountProductID'});
-#		_xmlSetAttribute($invoice_xml, 	"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productidentifier", "type", "netvisor");
-#		_xmlset($invoice_xml, 			"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productname", $Discount->{'name'});
-#		_xmlset($invoice_xml, 			"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productunitprice", $Discount->{'price'});
-#		_xmlSetAttribute($invoice_xml, 	"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productunitprice", "type", "net");
-#		_xmlset($invoice_xml, 			"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productvatpercentage", "0");
-#		_xmlSetAttribute($invoice_xml, 	"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productvatpercentage", "vatcode", "KOMY");
-#		_xmlset($invoice_xml, 			"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/salesinvoiceproductlinequantity", "1");
+        $invoice_xml->setNodeText("//invoiceline[last()]/salesinvoiceproductline/salesinvoiceproductlinequantity", "-1");
 	}
-
-	#INVOICE FOOTER
-	if (defined $Discount) {
-		#_xmlset($invoice_xml, 			"/salesinvoice/invoicevoucherlines/voucherline/linesum", $Product->{'price'}-$Discount->{'price'});
-	} else {
-		#_xmlset($invoice_xml, 			"/salesinvoice/invoicevoucherlines/voucherline/linesum", $Product->{'price'});
-	}
-	#_xmlSetAttribute($invoice_xml, 	"/salesinvoice/invoicevoucherlines/voucherline/linesum", "type", "net");
-
-
-    #_xmlset($invoice_xml, 			"/salesinvoice/invoicevoucherlines/voucherline/description", "");
-    #_xmlset($invoice_xml, 			"/salesinvoice/invoicevoucherlines/voucherline/accountnumber", "3000");
-    #_xmlset($invoice_xml, 			"/salesinvoice/invoicevoucherlines/voucherline/vatpercent", "0");
-    #_xmlSetAttribute($invoice_xml, 	"/salesinvoice/invoicevoucherlines/voucherline/vatpercent", "vatcode", "KOMY");
-    #_xmlset($invoice_xml, 			"/salesinvoice/invoicevoucherlines/voucherline/skipaccrual", "1");
-    #_xmlset($invoice_xml, 			"/salesinvoice/invoicevoucherlines/voucherline/dimension/dimensionname", "Testi dimensio");
-    #_xmlset($invoice_xml, 			"/salesinvoice/invoicevoucherlines/voucherline/dimension/dimensionitem", "Testi dimension item");
-#    _xmlset($invoice_xml, 			"/salesinvoice/salesinvoiceaccrual/overridedefaultsalesaccrualaccountnumber", "0");
-#    _xmlset($invoice_xml, 			"/salesinvoice/salesinvoiceaccrual/salesinvoiceaccrualtype", "");
-#    _xmlset($invoice_xml, 			"/salesinvoice/salesinvoiceaccrual/accrualvoucherentry/month", "1");
-#    _xmlset($invoice_xml, 			"/salesinvoice/salesinvoiceaccrual/accrualvoucherentry/year", "2018");
-#    _xmlset($invoice_xml, 			"/salesinvoice/salesinvoiceaccrual/accrualvoucherentry/sum", "100");
-   #_xmlset($invoice_xml, 			"/salesinvoice/salesinvoiceattachments/salesinvoiceattachment/mimetype", "Application/pdf");
-   #_xmlset($invoice_xml, 			"/salesinvoice/salesinvoiceattachments/salesinvoiceattachment/attachmentdescription", "lasku");
-   #_xmlset($invoice_xml, 			"/salesinvoice/salesinvoiceattachments/salesinvoiceattachment/filename", "lasku.pdf");
-   #_xmlset($invoice_xml, 			"/salesinvoice/salesinvoiceattachments/salesinvoiceattachment/documentdata", "");
-   #_xmlSetAttribute($invoice_xml, 	"/salesinvoice/salesinvoiceattachments/salesinvoiceattachment/documentdata", "type", "pdf");
-   
-   #_xmlset($invoice_xml, 			"/salesinvoice/salesinvoiceattachments/salesinvoiceattachment/printbydefault", "1");
-   
-# 	_xmlset($invoice_xml, 			"/salesinvoice/customtags/tag/tagname", "");
-#    _xmlset($invoice_xml, 			"/salesinvoice/customtags/tag/tagvalue", "");#
-#	_xmlSetAttribute($invoice_xml, 	"/salesinvoice/customtags/tag/tagvalue", "datatype", "date");
 	
     my $data = $invoice_xml->findnodes_as_string('/');
     
