@@ -128,12 +128,12 @@ sub PostProduct {
     my $product_xml = XML::XPath->new(context => $RootNode);
     
     _xmlset($product_xml, "/product/productbaseinformation/productcode", $Product->{'id'} );
-    _xmlset($product_xml, "/product/productbaseinformation/productgroup", 'Futisklubitoiminta');
+    _xmlset($product_xml, "/product/productbaseinformation/productgroup", 'Toimintamaksut');
     _xmlset($product_xml, "/product/productbaseinformation/name", $Product->{name});
     _xmlset($product_xml, "/product/productbaseinformation/description", '');
     _xmlset($product_xml, "/product/productbaseinformation/unitprice", $Product->{price} );
     _xmlSetAttribute($product_xml, "/product/productbaseinformation/unitprice", "type", "net");
-	_xmlset($product_xml, "/product/productbaseinformation/unit", 1);
+	_xmlset($product_xml, "/product/productbaseinformation/unit", "kpl");
     _xmlset($product_xml, "/product/productbaseinformation/unitweight", '');
     _xmlset($product_xml, "/product/productbaseinformation/purchaseprice", "");
     _xmlset($product_xml, "/product/productbaseinformation/tariffheading", '');
@@ -186,8 +186,8 @@ sub PostSalesInvoice {
     
     
     _xmlset($invoice_xml, 			"/salesinvoice/salesinvoicereferencenumber", "");
-    _xmlset($invoice_xml, 			"/salesinvoice/salesinvoiceamount", $Product->{'price'});
-    _xmlSetAttribute($invoice_xml, 	"/salesinvoice/salesinvoiceamount", "iso4217currencycode", "EUR");
+    #_xmlset($invoice_xml, 			"/salesinvoice/salesinvoiceamount", "1000" 	);
+    #_xmlSetAttribute($invoice_xml, 	"/salesinvoice/salesinvoiceamount", "iso4217currencycode", "EUR");
     _xmlSetAttribute($invoice_xml, 	"/salesinvoice/salesinvoiceamount", "currencyrate", "0,00");
     _xmlset($invoice_xml, 			"/salesinvoice/selleridentifier", "");
     _xmlSetAttribute($invoice_xml, 	"/salesinvoice/selleridentifier", "type", "netvisor");
