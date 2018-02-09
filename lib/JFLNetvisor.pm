@@ -242,7 +242,7 @@ get '/:id' => sub {
 		$response = $NetvisorClient->PostSalesInvoice($player, $Product, $Discount, $id);        
 		$data = $xml->XMLin(@{ $response }[0]);
 		#debug Dumper($response);
-		#debug Dumper($data);
+		debug Dumper($data);
 		my $netvisorid_invoice = $data->{'Replies'}->{'InsertedDataIdentifier'};
 		
 		#TODO Error handling
@@ -258,7 +258,7 @@ get '/:id' => sub {
 		                    invoiced => time,
 		               }
 					);	
-		#debug "invoice sent $netvisorid_invoice";
+		debug "invoice sent $netvisorid_invoice";
 	}	
 	return Dumper($runstatus);
 };
