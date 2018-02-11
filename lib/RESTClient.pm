@@ -124,23 +124,18 @@ sub request {
     my $data = shift;
     my $querystr = shift;
 
-    my $xmlData = undef;
-    if ( defined $data ) {
-        eval {
-            $xmlData = &_hash2xml($data);
-        };
-        if ( $@ ) {
-            LogDebug('Eval:', $@);
-        }
-    }
-
+    
     my $url = "https://". $self->{Url} . "/" . $path . "$querystr";
     # UserId -> X-Netvisor-Authentication-CustomerId and MAC calculations etc.
     my $Headers = &_getHeaders($self->{Args},$url);
 
     my $Client = $self->{Client};
 
-    my $response = $Client->request($method,$url,$xmlData ,$Headers);
+    # set correct Content-type header
+    $Client->addHeader('Content-Type', 'application/xml;charset=utf8');
+
+    # encode data to UTF-8
+    my $response = $Client->request($method,$url, encode_utf8($data) ,$Headers);
     LogDebug("Response",$response);
     if ( $response->responseCode() != HTTP_CODE_OK ) {
         LogDebug( 'CONNECTION_FAILED', { 'responsecode' => $response->responseCode()} );
@@ -251,30 +246,6 @@ sub _getHeaders {
     LogDebug("NetvisorHeader",$NetvisorHeader);
 
     return $NetvisorHeader;
-}
-
-
-#========================================================================================
-# §function     _hash2xml
-# §state        private
-#----------------------------------------------------------------------------------------
-# §syntax       my $xmlData = _hash2xml($hash);
-#----------------------------------------------------------------------------------------
-# §description  converts hash to xml data with XMLout
-#----------------------------------------------------------------------------------------
-# §input        $hash | hash built for XMLout | hash
-# §return       $xmlData | xml data as string | string
-#========================================================================================
-sub _hash2xml {
-    my $data = shift;
-
-    my $xmlData = XMLout (
-        $data,
-        KeyAttr => 'content',
-        RootName => 'root',
-    );
-    print $data;
-    return $data;
 }
 
 1;
