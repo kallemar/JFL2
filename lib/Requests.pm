@@ -122,7 +122,6 @@ sub PostProduct {
     my $self = shift;
     my $Product = shift;
     my $postMethod = shift;
-    my $id = shift;
 
     my $RootNode = XML::XPath::Node::Element->new('root',"");
     my $product_xml = XML::XPath->new(context => $RootNode);
@@ -146,7 +145,7 @@ sub PostProduct {
     
 	my $response;
 	if ($postMethod eq 'add') {
-		$response = $self->request("product.nv", "POST", $data, "?method=$postMethod");
+		$response = $self->SUPER::request("product.nv", "POST", $data, "?method=$postMethod");
 	} else {
 		$response = $self->SUPER::request("product.nv", "POST", $data, "?method=$postMethod&id=$Product->{'netvisorid'}");
 	}
