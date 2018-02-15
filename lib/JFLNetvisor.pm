@@ -135,14 +135,15 @@ get '/:id' => sub {
 		#set discounts. A discount is a separate product that has a negative price
 		my $Discount;
 		#a t-shirt case
-		if ($player->{'shirtsizeid'} eq -1) {
-			$Discount->{'id'} = "C1";
-			$Discount->{'name'} = "Pelipaitavähennys";
-			$Discount->{'type'} = "discount";
-			$Discount->{'price'} = "10";
-			$Discount->{'netvisorid'} =  config->{'Netvisor_TShirtDiscountProductID'};         
+		if (defined ($player->{'shirtsizeid'} )) {
+			if ($player->{'shirtsizeid'} eq -1) {
+				$Discount->{'id'} = "C1";
+				$Discount->{'name'} = "Pelipaitavähennys";
+				$Discount->{'type'} = "discount";
+				$Discount->{'price'} = "10";
+				$Discount->{'netvisorid'} =  config->{'Netvisor_TShirtDiscountProductID'};         
+			}
 		}
-		
 		#set $parent object for $player
 		my $parentid = database->quick_select('player_parent',  { playerid => $playerid })->{'parentid'};
 		if( defined($parentid) ) {
