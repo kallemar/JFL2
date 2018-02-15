@@ -81,7 +81,6 @@ any ['get', 'post'] => '/player' => sub {
    }
    $data->{'suburbans'} = $suburbans;
    $data->{'shirtsizes'} = db->shirtsizetable->read->collection;
-   debug($data);
    template 'player_registration', $data, { layout => undef };
 };
 
