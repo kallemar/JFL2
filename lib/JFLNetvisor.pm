@@ -83,11 +83,10 @@ get '/:id' => sub {
     my $seasonid = params->{'id'};
     my @players = database->quick_select('player', 
 													{ 	
-														id => 3636,
-#														seasonid  => $seasonid,
-#														cancelled => undef,
-#														netvisorid_invoice => undef,
-#														isinvoice => 1,
+														seasonid  => $seasonid,
+														cancelled => undef,
+														netvisorid_invoice => undef,
+														isinvoice => 1,
 													});
 	my $runstatus;
 	$runstatus->{'all invoiceable players'} = @players;

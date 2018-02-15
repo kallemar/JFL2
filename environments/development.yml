@@ -64,3 +64,13 @@ plugins:
         port: 465
         sasl_username: 'timo.hopia@gmail.com'
         sasl_password: 'mhpubkihhmeebpdv'
+
+
+#Netvisor settings
+Netvisor_RESTTestUrl: integrationdemo.netvisor.fi
+NetvisorRESTUserId: VD_83694_23334
+NetvisorRESTKey: 68A55E1969BF4FE331E714BB26A31CC8
+NetvisorShopVATID: 1680636-7
+Netvisor_PartnerId: Vil_17520
+Netvisor_PartnerKey: F0D927BDF55AD8F4D15AB630601E08FC
+Netvisor_TShirtDiscountProductID: 1511

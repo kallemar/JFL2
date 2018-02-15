@@ -75,12 +75,3 @@ plugins:
 # Reset password secret
 reset_password_secret: ejkto37JKds
 reset_password_timeout: 3600
-
-#Netvisor settings
-Netvisor_RESTTestUrl: integrationdemo.netvisor.fi
-NetvisorRESTUserId: VD_83694_23334
-NetvisorRESTKey: 68A55E1969BF4FE331E714BB26A31CC8
-NetvisorShopVATID: 1680636-7
-Netvisor_PartnerId: Vil_17520
-Netvisor_PartnerKey: F0D927BDF55AD8F4D15AB630601E08FC
-Netvisor_TShirtDiscountProductID: 1511
