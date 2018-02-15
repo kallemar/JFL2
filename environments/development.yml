@@ -62,5 +62,6 @@ plugins:
         ssl: 1
         host: 'smtp.gmail.com'
         port: 465
-        sasl_username: 'tulospalvelu@marjamaki.net'
-        sasl_password: 'nikama72'
+        sasl_username: 'timo.hopia@gmail.com'
+        sasl_password: 'mhpubkihhmeebpdv'
+        
