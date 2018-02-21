@@ -1,9 +1,10 @@
 package JFL2;
 use Dancer ':syntax';
+use Dancer::Plugin::Database;
 use Dancer::Plugin::ValidateTiny;
-use Dancer::Plugin::ORMesque;
 use Dancer::Plugin::Email;
-use Hetu;
+use Dancer::Plugin::ORMesque;
+use Data::Dumper;
 
 #--session must contain seasonid. If it isn't defined the active season
 #--will be used.
@@ -44,111 +45,88 @@ prefix undef;
 # description  Default redirect to to player registration form
 #-----------------------------------------------------------------------
 get '/' => sub {
-    redirect '/player';
+	my @seasons = database->quick_select(
+									'season',
+									{
+										isactive => 1
+									}
+									);
+
+	my $data->{'seasons'} = \@seasons;
+	
+	template 'publichome', $data, { layout => "bootstrap_nomenu.tt" };
 };
 
 #=======================================================================
-# route        /player
+# route        /player/:id
 # state        public
-# URL          GET localhost:3000/player
+# URL          GET localhost:3000/player/:id
 #-----------------------------------------------------------------------
 # description  Opens / handles player registration form actions. Saves
 #              posted data to the session after form validation.
 #-----------------------------------------------------------------------
-any ['get', 'post'] => '/player' => sub {
-   my $params = params;
-   my $data;
-   
-   my $suburbans = db->suburban
-                      ->read({ seasonid  => session('seasonid'),
-                               isvisible => 1,
-                             })
-                      ->collection;
+# TODO: suburbanin voi disabloida, jos menee esim. täyteen
+# TODO: Pelipaitakysymyksen normalisointi
+# TODO: väärälle seasonille rekisteröitymisen estäminen
+get '/player/:id' => sub {
+	my $params = params;
+	my $data;
+	my $seasonid = $params->{'id'};
+	
+	my $season = database->quick_select(
+							'season',
+							{
+								id  => $seasonid
+                            });
+	# get suburbans 
+	my @suburbans = database->quick_select(
+							'suburban',
+							{
+								seasonid  => $seasonid,
+								isvisible => 1,
+                            });
+							
+	# get options for this season	
+	#my $sth = database->prepare(
+	#	'select optionid from season_option where seasonid=?',
+	#);
+	#$sth->execute($seasonid);
+	#my $option = $sth->fetchrow_hashref;
+	my $optionid = 1;
+	my @optionschoices = database->quick_select(
+							'optionchoice',
+							{
+								optionid  => $optionid,
+                            }
+						);    
+        
+	
+	
+		
+	if( session->{'player'} ) {
+	   $data = session->{'player'};
+	}
 
-   if ( request->method() eq "POST" ) {
-       # Validating params with rule file
-       $data = validator($params, 'player.pl');
-
-       if($data->{valid}) {
-             session player => $data;
-             return redirect '/parents';
-       }
-   }
-   else {
-       if( session->{'player'} ) {
-           $data = session->{'player'};
-       }
-   }
-   $data->{'suburbans'} = $suburbans;
-   $data->{'shirtsizes'} = db->shirtsizetable->read->collection;
-   template 'player_registration', $data, { layout => undef };
+	$data->{'season'} = $season;
+	$data->{'suburbans'} = \@suburbans;
+	$data->{'optionchoices'} = \@optionschoices;
+#	debug Dumper(\@suburbans);
+	debug Dumper($data);
+	template 'player_registration2', $data, { layout => "bootstrap_nomenu.tt" };
 };
 
-#=======================================================================
-# route        /parents
-# state        public
-# URL          GET localhost:3000/parents
-#-----------------------------------------------------------------------
-# description  Opens / handles player parent registration form actions.
-#              Saves posted data to the session after form validation.
-#-----------------------------------------------------------------------
-any ['get', 'post'] => '/parents' => sub {
-   my $params = params;
-   my $data;
+post '/player' => sub {
+	my $params = params;
+	# Validating params with rule file
+	my $data = validator($params, 'player2.pl');
+	debug Dumper($data);
 
-   if( ! session->{'player'} ) {
-       return redirect '/player';
-   }
-
-   if ( request->method() eq "POST" ) {
-
-       # Validating params with rule file
-       $data = validator($params, 'parent.pl');
-       debug($data);
-
-       if($data->{valid}) {
-           session parent => $data;
-           return redirect '/info';
-       }
-   }
-   else {
-       if( session->{'parent'} ) {
-           $data = session->{'parent'};
-       }
-   }
-   template 'player_parents_registration', $data, { layout => undef };
+	if($data->{valid}) {
+		session parent => $data;
+		return redirect '/info';
+	}	
 };
 
-#=======================================================================
-# route        /info
-# state        public
-# URL          GET localhost:3000/info
-#-----------------------------------------------------------------------
-# description  Opens info page with and presents collected data to the
-#              user. No data is saved to database before this step.
-#-----------------------------------------------------------------------
-get '/info' => sub {
-    my $params   = params;
-    my $player   = session->{'player'};
-    my $parent   = session->{'parent'};
-    my $suburban = db->suburban->read($player->{'result'}->{'suburban'})->current;
-    my $shirtsize = db->shirtsizetable->read($player->{'result'}->{'shirtsizeid'})->current;
-
-    $player->{'result'}->{'suburban_name'} = $suburban->{'name'};
-    $player->{'result'}->{'shirtsize_name'} = $shirtsize->{'name'};
-    $player->{'result'}->{'suburban_description'} = $suburban->{'description'};
-
-    if( ! session->{'player'} ) {
-        return redirect '/player';
-    }
-
-    if( ! session->{'parent'} ) {
-        return redirect '/parents';
-    }
-    template 'registration_information', { player => $player,
-                                           parent => $parent },
-                                           { layout => undef };
-};
 
 #=======================================================================
 # route        /done
@@ -159,158 +137,39 @@ get '/info' => sub {
 #              to database and shows confirmation page.
 #-----------------------------------------------------------------------
 get '/done' => sub {
-    my $params = params;
-    my $player = session->{'player'};
-    my $parent = session->{'parent'};
-    my $playerdb = db->player;
-    my $parentdb = db->parent;
-    my $players_parents = db->player_parent;
-
-    if( ! session->{'player'} ) {
-        return redirect '/player';
-    }
-
-    if( ! session->{'parent'} ) {
-        return redirect '/parents';
-    }
-
-    #-- check that player isn't already registered
-    my $isAlready = $playerdb->read({
-                                        seasonid => session('seasonid'), 
-                                        hetu => $player->{'result'}->{'hetu'},
-
-                                    })->count;
-    if( $isAlready != 0 ) {
-		if ($player->{'result'}->{'hetu'} ne '121190-9737') {
-			error("hetu: ", $player->{'result'}->{'hetu'});
-			error("isAlready: ", $isAlready);
-			return redirect '/player';
-		}
-    }
-
-    my $hetu = Hetu->new({ hetu => $player->{'result'}->{'hetu'} });
-	debug($player->{'result'}->{'shirtsizeid'});
-    $playerdb->create({
-                         'firstname'  => $player->{'result'}->{'firstname'},
-                         'lastname'   => $player->{'result'}->{'lastname'},
-                         'hetu'       => $player->{'result'}->{'hetu'},
-                         'street'     => $player->{'result'}->{'address'},
-                         'zip'        => $player->{'result'}->{'zip'},
-                         'suburbanid' => $player->{'result'}->{'suburban'},
-                         'city'       => $player->{'result'}->{'city'},
-                         'phone'      => $player->{'result'}->{'phone'},
-                         'email'      => $player->{'result'}->{'email'},
-						 'shirtsizeid' => $player->{'result'}->{'shirtsizeid'},
-						 'wantstoplayingirlteam' => $player->{'result'}->{'wantstoplayingirlteam'},
-                         'sex'        => $hetu->sex(),
-                         'birthyear'  => $hetu->year(),
-                         'seasonid'   => session('seasonid'),
-                    });
-    #$playerdb->return;
-    my $query1 = 'select last_insert_rowid() from player';
-    $playerdb->query($query1)->into(my ($playerid));
-
-    $parentdb->create({
-                         'firstname'  => $parent->{'result'}->{'firstname'},
-                         'lastname'   => $parent->{'result'}->{'lastname'},
-                         'phone'      => $parent->{'result'}->{'phone'},
-                         'email'      => $parent->{'result'}->{'email'},
-                         'relation'   => $parent->{'result'}->{'relation'},
-                         'interest'   => $parent->{'result'}->{'interest'},
-                         'comment'    => $parent->{'result'}->{'comment'},
-                      });
-    $parentdb->return;
-    my $query2 = 'select last_insert_rowid() from parent';
-    $parentdb->query($query2)->into(my ($parentid));
-
-     $players_parents->create({
-                                  'playerid' => $playerid,
-                                  'parentid' => $parentid,
-                             });
-
-    if( $playerdb->error ) {
-         error("DB error $playerdb->error");
-
-         my $error = Dancer::Error->new(
-                                        code    => 404,
-                                        message => $playerdb->error
-                                       );
-        Dancer::Response->new->content($error->render);
-    }
-    else {
-        my $shirtsizeid = $player->{'result'}->{'shirtsizeid'};
-		$player->{'result'}->{'shirtsizeid'} = $shirtsizeid;
-        $player->{'result'}->{'shirtsize_name'} = db->shirtsizetable
-                                              ->read($player->{'result'}->{'shirtsizeid'})
-                                              ->current->{'name'};
-        my $suburbanid = $player->{'result'}->{'suburban'};
-		$player->{'result'}->{'suburbanid'} = $suburbanid;
-        $player->{'result'}->{'suburban'} = db->suburban
-                                              ->read($player->{'result'}->{'suburban'})
-                                              ->current->{'name'};
-        $player->{'result'}->{'birthyear'} = $hetu->year();
-
-        #-- email confirmation to player email
-        sendmail({ to     => $player->{'result'}->{'email'},
-                   player => $player->{'result'},
-                   parent => $parent->{'result'} } );
-
-        #-- email confirmation to parent email
-        sendmail({ to     => $parent->{'result'}->{'email'},
-                   player => $player->{'result'},
-                   parent => $parent->{'result'} } );
-
-        #-- email confirmation to club office
-        sendmail({ to     => config->{'email'},
-                   player => $player->{'result'},
-                   parent => $parent->{'result'} } );
-
-        #-- email to suburban contact persons
-        my $suburban = db->suburban->read($suburbanid)->current;
-        my $contacts = db->contact_suburban
-                         ->read({ suburbanid => $suburbanid })->collection;
-
-		foreach my $cs (@{$contacts}) {
-			my $email = db->contact->read($cs->{'contactid'})->current->{'email'};
-            sendmail({ to     => $email,
-                       player => $player->{'result'},
-                       parent => $parent->{'result'} } );
-        }
-        session->destroy;
-        template 'registration_done', { player => $player, parent => $parent },
-                                      { layout => undef };
-    }
 };
 
 
-sub sendmail {
-    my ($hArgs) = @_;
-	my $subject = $hArgs->{'subject'};
-	if ($subject eq '') {
-		$subject = 'Futisklubi ilmoittautuminen',
-	}
-
-    debug("SENDMAIL to: ", $hArgs->{'to'});
-	debug("SENDMAIL subject: ", $subject);
+post '/check' => sub {
+	my $params = params;
+	# Validating params with rule file
+	my $data = validator($params, 'check.pl');
 	
-    if( $hArgs->{'to'} ne '' ) {
-        email {
-            from    => 'toimisto@tpv.fi',
-            to      => $hArgs->{'to'},
-            subject => $subject,
-            body    => template('registration_done_email',
-                                { player => $hArgs->{'player'},
-                                  parent => $hArgs->{'parent'}, },
-                                { layout => undef }),
-            type    => 'html', # can be 'html' or 'plain'
-            # Optional extra headers
-            headers => {
-                "X-Mailer"          => 'This fine Dancer application',
-                "X-Accept-Language" => 'fi',
-            }
-        };
-    }
-}
+	sendmail_check_personal_info( $data->{'result'}->{'email'} );
+
+	return redirect '/';
+};
+
+sub sendmail_check_personal_info {
+    my $sendto = shift;
+	debug $sendto;
+	
+	email {
+		from    => 'toimisto@tpv.fi',
+		to      => $sendto,
+		subject => 'Futisklubin omien tietojen tarkistaminen',
+		body    => template('check_mail.tt',
+							{ data => $sendto },
+							{ layout => 'empty.tt' }),
+		type    => 'html', # can be 'html' or 'plain'
+		# Optional extra headers
+		headers => {
+			"X-Mailer"          => 'This fine Dancer application',
+			"X-Accept-Language" => 'fi',
+		},
+	};
+};
+
 
 #-- login, logout and other auth procedures
 # NOTE: For some reasons this doesn't work on file header (Timo)

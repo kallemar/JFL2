@@ -1,0 +1,80 @@
+				<header class="page-header row justify-center">
+					<div class="col-md-6 col-lg-8" >
+						<h1 class="float-left text-center text-md-left">Tampereen Pallo-Veikot - Futisklubin jäsenrekisteri</h1>
+					</div>
+					<div class="clear"></div>
+				</header>
+					<section class="row">
+					<div class="col-sm-12">
+						<section class="row">
+							<div class="col-12">
+								<h3 class="mb-4">Uudet ilmoittautumiset</h3>
+							</div>
+							[% FOREACH season IN seasons %]
+							<div class="col-lg-4 mb-4 bg-default">
+								<a href="/player/[% season.id %]">
+									<div class="card">
+										<div class="card-header">[% season.name %]</div>
+										<div class="card-block">
+											<p>
+												[% season.description %]
+											</p>
+										</div>
+									</div>
+								</a>
+							</div>
+							[% END %]
+						</section>
+
+<form class="form" action="[% request.uri_base %]/check" method="post">
+						<section class="row">
+							<div class="col-12">
+								<h3 class="mb-4">Toiminnot</h3>
+							</div>	
+							
+							<div class="col-lg-4 mb-4 bg-default">
+								<div class="card">
+									<div class="card-header">Katso omat tiedot</div>
+									<div class="card-block">
+										<p>Tämän toiminnon kautta voit katsoa EU:n tietosuojadirektiivin mukaiset henkilötiedot</p>
+									</div>
+										<div class="row">
+											<div class="col-lg-12 col-sm-12">
+												<div class="input-group"><span class="input-group-addon">@</span>
+													<input type="email" name="email" class="form-control" placeholder="sähköpostiosoitteesi">
+													<span class="input-group-btn">
+														<button class="btn btn-primary" type="submit" data-original-title="" title="">Tarkista</button>
+													</span>
+												</div>
+											</div>
+										</div>
+								</div>
+							</div>
+
+							<div class="col-lg-4 mb-4 bg-default">
+								<a href="/roster">
+									<div class="card">
+										<div class="card-header">Rosterikäyttöliittymä</div>
+										<div class="card-block">
+											<p>Jos olet futisklubin ohjaaja niin pääset tämän kautta katsomaan kaupunginosan ja yksittäisen joukkueen tietoja</p>
+										</div>										
+									</div>
+								</a>
+							</div>
+
+							<div class="col-lg-4 mb-4 bg-default">
+								<a href="/admin">
+									<div class="card">
+										<div class="card-header">Hallintakäyttöliittymä</div>
+										<div class="card-block">
+											<p>Jos olet futisklubijärjestelmän pääkäyttäjä niin pääset tämän kautta hallintakäyttöliittymään</p>
+										</div>
+											
+									</div>
+								</a>
+							</div>
+
+
+						</section>
+						
+</form>

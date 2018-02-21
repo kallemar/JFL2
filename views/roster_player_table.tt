@@ -1,8 +1,6 @@
   <table class="table">
         <thead>
           <tr>
-            <th>Nro</th>
-            <th>Paita</th>
             <th>Pelaaja</th>
             <th>Syntynyt</th>
             <th>
@@ -17,17 +15,7 @@
     <tbody>
         [% FOREACH player IN players %]
           <tr 
-            [% IF player.cancelled != '' %]
-            style="display:none;"
-            [% END %]
              id="row_[% player.id %]">
-            <td>
-                <span class="hidden-print"><a class="btn btn-primary" data-toggle="modal" href="/roster/edit/player/[% player.id %]" data-target="#myModal">[% player.number %]</a></span>
-                <span class="visible-print">[% player.number %]</span>
-            </td>
-	    <td>
-                [% player.shirtsize_name %]
-            </td>
             <td>
                 <span class="hidden-print"><a href="/roster/view/player/[% player.id %]">[% player.firstname %] [% player.lastname %]</a></span>
                 <span class="visible-print">[% player.firstname %] [% player.lastname %]&nbsp;</span>

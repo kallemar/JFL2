@@ -34,7 +34,7 @@
     <link href="[% request.uri_base %]/css/uni-form.css" media="screen" rel="stylesheet"/>
     <link href="[% request.uri_base %]/css/default.uni-form.css" title="Default Style" media="screen" rel="stylesheet"/>
     <link href="[% request.uri_base %]/css/demo.css" media="screen" rel="stylesheet"/>
-
+	    
     <!--[if lte ie 7]>
       <style type="text/css" media="screen">
         /* Move these to your IE6/7 specific stylesheet if possible */
@@ -224,11 +224,21 @@
           <p class="formHint">Syötä sähköpostiosoitteesi uudestaan.</p>
         </div>
 
+
+		<div>
+			<p>
+				<input name="accept_legal" type="checkbox" id="accept_legal"/>
+				<em>*</em> Olen lukenut <a target="_new" href="/privacy.html">tietosuojaselosteen</a>.
+			</p>
+		</div>
+
+
+		
       </fieldset>
 
       <div class="buttonHolder">
         <a class="secondaryAction" href="http://www.tpv.fi/futisklubi" title="Peruuta">← Takaisin</a>
-        <button type="submit" class="primaryAction">Seuraava</button>
+        <button type="submit" id="nextbtn" class="primaryAction">Seuraava</button>
       </div>
 
     </form>
@@ -240,3 +250,4 @@
 
   </body>
 </html>
+

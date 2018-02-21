@@ -16,8 +16,8 @@
       [% FOREACH suburban IN suburbans %]
       <tr>
             <td><a href="/roster/suburban/[% suburban.id %]">[% suburban.name %]</a></td>
-            <td>[% FOREACH cs IN suburban.contacts %] [% cs.firstname %] [% cs.lastname %]<br/>[% END %]</td>
-            <td>[% suburban.players %]</td>
+            <td>[% FOREACH contact IN suburban.contacts %] [% contact.firstname %] [% contact.lastname %]<br/>[% END %]</td>
+            <td>[% suburban.player_count %]</td>
             <td>[% suburban.description %]</td>
       </tr>
       [% END %]

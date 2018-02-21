@@ -46,6 +46,12 @@
           <input type="text" name="price" value="[% season.price %]" style="width:92%;">
         </fieldset>
         <div class="clear"></div>
+		<fieldset>
+        <label>Kuvaus</label>
+        <textarea rows="12" name="description">[% season.description %]</textarea>
+		</fieldset>
+      <div class="clear"></div>
+
       </div>
       <footer>
         <div class="submit_link">

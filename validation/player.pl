@@ -1,7 +1,7 @@
 use Hetu;
 
 {
-    fields  => [ qw/firstname lastname hetu address zip suburban city phone shirtsizeid wantstoplayingirlteam email email_confirm/],
+    fields  => [ qw/firstname lastname hetu address zip suburban city phone shirtsizeid wantstoplayingirlteam email email_confirm accept_legal/],
 
     filters => [ # Remove spaces from all
                  qr/.+/        => filter(qw/trim strip/),
@@ -15,6 +15,7 @@ use Hetu;
                ],
 
     checks  => [ [qw/firstname lastname hetu address zip suburban city phone shirtsizeid email email_confirm/] => is_required("T&auml;yt&auml; kaikki pakolliset kent&auml;t!"),
+                 [qw/accept_legal/] => is_required("Tietoturvaseloste tulee lukea ensin ja merkitä luetuksi!"),
                  city          => is_long_at_most( 40, 'Liian pitkä kaupungin nimi' ),
                  zip_code      => is_long_at_least( 5, 'Virheellinen postinumero' ),
                  email         => sub { check_email($_[0], "Virheellinen sähköpostiosoite.") },

@@ -267,16 +267,10 @@ post '/edit/season' => require_role admin => sub {
     my $data = validator($params, 'admin_season.pl');
     my $season = db->season;
 
-    debug($data);
-
     if($data->{valid}) {
         my $price = $data->{'result'}->{'price'} *
                     $season->read($params->{'id'})->current->{'fraction'};
 
-        #--only one season can be active. Mark othes deactive
-        if( $params->{'isactive'} == 1 ) {
-            $season->update({ isactive => 0 });
-        }
         $season->update({
                              name        => $data->{'result'}->{'name'},
                              isactive    => $data->{'result'}->{'isactive'},

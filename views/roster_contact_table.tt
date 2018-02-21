@@ -10,7 +10,7 @@
           </tr>
         </thead>
     <tbody>
-        [% FOREACH contact IN suburban.contacts %]
+        [% FOREACH contact IN contacts %]
           <tr>
             <td>[% contact.firstname %] [% contact.lastname %]</td>
             <td>[% contact.email %]</td>

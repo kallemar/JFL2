@@ -16,10 +16,10 @@ CREATE TABLE season (
     id          INTEGER PRIMARY KEY AUTOINCREMENT,
     created     TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
     name        VARCHAR(255) NOT NULL,
-    description TEXT,
     startdate   INTEGER,
     enddate     INTEGER,
     isactive    BOOLEAN,
+    description TEXT,
     price       INTEGER, -- price is sum in € * fraction
     fraction    INTEGER DEFAULT 10000, --fraction to the price
 	netvisorid INTEGER

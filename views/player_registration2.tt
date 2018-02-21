@@ -1,0 +1,222 @@
+<form class="form" action="[% request.uri_base %]/player" method="post">
+				<div>
+					<h2 class="form-title">Pelaajan rekisteröityminen</h3>
+				</div>
+
+				<section class="row">
+				
+					<div class="col-sm-12">
+						<section class="row">
+							<div class="col-12">
+								<div class="card mb-4">
+									<div class="card-block">
+										<h3 class="card-title">Kauden tiedot</h3>
+											<div class="form-group row">
+												<label class="col-md-3 col-form-label">Kausi</label>
+												<div class="col-md-9">
+													<input type="text" name="seasonname" disabled="disabled" value="[% season.name %]" class="form-control">
+												</div>
+											</div>
+								</div>
+							</div>
+						</section>
+					</div>
+				</section>
+
+				<section class="row">
+				
+					<div class="col-sm-12">
+						<section class="row">
+							<div class="col-12">
+								<div class="card mb-4">
+									<div class="card-block">
+										<h3 class="card-title">Pelaajan tiedot</h3>
+											<div class="form-group row">
+												<label class="col-md-3 col-form-label">Etunimi</label>
+												<div class="col-md-9">
+													<input type="text" name="player_firstname" value="[% result.firstname %]" class="form-control">
+													<span class="help-block">Pelaajan etunimi</span>
+												</div>
+											</div>
+											<div class="form-group row">
+												<label class="col-md-3 col-form-label">Sukunimi</label>
+												<div class="col-md-9">
+													<input type="text" name="player_lastname" value="[% result.lastname %]" class="form-control">
+													<span class="help-block">Pelaajan sukunimi</span>
+												</div>
+											</div>
+											<div class="form-group row">
+												<label class="col-md-3 col-form-label">Syntymäaika</label>
+												<div class="col-md-9">
+													<input type="date" name="player_birthdate" value="[% result.birthdate %]" class="form-control-date"><br/>
+													<input class="datepicker" data-date-format="dd/mm/yyyy"><br/>
+													<span class="help-block">Pelaajan syntymäaika</span>
+												</div>
+											</div>
+											<div class="form-group row">
+												<label class="col-md-3 col-form-label">Katuosoite</label>
+												<div class="col-md-9">
+													<input type="text" name="player_address" value="[% result.address %]" class="form-control">
+													<span class="help-block">Pelaajan katuosoite</span>
+												</div>
+											</div>
+											<div class="form-group row">
+												<label class="col-md-3 col-form-label">Postinumero</label>
+												<div class="col-md-9">
+													<input type="number" name="player_zip" value="[% result.zip %]" class="form-control">
+													<span class="help-block">Pelaajan postinumero</span>
+												</div>
+											</div>
+											<div class="form-group row">
+												<label class="col-md-3 col-form-label">Kaupunginosa</label>
+												<div class="col-md-9">
+													<select class="custom-select form-control">
+														<option selected>(Valitse)</option>
+														[% FOREACH sub IN suburbans %]
+															<option value="[% sub.id %]" [%IF sub.id == result.suburban %] selected [% END %] >[% sub.name %]</option>
+														[% END %]
+          										</select>
+													<span class="help-block">Valitse tänne se kaupunginosa jonka toimintaan haluatte ilmoittautua</span>
+												</div>
+											</div>
+											
+											<div class="form-group row">
+												<label class="col-md-3 col-form-label">Kaupunki</label>
+												<div class="col-md-9">
+													<input type="text" name="city" value="[% result.city %]" class="form-control">
+												</div>
+											</div>
+											
+											<div class="form-group row">
+												<label class="col-md-3 col-form-label">Puhelin</label>
+												<div class="col-md-9">
+													<input type="tel" name="phone" value="[% result.phone %]" class="form-control">
+												</div>
+											</div>
+											
+											<div class="form-group row">
+												<label class="col-md-3 col-form-label">Pelipaidan koko</label>
+												<div class="col-md-9">
+													<select class="custom-select form-control">
+														<option selected>(Valitse)</option>
+														[% FOREACH optionchoice IN optionchoices %]
+															<option value="[% optionchoice.id %]" [%IF optionchoice.id == result.optionchoiceid %] selected [% END %] >[% optionchoice			.name %]</option>
+														[% END %]
+													</select>
+												</div>
+											</div>
+											<div class="form-group row">
+												<label class="col-md-3 col-form-label">Haluan pelata tyttöjoukkueessa</label>
+												<div class="col-md-9">
+													<select class="custom-select form-control">
+														<option selected>Ei</option>
+														<option value="1">Kyllä</option>
+													</select>
+												</div>
+											</div>
+											<div class="form-group row">
+												<label class="col-md-3 col-form-label">Sähköposti</label>
+												<div class="col-md-9">
+													<input type="email" name="email" value="[% result.email %]" class="form-control">
+												</div>
+											</div>
+											<div class="form-group row">
+												<label class="col-md-3 col-form-label">Sähköpostiosoitteen varmistus</label>
+												<div class="col-md-9">
+													<input type="email" name="email_confirm" value="[% result.email_confirm %]" class="form-control">
+												</div>
+											</div>
+								</div>
+							</div>
+						</section>
+					</div>
+				</section>
+
+				<section class="row">
+					<div class="col-sm-12">
+						<section class="row">
+							<div class="col-12">
+								<div class="card mb-4">
+									<div class="card-block">
+										<h3 class="card-title">Vanhemman tiedot</h3>
+											<div class="form-group row">
+												<label class="col-md-3 col-form-label">Etunimi</label>
+												<div class="col-md-9">
+													<input type="text" name="parent_firstname" value="[% result.parent_firstname %]" class="form-control">
+													<span class="help-block">Huoltajan etunimi</span>
+												</div>
+											</div>
+											<div class="form-group row">
+												<label class="col-md-3 col-form-label">Sukunimi</label>
+												<div class="col-md-9">
+													<input type="text" name="parent_lastname" value="[% result.parent_lastname %]" class="form-control">
+													<span class="help-block">Huoltajan sukunimi</span>
+												</div>
+											</div>
+											<div class="form-group row">
+												<label class="col-md-3 col-form-label">Puhelin</label>
+												<div class="col-md-9">
+													<input type="tel" name="parent_phone" value="[% result.parent_phone %]" class="form-control">
+													<span class="help-block">Huoltajan puhelinnumero</span>
+												</div>
+											</div>
+											<div class="form-group row">
+												<label class="col-md-3 col-form-label">Sähköposti</label>
+												<div class="col-md-9">
+													<input type="email" name="parent_email" value="[% result.parent_email %]" class="form-control">
+													<span class="help-block">Sähköpostiosoite johon toimintaan liittyvät tiedot lähetetään.</span>
+												</div>
+											</div>
+											<div class="form-group row">
+												<label class="col-md-3 col-form-label">Sähköpostiosoitteen varmistus</label>
+												<div class="col-md-9">
+													<input type="email" name="parent_email_confirm" value="[% result.parent_email_confirm %]" class="form-control">
+													<span class="help-block">Syötä sähköpostiosoitteesi uudestaan</span>
+												</div>
+											</div>
+											<div class="form-group row">
+												<label class="col-md-3 col-form-label">Tiedot ovat</label>
+												<div class="col-lg-6">
+												<label class="custom-control custom-radio">
+													<input id="radio1" name="radio" type="radio" class="custom-control-input"><span class="custom-control-indicator"></span>
+													  <span class="custom-control-description">Isän</span></label>
+												<br />
+												<label class="custom-control custom-radio">
+													<input id="radio2" name="radio" type="radio" class="custom-control-input"><span class="custom-control-indicator"></span>
+													  <span class="custom-control-description">Äidin</span></label>
+												</div>
+												<br />
+												<label class="custom-control custom-radio">
+													<input id="radio2" name="radio" type="radio" class="custom-control-input"><span class="custom-control-indicator"></span>
+													  <span class="custom-control-description">Muun</span></label>
+												</div>												
+											
+											
+											<div class="form-group row">
+												<label class="col-md-3 col-form-label">Olen kiinnostunut toimimaan</label>
+												<div class="col-lg-6">
+												<label class="custom-control custom-radio">
+													<input id="radio1" name="radio" type="radio" class="custom-control-input"><span class="custom-control-indicator"></span>
+													  <span class="custom-control-description">ohjaajana</span></label>
+												<br />
+												<label class="custom-control custom-radio">
+													<input id="radio2" name="radio" type="radio" class="custom-control-input"><span class="custom-control-indicator"></span>
+													  <span class="custom-control-description">apuohjaajana</span></label>
+												<br />
+												<span class="help-block">Merkitse tähän, jos ole kiinnostunut osallistumaan Futisklubin toimintaan</span>								
+												</div>
+											</div>											
+									</div>
+									
+								</div>
+							</div>
+						</section>
+					</div>
+				</section>
+				
+				<section class="row">
+					<a class="secondaryAction" href="/" title="Peruuta">Tyhjennä lomake</a>
+					<button type="submit" id="nextbtn" class="primaryAction">Seuraava</button>
+				</section>
+</form>
+
