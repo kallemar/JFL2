@@ -105,53 +105,6 @@ sub PostCustomer {
     return $response;
 }
 
-#=============================================================================
-# §function     PostProduct
-# §state        public
-#-----------------------------------------------------------------------------
-# §syntax
-#-----------------------------------------------------------------------------
-# §description  sends product to Netvisor
-#-----------------------------------------------------------------------------
-# §input        $Product | product | object
-# §input        $postMethod | 'edit' or 'add' | string
-# §input        $id | must be included if $postMethod = 'edit', defines the product to update | string
-# §return
-#=============================================================================
-sub PostProduct {
-    my $self = shift;
-    my $Product = shift;
-    my $postMethod = shift;
-
-    my $RootNode = XML::XPath::Node::Element->new('root',"");
-    my $product_xml = XML::XPath->new(context => $RootNode);
-    
-    _xmlset($product_xml, "/product/productbaseinformation/productcode", $Product->{'id'} );
-    _xmlset($product_xml, "/product/productbaseinformation/productgroup", 'Toimintamaksut');
-    _xmlset($product_xml, "/product/productbaseinformation/name", $Product->{name});
-    _xmlset($product_xml, "/product/productbaseinformation/description", '');
-    _xmlset($product_xml, "/product/productbaseinformation/unitprice", $Product->{price} );
-    _xmlSetAttribute($product_xml, "/product/productbaseinformation/unitprice", "type", "net");
-	_xmlset($product_xml, "/product/productbaseinformation/unit", "kpl");
-    _xmlset($product_xml, "/product/productbaseinformation/unitweight", '');
-    _xmlset($product_xml, "/product/productbaseinformation/purchaseprice", "");
-    _xmlset($product_xml, "/product/productbaseinformation/tariffheading", '');
-    _xmlset($product_xml, "/product/productbaseinformation/comissionpercentage", "");
-    _xmlset($product_xml, "/product/productbaseinformation/isactive", "1");
-    _xmlset($product_xml, "/product/productbaseinformation/issalesproduct", "1");
-    _xmlset($product_xml, "/product/productbaseinformation/inventoryenabled", "0");
-    _xmlset($product_xml, "/product/productbookkeepingdetails/defaultvatpercentage", "0");
-    my $data = $product_xml->findnodes_as_string('/');
-    
-	my $response;
-	if ($postMethod eq 'add') {
-		$response = $self->SUPER::request("product.nv", "POST", $data, "?method=$postMethod");
-	} else {
-		$response = $self->SUPER::request("product.nv", "POST", $data, "?method=$postMethod&id=$Product->{'netvisorid'}");
-	}
-
-    return $response;
-}
 
 #=============================================================================
 # §function     PostSalesInvoice
@@ -188,7 +141,7 @@ sub PostSalesInvoice {
     _xmlSetAttribute($invoice_xml, 	"/salesinvoice/salesinvoiceamount", "currencyrate", "0,00");
     _xmlset($invoice_xml, 			"/salesinvoice/selleridentifier", "");
     _xmlSetAttribute($invoice_xml, 	"/salesinvoice/selleridentifier", "type", "netvisor");
-    _xmlset($invoice_xml, 			"/salesinvoice/sellername", "JFL");
+    _xmlset($invoice_xml, 			"/salesinvoice/sellername", "");
     _xmlset($invoice_xml, 			"/salesinvoice/invoicetype", undef);
 	_xmlset($invoice_xml, 			"/salesinvoice/salesinvoicestatus", "open");	# or "unsent"
     _xmlSetAttribute($invoice_xml, 	"/salesinvoice/salesinvoicestatus", "type", "netvisor");
@@ -201,23 +154,23 @@ sub PostSalesInvoice {
     
     _xmlset($invoice_xml, 			"/salesinvoice/invoicingcustomeridentifier", $player->{'netvisorid_customer'}) ;
     _xmlSetAttribute($invoice_xml, 	"/salesinvoice/invoicingcustomeridentifier", "type", "netvisor");
-    _xmlset($invoice_xml, 			"/salesinvoice/invoicingcustomername", "$player->{'parent'}->{'firstname'} $player->{'parent'}->{'lastname'}");
+    _xmlset($invoice_xml, 			"/salesinvoice/invoicingcustomername", "$player->{'firstname'} $player->{'lastname'}");
     _xmlset($invoice_xml, 			"/salesinvoice/invoicingcustomernameextension", "");
     _xmlset($invoice_xml, 			"/salesinvoice/invoicingcustomeraddressline", $player->{'street'});
-    _xmlset($invoice_xml, 			"/salesinvoice/invoicingcustomeradditionaladdressline", $player->{'street'});
+    _xmlset($invoice_xml, 			"/salesinvoice/invoicingcustomeradditionaladdressline", '');
     _xmlset($invoice_xml, 			"/salesinvoice/invoicingcustomerpostnumber", $player->{'zip'});
     _xmlset($invoice_xml, 			"/salesinvoice/invoicingcustomertown", $player->{'city'});
     _xmlset($invoice_xml, 			"/salesinvoice/invoicingcustomercountrycode", "FI");
     _xmlSetAttribute($invoice_xml, 	"/salesinvoice/invoicingcustomercountrycode", "type", "ISO 3316");
     
-	_xmlset($invoice_xml, 			"/salesinvoice/deliveryaddressname", "$player->{'parent'}->{'firstname'} $player->{'parent'}->{'lastname'}");
-	_xmlset($invoice_xml, 			"/salesinvoice/deliveryaddressline", $player->{'street'});
-	_xmlset($invoice_xml,	 		"/salesinvoice/deliveryaddresspostnumber", $player->{'zip'});
-	_xmlset($invoice_xml, 			"/salesinvoice/deliveryaddresstown", $player->{'city'});
-	_xmlset($invoice_xml, 			"/salesinvoice/deliveryaddresscountrycode", "FI");
-	_xmlSetAttribute($invoice_xml, 	"/salesinvoice/deliveryaddresscountrycode", "type", "ISO 3316");
-	_xmlset($invoice_xml, 			"/salesinvoice/deliverymethod", "");
-    _xmlset($invoice_xml, 			"/salesinvoice/deliveryterm", "");
+	#_xmlset($invoice_xml, 			"/salesinvoice/deliveryaddressname", "$player->{'firstname'} $player->{'lastname'}");
+	#_xmlset($invoice_xml, 			"/salesinvoice/deliveryaddressline", $player->{'street'});
+	#_xmlset($invoice_xml,	 		"/salesinvoice/deliveryaddresspostnumber", $player->{'zip'});
+	#_xmlset($invoice_xml, 			"/salesinvoice/deliveryaddresstown", $player->{'city'});
+	#_xmlset($invoice_xml, 			"/salesinvoice/deliveryaddresscountrycode", "FI");
+	#_xmlSetAttribute($invoice_xml, 	"/salesinvoice/deliveryaddresscountrycode", "type", "ISO 3316");
+	#_xmlset($invoice_xml, 			"/salesinvoice/deliverymethod", "");
+    #_xmlset($invoice_xml, 			"/salesinvoice/deliveryterm", "");
     _xmlset($invoice_xml, 			"/salesinvoice/salesinvoicetaxhandlingtype", "countrygroup");
     _xmlset($invoice_xml, 			"/salesinvoice/paymenttermnetdays", "14");
     _xmlset($invoice_xml, 			"/salesinvoice/paymenttermcashdiscountdays", "");
@@ -235,8 +188,8 @@ sub PostSalesInvoice {
      
 
      #INVOICE LINE 1
-	_xmlset($invoice_xml, 			"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productidentifier", $Product->{'netvisorid'});
-	_xmlSetAttribute($invoice_xml, 	"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productidentifier", "type", "netvisor");
+	_xmlset($invoice_xml, 			"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productidentifier", '100');					#$Product->{'netvisorid'});
+	_xmlSetAttribute($invoice_xml, 	"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productidentifier", "type", "customer");	# or 'netvisor'
 	_xmlset($invoice_xml, 			"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productname", $Product->{'name'});
 	_xmlset($invoice_xml, 			"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productunitprice", $Product->{'price'});
 	_xmlSetAttribute($invoice_xml, 	"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productunitprice", "type", "net");
@@ -269,7 +222,7 @@ sub PostSalesInvoice {
         _xmlSetAttribute($invoice_xml, 	"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productvatpercentage", "vatcode", "KOMY");
 
 		_xmladd($invoice_xml, "/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/salesinvoiceproductlinequantity");
-        $invoice_xml->setNodeText("//invoiceline[last()]/salesinvoiceproductline/salesinvoiceproductlinequantity", "-1");
+        $invoice_xml->setNodeText("//invoiceline[last()]/salesinvoiceproductline/salesinvoiceproductlinequantity", "1");
 	}
 	
     my $data = $invoice_xml->findnodes_as_string('/');

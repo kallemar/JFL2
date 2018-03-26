@@ -41,10 +41,11 @@
           <input type="text" name="enddate" value="[% IF season.enddate %][% IF ! season.err_enddate %][% date.format(season.enddate) %][% ELSE %][%season.enddate%][% END %][% END %]" style="width:92%;">
         </fieldset>
         
-        <fieldset style="width:48%;float:left;margin-right: 3%;[% IF season.err_price %]color:red;[%END%]">
-          <label>Kauden hinta € *</label>
-          <input type="text" name="price" value="[% season.price %]" style="width:92%;">
+        <fieldset style="width:48%;float:left;margin-right: 3%;[% IF season.err_netvisorid %]color:red;[%END%]">
+          <label>Netvisor ID*</label>
+          <input type="text" name="netvisorid" value="[% season.netvisorid %]" style="width:92%;">
         </fieldset>
+        
         <div class="clear"></div>
       </div>
       <footer>

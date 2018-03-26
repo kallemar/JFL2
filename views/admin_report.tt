@@ -39,16 +39,16 @@
       <article class="stats_overview">
         <div class="overview_today">
 		  <p class="overview_day">TALOUS</p>
-          <p class="overview_count">[% report.invoiced %] €</p>
+          <p class="overview_count">[% report.invoiced %]</p>
           <p class="overview_type">Laskutettu</p>
-          <p class="overview_count">[% report.paid %] €</p>
+          <p class="overview_count">[% report.paid %]</p>
           <p class="overview_type">Maksettu</p>
         </div>
         <div class="overview_today">
           <p class="overview_day">TALOUS</p>
-          <p class="overview_count">[% report.noinvoice %] €</p>
+          <p class="overview_count">[% report.noinvoice %]</p>
           <p class="overview_type">Ei laskuteta</p>
-          <p class="overview_count">[% report.outstanding %] €</p>
+          <p class="overview_count">[% report.outstanding %]</p>
           <p class="overview_type">Maksamatta</p>          
         </div>
       </article>

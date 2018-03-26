@@ -1,14 +1,14 @@
 use Tools;
 
 {
-    fields  => [ qw/id name description startdate enddate isactive price/],
+    fields  => [ qw/id name description startdate enddate isactive netvisorid/],
 
     filters => [ # Remove spaces from all
                  qr/.+/        => filter(qw/trim strip/),
                  name          => filter('lc', 'ucfirst'),
                ],
 
-    checks  => [ [qw/name startdate enddate isactive price/] => is_required("T&auml;yt&auml; kaikki pakolliset kent&auml;t!"),
+    checks  => [ [qw/name startdate enddate isactive netvisorid/] => is_required("T&auml;yt&auml; kaikki pakolliset kent&auml;t!"),
                  startdate => sub {
                                        my ($value, $params) = @_;
 

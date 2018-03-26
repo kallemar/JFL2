@@ -14,17 +14,14 @@
     	<label>Kaupunginosan nimi *</label>
     	<input type="text" name="name" value="[% suburban.name %]"style="width:92%;margin-bottom: 8px;">
 	
-		<label>Kauden hinta € (jos eri)</label>
-        <input type="text" name="price" value="[% suburban.price %]" style="width:92%;">
+		<label>Netvisor ID</label>
+        <input type="text" name="netvisorid" value="[% suburban.netvisorid %]" style="width:92%;">
         
         <label>Näkyvissä rekisteröinissä</label>
         <select style="width:92%;" name="isvisible">
           <option value="1" [%IF suburban.isvisible == 1 %] selected [% END %]> kyllä</option>
           <option value="0" [%IF suburban.isvisible == 0 %] selected [% END %]> ei</option>
         </select>
-
-
-
       </fieldset>
 
       <fieldset style="width:48%; float:left;[%IF suburaban.err_contact %]color:red;[%END%]">
@@ -38,13 +35,12 @@
         </select>
       </fieldset>
 
-
-
       <div class="clear"></div>
       <fieldset>
         <label>Kuvaus</label>
         <textarea rows="12" name="description">[% suburban.description %]</textarea>
       </fieldset>
+      
       <div class="clear"></div>
     </div>
     <footer>

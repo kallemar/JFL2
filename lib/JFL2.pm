@@ -3,6 +3,7 @@ use Dancer ':syntax';
 use Dancer::Plugin::ValidateTiny;
 use Dancer::Plugin::ORMesque;
 use Dancer::Plugin::Email;
+use Data::Dumper;
 use Hetu;
 
 #--session must contain seasonid. If it isn't defined the active season
@@ -189,7 +190,11 @@ get '/done' => sub {
     }
 
     my $hetu = Hetu->new({ hetu => $player->{'result'}->{'hetu'} });
-	debug($player->{'result'}->{'shirtsizeid'});
+	
+	#set cancelled=today() if interest is set parent object
+	debug Dumper($player);
+	debug Dumper($parent);
+	
     $playerdb->create({
                          'firstname'  => $player->{'result'}->{'firstname'},
                          'lastname'   => $player->{'result'}->{'lastname'},
@@ -220,6 +225,8 @@ get '/done' => sub {
                          'comment'    => $parent->{'result'}->{'comment'},
                       });
     $parentdb->return;
+	
+	
     my $query2 = 'select last_insert_rowid() from parent';
     $parentdb->query($query2)->into(my ($parentid));
 

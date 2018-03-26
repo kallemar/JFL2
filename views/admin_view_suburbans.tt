@@ -20,7 +20,6 @@
 	      <tr>
     	    <th>Nimi</th>
     	    <th>Yhteyshenkilö(t)</th>
-    	    <th>Hinta (jos eri)</th>
             <th>Kuvaus</th>
             <th>Toiminnot</th>
           </tr>
@@ -30,7 +29,6 @@
           <tr>
             <td>[% sub.name %]</td>
             <td>[% FOREACH cs IN sub.contacts %] [% cs.firstname %] [% cs.lastname %] [% END %]</td>
-            <td>[% IF sub.price %][% sub.price / sub.fraction %] €[% END %]</td>
             <td>[% sub.description %]</td>
             <td><a href="[% request.uri_base %]/admin/edit/suburban/[% sub.id %]"><input type="image" src="[% request.uri_base %]/images/icn_edit.png" title="Edit"></a>
                 <a href="[% request.uri_base %]/admin/delete/suburban/[% sub.id %]"><input type="image" src="[% request.uri_base %]/images/icn_trash.png" title="Trash"></a></td>

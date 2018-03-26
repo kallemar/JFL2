@@ -86,24 +86,17 @@ get '/report' => require_role admin => sub {
     foreach my $player (@{ $players->read({seasonid => session('seasonid')})->collection }) {
         my $suburban = db->suburban->read($player->{suburbanid})->current;
         my $season = db->season->read({ id => $player->{seasonid} })->current;
-        my $price = $season->{'price'} / $season->{'fraction'};
-
-        if( defined($suburban->{'price'}) ) {
-            if( $suburban->{'price'} ne '' ) {
-                $price = $suburban->{'price'} / $suburban->{'fraction'};
-            }
-        }
 
         if( $player->{isinvoice} == 0 ) {
-            $report->{noinvoice} += $price;
+            $report->{noinvoice} += 1;
         }
 
         if( $player->{invoiced} && $player->{isinvoice} ) {
-            $report->{invoiced} += $price;
+            $report->{invoiced} += 1;
         }
 
         if( $player->{paid} && $player->{isinvoice} ) {
-            $report->{paid} += $price;
+            $report->{paid} += 1;
         }
     }
     $report->{outstanding} = $report->{invoiced} - $report->{paid};
@@ -195,19 +188,14 @@ post '/new/season' => require_role admin => sub {
     my $data   = validator($params, 'admin_season.pl');
     my $season = db->season;
 
-    debug($data);
-
     if($data->{valid}) {
-        my $price = $data->{'result'}->{'price'} * config->{'fraction'};
-
         $season->create({
                              name        => $data->{'result'}->{'name'},
                              description => $data->{'result'}->{'description'},
                              startdate   => $data->{'result'}->{'startdate'},
                              enddate     => $data->{'result'}->{'enddate'},
                              isactive    => $data->{'result'}->{'isactive'},
-                             price       => $price,
-                             fraction    => config->{'fraction'},
+                             netvisorid  => $data->{'result'}->{'netvisorid'},
                         });
         template 'admin_new_season', { season => { valid => 1 } };
     }
@@ -249,8 +237,6 @@ get '/view/seasons' => require_role admin => sub {
 get '/edit/season/:id' => require_role admin => sub {
    my $id = params->{'id'};
    my $season = db->season->read($id)->current;
-   $season->{'price'} = $season->{'price'} / $season->{'fraction'};
-   $season->{'price'} = sprintf("%.2f", $season->{'price'});
 
    template 'admin_edit_season', { season => $season };
 };
@@ -270,9 +256,6 @@ post '/edit/season' => require_role admin => sub {
     debug($data);
 
     if($data->{valid}) {
-        my $price = $data->{'result'}->{'price'} *
-                    $season->read($params->{'id'})->current->{'fraction'};
-
         #--only one season can be active. Mark othes deactive
         if( $params->{'isactive'} == 1 ) {
             $season->update({ isactive => 0 });
@@ -283,7 +266,7 @@ post '/edit/season' => require_role admin => sub {
                              description => $data->{'result'}->{'description'},
                              startdate   => $data->{'result'}->{'startdate'},
                              enddate     => $data->{'result'}->{'enddate'},
-                             price       => $price,
+                             netvisorid  => $data->{'result'}->{'netvisorid'},
                         },
                         {
                              id => $params->{'id'},
@@ -498,7 +481,6 @@ post '/new/coach' => require_any_role [qw(admin contact)] => sub {
                   ->read({ seasonid => session('seasonid') })
                   ->collection;
 
-    debug($data);
 
     if($data->{valid}) {
         #-- create password hash to be saved to database
@@ -816,7 +798,6 @@ post '/edit/team' => require_any_role [qw(admin contact)] => sub {
     my $suburbans = db->suburban
                       ->read({ seasonid => session('seasonid') })
                       ->collection;
-    debug($data);
 
     if($data->{valid}) {
         $teams->update({
@@ -933,14 +914,13 @@ post '/new/suburban' => require_role admin => sub {
     my $suburban = db->suburban;
     my $contacts_subs = db->contact_suburban;
 
-    debug($data);
-
     if($data->{valid}) {
         $suburban->create({
                                  name        => $data->{'result'}->{'name'},
                                  description => $data->{'result'}->{'description'},
                                  isvisible   => $data->{'result'}->{'isvisible'},
                                  seasonid    => session('seasonid'),
+                                 netvisorid  => $data->{'result'}->{'netvisorid'},
                     });
         my $query = 'select last_insert_rowid() from suburban';
         $suburban->query($query)->into(my ($suburbanid));
@@ -992,15 +972,7 @@ get '/edit/suburban/:id' => require_role admin => sub {
                              ["lastname"])
                       ->collection;
     my $contacts_subs = db->contact_suburban->read->collection;
-   
-   debug $suburban;
-   
-   #asetaan hinta oikeaan arvoon 
-   if ($suburban->{'price'}) {
-		$suburban->{'price'} = $suburban->{'price'} / $suburban->{'fraction'};
-		$suburban->{'price'} = sprintf("%.2f", $suburban	->{'price'});	
-	}
-	
+      	
     template 'admin_edit_suburban', { suburban => $suburban,
                                       contacts => $contacts,
                                       contact_suburban => $contacts_subs,
@@ -1026,12 +998,6 @@ post '/edit/suburban' => require_role admin => sub {
     
 
     if($data->{valid}) {
-		my $price;
-		debug Dumper($data);
-		if ($data->{'result'}->{'price'}) {
-			$price = $data->{'result'}->{'price'} * config->{'fraction'};
-		}
-		
         #--handle selected contacts
         #--first delete all contacts for the current suburban
         $contacts_subs->delete({ suburbanid => $params->{'id'} });
@@ -1057,7 +1023,7 @@ post '/edit/suburban' => require_role admin => sub {
         $suburban->update({
                              name        => $data->{'result'}->{'name'},
                              description => $data->{'result'}->{'description'},
-                             price		 => $price,
+                             netvisorid  => $data->{'result'}->{'netvisorid'},
                              isvisible   => $data->{'result'}->{'isvisible'},
                           },
                           {

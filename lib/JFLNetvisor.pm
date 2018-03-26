@@ -82,11 +82,12 @@ get '/:id' => sub {
 	# luetaan pelaajat jotka pitää laskuttaa
     my $seasonid = params->{'id'};
     my @players = database->quick_select('player', 
-													{ 	
-														seasonid  => $seasonid,
-														cancelled => undef,
-														netvisorid_invoice => undef,
-														isinvoice => 1,
+													{
+														id => 3636,
+#														seasonid  => $seasonid,
+#														cancelled => undef,
+#														netvisorid_invoice => undef,
+#														isinvoice => 1,
 													});
 	my $runstatus;
 	$runstatus->{'all invoiceable players'} = @players;
@@ -152,15 +153,19 @@ get '/:id' => sub {
 		
 
 		### POST CUSTOMER
+		#debug Dumper($player);
 		my $response;
 		my $mode  = defined( $player->{'netvisorid_customer'}) ? "edit" : "add";
+		debug "mode: $mode";
+		
 		$response = $NetvisorClient->PostCustomer($player, $mode, $player->{'netvisorid_customer'});
 		my $data = $xml->XMLin(@{ $response }[0]);
 		
 		if(ref($data->{ResponseStatus}->{Status}) eq 'ARRAY') {
 			$status = $data->{ResponseStatus}->{Status}->[0];
    			if ( $status eq 'FAILED') {
-				debug $data;
+				#debug Dumper($data);
+				#debug Dumper($response);
 				return "$status Cannot post a customer";
 			}
 		} else {
@@ -178,68 +183,10 @@ get '/:id' => sub {
 		if (!defined $player->{'netvisorid_customer'}) {	
 			database->quick_update('player', { id => $playerid }, { netvisorid_customer => $netvisorid });	
 		}
-
 		
-		### ADD/EDIT A PRODUCT
-		$mode  = defined($Product->{'netvisorid'}) ? "edit" : "add";
-		$response = $NetvisorClient->PostProduct($Product, $mode);
-		$data = $xml->XMLin(@{ $response }[0]);
-		
-		if(ref($data->{ResponseStatus}->{Status}) eq 'ARRAY') {
-			$status = $data->{ResponseStatus}->{Status}->[0];
-   			if ( $status eq 'FAILED') {
-				debug Dumper($Product);
-				return "$status cannot post a product";
-			}
-		} else {
-			$status = $data->{ResponseStatus}->{Status};
-			if ( $status eq 'FAILED') {
-				return $status;		
-			} elsif ( $status eq 'OK') {
-				if ($mode eq "add") {
-					$netvisorid = "$data->{Replies}->{InsertedDataIdentifier}";
-				}		
-			} else {
-				return "DONE";
-			}
-		}
-
-
-		if (!defined $Product->{'netvisorid'}) {
-			if ($Product->{'type'} eq "season") {;
-				database->quick_update('season', { id => $seasonid }, { netvisorid => $netvisorid });
-			} else {
-				database->quick_update('suburban', { id => $player->{'suburbanid'} }, { netvisorid => $netvisorid });	
-			}			
-		}
-		
-		### Post Discount products
-		if (defined $Discount) {
-			$mode  = "edit";
-			$response = $NetvisorClient->PostProduct($Discount, $mode);
-			$data = $xml->XMLin(@{ $response }[0]);
-			if(ref($data->{ResponseStatus}->{Status}) eq 'ARRAY') {
-				$status = $data->{ResponseStatus}->{Status}->[0];
-				if ( $status eq 'FAILED') {
-					debug Dumper($Discount);
-					return "$status cannot post a discount product";
-				}
-			} else {
-				$status = $data->{ResponseStatus}->{Status};
-				if ( $status eq 'FAILED') {
-					return $status;
-				} elsif ( $status eq 'OK') {
-					if ($mode eq "add") {
-						$netvisorid = "$data->{Replies}->{InsertedDataIdentifier}";
-					}		
-				} else {
-					return "DONE";
-				}
-			}
-		}
-
-
-		###make and send invoice
+		###POST INVOICE
+		debug Dumper($Product);
+		debug Dumper($Discount);
         my $id;
 		$response = $NetvisorClient->PostSalesInvoice($player, $Product, $Discount, $id);        
 		$data = $xml->XMLin(@{ $response }[0]);
@@ -258,6 +205,8 @@ get '/:id' => sub {
 		                    invoiced => time,
 		               }
 					);	
+		debug Dumper($data);
+
 	}	
 	return Dumper($runstatus);
 };
