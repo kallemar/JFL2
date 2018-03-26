@@ -47,7 +47,7 @@ sub PostCustomer {
     _xmlset($customer_xml, "/customer/customerbaseinformation/internalidentifier", $player->{'id'});
     _xmlset($customer_xml, "/customer/customerbaseinformation/externalidentifier", ""); 		#$player->{'hetu'});
     _xmlset($customer_xml, "/customer/customerbaseinformation/organizationunitnumber", "");
-    _xmlset($customer_xml, "/customer/customerbaseinformation/name", "$player->{'parent'}->{'firstname'} $player->{'parent'}->{'lastname'}");
+    _xmlset($customer_xml, "/customer/customerbaseinformation/name", "$player->{'firstname'} $player->{'lastname'}");
     _xmlset($customer_xml, "/customer/customerbaseinformation/nameextension", '');
     _xmlset($customer_xml, "/customer/customerbaseinformation/streetaddress", $player->{'street'});
     _xmlset($customer_xml, "/customer/customerbaseinformation/additionaladdressline", '');
@@ -188,8 +188,9 @@ sub PostSalesInvoice {
      
 
      #INVOICE LINE 1
-	_xmlset($invoice_xml, 			"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productidentifier", '100');					#$Product->{'netvisorid'});
-	_xmlSetAttribute($invoice_xml, 	"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productidentifier", "type", "customer");	# or 'netvisor'
+     debug Dumper($Product->{'netvisorid_product'});
+	_xmlset($invoice_xml, 			"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productidentifier", $Product->{'netvisorid_product'});
+	_xmlSetAttribute($invoice_xml, 	"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productidentifier", "type", 'customer');
 	_xmlset($invoice_xml, 			"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productname", $Product->{'name'});
 	_xmlset($invoice_xml, 			"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productunitprice", $Product->{'price'});
 	_xmlSetAttribute($invoice_xml, 	"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productunitprice", "type", "net");
@@ -207,7 +208,7 @@ sub PostSalesInvoice {
         _xmladd($invoice_xml, "/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline");
         _xmladd($invoice_xml, "/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productidentifier");
         
-       _xmlSetAttribute($invoice_xml, 	"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productidentifier", "type", "netvisor");
+       _xmlSetAttribute($invoice_xml, 	"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productidentifier", "type", "customer");
         $invoice_xml->setNodeText("//invoiceline[last()]/salesinvoiceproductline/productidentifier", config->{'Netvisor_TShirtDiscountProductID'});
         
         _xmladd($invoice_xml, "/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productname");
@@ -221,9 +222,9 @@ sub PostSalesInvoice {
         $invoice_xml->setNodeText("//invoiceline[last()]/salesinvoiceproductline/productvatpercentage", "0");
         _xmlSetAttribute($invoice_xml, 	"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productvatpercentage", "vatcode", "KOMY");
 
-		_xmladd($invoice_xml, "/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/salesinvoiceproductlinequantity");
-        $invoice_xml->setNodeText("//invoiceline[last()]/salesinvoiceproductline/salesinvoiceproductlinequantity", "1");
-	}
+		_xmladd($invoice_xml, 		"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/salesinvoiceproductlinequantity");
+        $invoice_xml->setNodeText(  "//invoiceline[last()]/salesinvoiceproductline/salesinvoiceproductlinequantity", "1");		
+}
 	
     my $data = $invoice_xml->findnodes_as_string('/');
     

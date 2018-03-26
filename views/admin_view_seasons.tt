@@ -22,6 +22,7 @@
             <th>Kausi alkaa</th>
             <th>Kausi päättyy</th>
             <th>Aktiivinen</th>
+            <th>Netvisor ID</th>
             <th>Toiminnot</th>
           </tr>
         </thead>
@@ -33,6 +34,7 @@
             <td>[% date.format(season.startdate) %]</td>
             <td>[% date.format(season.enddate) %]</td>
             <td>[% IF season.isactive == 1 %]kyllä [%ELSE%]ei [%END%]</td>
+            <td>[% season.netvisorid_product %]</td>
             <td><a href="[% request.uri_base %]/admin/edit/season/[% season.id %]"><input type="image" src="[% request.uri_base %]/images/icn_edit.png" title="Edit"></a>
                 <a href="[% request.uri_base %]/admin/delete/season/[% season.id %]"><input type="image" src="[% request.uri_base %]/images/icn_trash.png" title="Trash"></a></td>
           </tr>

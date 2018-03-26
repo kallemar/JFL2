@@ -22,7 +22,7 @@ CREATE TABLE season (
     isactive    BOOLEAN,
     price       INTEGER, -- price is sum in € * fraction
     fraction    INTEGER DEFAULT 10000, --fraction to the price
-	netvisorid INTEGER
+	netvisorid_product TEXT
 );
 
 
@@ -118,7 +118,7 @@ CREATE TABLE suburban (
     isvisible   INTEGER NOT NULL DEFAULT 1,
     price       INTEGER, -- price is sum in € * fraction
     fraction    INTEGER DEFAULT 10000 --fraction to the price
-	netvisorid INTEGER,
+	netvisorid_product TEXT,
     FOREIGN KEY(seasonid) REFERENCES season(id)
 );
 

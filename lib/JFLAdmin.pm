@@ -195,7 +195,7 @@ post '/new/season' => require_role admin => sub {
                              startdate   => $data->{'result'}->{'startdate'},
                              enddate     => $data->{'result'}->{'enddate'},
                              isactive    => $data->{'result'}->{'isactive'},
-                             netvisorid  => $data->{'result'}->{'netvisorid'},
+                             netvisorid_product  => $data->{'result'}->{'netvisorid_product'},
                         });
         template 'admin_new_season', { season => { valid => 1 } };
     }
@@ -266,7 +266,7 @@ post '/edit/season' => require_role admin => sub {
                              description => $data->{'result'}->{'description'},
                              startdate   => $data->{'result'}->{'startdate'},
                              enddate     => $data->{'result'}->{'enddate'},
-                             netvisorid  => $data->{'result'}->{'netvisorid'},
+                             netvisorid_product  => $data->{'result'}->{'netvisorid_product'},
                         },
                         {
                              id => $params->{'id'},

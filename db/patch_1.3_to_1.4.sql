@@ -5,3 +5,6 @@ ALTER TABLE player ADD COLUMN netvisorid_customer INTEGER;
 ALTER TABLE player ADD COLUMN netvisorid_invoice INTEGER;
 ALTER TABLE suburban ADD COLUMN netvisorid INTEGER;
 ALTER TABLE season ADD COLUMN netvisorid INTEGER;
+
+ALTER TABLE season ADD COLUMN netvisorid_product TEXT;
+
