@@ -45,7 +45,7 @@ sub PostCustomer {
     my $customer_xml = XML::XPath->new(context => $RootNode);
  
     _xmlset($customer_xml, "/customer/customerbaseinformation/internalidentifier", $player->{'id'});
-    _xmlset($customer_xml, "/customer/customerbaseinformation/externalidentifier", ""); 		#$player->{'hetu'});
+    _xmlset($customer_xml, "/customer/customerbaseinformation/externalidentifier", ""); 		
     _xmlset($customer_xml, "/customer/customerbaseinformation/organizationunitnumber", "");
     _xmlset($customer_xml, "/customer/customerbaseinformation/name", "$player->{'firstname'} $player->{'lastname'}");
     _xmlset($customer_xml, "/customer/customerbaseinformation/nameextension", '');
@@ -78,7 +78,7 @@ sub PostCustomer {
 
     _xmlset($customer_xml, "/customer/customercontactdetails/contactname", "");
     _xmlset($customer_xml, "/customer/customercontactdetails/contactperson", "");
-    _xmlset($customer_xml, "/customer/customercontactdetails/contactpersonemail", "");
+    _xmlset($customer_xml, "/customer/customercontactdetails/contactpersonemail", $player->{'parent'}->{'email'});
     _xmlset($customer_xml, "/customer/customercontactdetails/contactpersonphone", "");
 
     _xmlset($customer_xml, "/customer/customeradditionalinformation/comment", "Pelaaja: $player->{'firstname'} $player->{'lastname'}");
