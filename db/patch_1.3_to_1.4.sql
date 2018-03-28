@@ -7,4 +7,5 @@ ALTER TABLE suburban ADD COLUMN netvisorid INTEGER;
 ALTER TABLE season ADD COLUMN netvisorid INTEGER;
 
 ALTER TABLE season ADD COLUMN netvisorid_product TEXT;
+ALTER TABLE suburban ADD COLUMN netvisorid_product TEXT;
 

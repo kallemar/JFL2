@@ -83,11 +83,11 @@ get '/:id' => sub {
     my $seasonid = params->{'id'};
     my @players = database->quick_select('player', 
 													{
-														id => 3636,
-#														seasonid  => $seasonid,
-#														cancelled => undef,
-#														netvisorid_invoice => undef,
-#														isinvoice => 1,
+#														id => 1,
+														seasonid  => $seasonid,
+														cancelled => undef,
+														netvisorid_invoice => undef,
+														isinvoice => 1,
 													});
 	my $runstatus;
 	$runstatus->{'all invoiceable players'} = @players;
@@ -120,13 +120,11 @@ get '/:id' => sub {
 		
 		#Product can be season or suburban. By default it is season but of suburban.price is defined then it is suburban
 		if (defined $suburban->{'price'}) {
-			$Product->{'id'} = "B$suburban->{'id'}";
 			$Product->{'name'} = "Toimintamaksu Futisklubi $suburban->{'name'} ($season->{'name'})";
 			$Product->{'type'} = "suburban";
 			$Product->{'price'} = $suburban->{'price'}/$suburban->{'fraction'};
 			$Product->{'netvisorid_product'} =  $suburban->{'netvisorid_product'};         
 		} else {
-			$Product->{'id'} = "A$season->{'id'}";
 			$Product->{'name'} = "Toimintamaksu Futisklubi $season->{'name'}";
 			$Product->{'type'} = "season";
 			$Product->{'price'} = $season->{'price'}/$season->{'fraction'};
@@ -135,7 +133,8 @@ get '/:id' => sub {
 		
 		#set discounts. A discount is a separate product that has a negative price
 		my $Discount;
-		#a t-shirt case
+
+		#A t-shirt case
 		if (defined ($player->{'shirtsizeid'} )) {
 			if ($player->{'shirtsizeid'} eq -1) {
 				$Discount->{'id'} = "200";
@@ -177,17 +176,16 @@ get '/:id' => sub {
 			}
 		}
 		
-		if (!defined $player->{'netvisorid_customer'}) {	
-			database->quick_update('player', { id => $playerid }, { netvisorid_customer => $netvisorid });	
-		}
+		#debug $playerid;
+		#debug "netvisorid: $netvisorid";
+		
+		database->quick_update('player', { id => $playerid }, { netvisorid_customer => $netvisorid });	
 		
 		###POST INVOICE
-        my $id;
-        debug Dumper($Product);
-		$response = $NetvisorClient->PostSalesInvoice($player, $Product, $Discount, $id);        
+        $response = $NetvisorClient->PostSalesInvoice($player, $Product, $Discount, $netvisorid);        
 		$data = $xml->XMLin(@{ $response }[0]);
 		my $netvisorid_invoice = $data->{'Replies'}->{'InsertedDataIdentifier'};
-		debug Dumper($data);
+		#debug Dumper($response);
 		
 		#TODO Error handling
 		

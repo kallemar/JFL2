@@ -62,7 +62,7 @@ sub PostCustomer {
     _xmlset($customer_xml, "/customer/customerbaseinformation/homepageuri", '');
     _xmlset($customer_xml, "/customer/customerbaseinformation/isactive", "1");
     _xmlset($customer_xml, "/customer/customerbaseinformation/isprivatecustomer", "1");
-    _xmlset($customer_xml, "/customer/customerbaseinformation/emailinvoicingaddress", "");
+    _xmlset($customer_xml, "/customer/customerbaseinformation/emailinvoicingaddress", $player->{'parent'}->{'email'});
     
     _xmlset($customer_xml, "/customer/customerfinvoicedetails/finvoiceaddress", '');
     _xmlset($customer_xml, "/customer/customerfinvoicedetails/finvoiceroutercode", '');
@@ -125,8 +125,7 @@ sub PostSalesInvoice {
     my $player = shift;
     my $Product = shift;
     my $Discount = shift;
-    my $id = shift; # NetvisorKey
-	
+	my $netvisorid = shift;
      
     my $RootNode = XML::XPath::Node::Element->new('root',"");
     my $invoice_xml = XML::XPath->new(context => $RootNode);
@@ -152,7 +151,8 @@ sub PostSalesInvoice {
     _xmlset($invoice_xml, 			"/salesinvoice/salesinvoiceprivatecomment", "");
     
     
-    _xmlset($invoice_xml, 			"/salesinvoice/invoicingcustomeridentifier", $player->{'netvisorid_customer'}) ;
+    #debug Dumper($player);
+    _xmlset($invoice_xml, 			"/salesinvoice/invoicingcustomeridentifier", $netvisorid) ;
     _xmlSetAttribute($invoice_xml, 	"/salesinvoice/invoicingcustomeridentifier", "type", "netvisor");
     _xmlset($invoice_xml, 			"/salesinvoice/invoicingcustomername", "$player->{'firstname'} $player->{'lastname'}");
     _xmlset($invoice_xml, 			"/salesinvoice/invoicingcustomernameextension", "");
@@ -188,8 +188,7 @@ sub PostSalesInvoice {
      
 
      #INVOICE LINE 1
-     debug Dumper($Product->{'netvisorid_product'});
-	_xmlset($invoice_xml, 			"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productidentifier", $Product->{'netvisorid_product'});
+ 	_xmlset($invoice_xml, 			"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productidentifier", $Product->{'netvisorid_product'});
 	_xmlSetAttribute($invoice_xml, 	"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productidentifier", "type", 'customer');
 	_xmlset($invoice_xml, 			"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productname", $Product->{'name'});
 	_xmlset($invoice_xml, 			"/salesinvoice/invoicelines/invoiceline/salesinvoiceproductline/productunitprice", $Product->{'price'});

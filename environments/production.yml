@@ -57,10 +57,12 @@ plugins:
 
 
 #Netvisor settings
-Netvisor_RESTTestUrl: integrationdemo.netvisor.fi
-NetvisorRESTUserId: VD_83694_23334
-NetvisorRESTKey: 68A55E1969BF4FE331E714BB26A31CC8
-NetvisorShopVATID: 1680636-7
-Netvisor_PartnerId: Vil_17520
-Netvisor_PartnerKey: F0D927BDF55AD8F4D15AB630601E08FC
-Netvisor_TShirtDiscountProductID: 1511
+NetvisorRESTKey: ECA328F5F668C024D81DEA1A1655BDE9
+NetvisorRESTUserId: TD_86416_24451
+Netvisor_RESTTestUrl: isvapi.netvisor.fi
+NetvisorShopVATID: 0155605-1
+Netvisor_PartnerId: Tam_17567
+Netvisor_PartnerKey: F6B0AB6A68A373F3BBAB840B633A3B18
+
+#Netvisor muut
+Netvisor_TShirtDiscountProductID: 66
