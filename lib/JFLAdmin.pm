@@ -223,7 +223,7 @@ get '/view/seasons' => require_role admin => sub {
 
     my $seasons = db->season->page($page, $P123->items_per_page)
                    ->read->collection;
-    debug ($seasons);
+    #debug ($seasons);
     template 'admin_view_seasons', { seasons => $seasons, P123 => $P123};
 };
 
