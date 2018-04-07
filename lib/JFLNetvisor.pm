@@ -56,7 +56,8 @@ get '/getinvoicestatus' => sub {
 		
 		#status options: 'Unsent', 'Due for payment', 'Paid'
 		if ($response->{'SalesInvoice'}->{'InvoiceStatus'} eq 'Paid') {
-			database->quick_update('player', { id => $invoice->{'id'} }, { paid => 1 });
+			debug Dumper($invoice);
+			#database->quick_update('player', { id => $invoice->{'id'} }, { paid => 1 });
 		}
 	}
 	return Dumper($runstatus);
