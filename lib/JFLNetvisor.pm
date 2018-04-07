@@ -48,16 +48,17 @@ get '/getinvoicestatus' => sub {
 	);
 	$sth->execute();
 	
-	my $runstatus->{'all unpaid invoices'} = 0;
+	my $runstatus->{'selected invoices'} = 0;
+	my $runstatus->{'all paid invoices'} = 0;
 	while( my $invoice= $sth->fetchrow_hashref) {
-		++$runstatus->{'all unpaid invoices'};
+		++$runstatus->{'selected invoices'};
 		my $response = $NetvisorClient->GetSalesInvoice($invoice->{'netvisorid_invoice'});
 		#TODO: error handling for $response get from Netvisor
 		
 		#status options: 'Unsent', 'Due for payment', 'Paid'
 		if ($response->{'SalesInvoice'}->{'InvoiceStatus'} eq 'Paid') {
-			debug Dumper($invoice);
-			#database->quick_update('player', { id => $invoice->{'id'} }, { paid => 1 });
+			database->quick_update('player', { id => $invoice->{'id'} }, { paid => time });
+				++$runstatus->{'all paid invoices'};
 		}
 	}
 	return Dumper($runstatus);
