@@ -199,7 +199,7 @@ get '/team/:id' => require_any_role [qw(admin coach contact)] => sub {
 
 	#Get coaches
 	$coaches = db->coach->read({ teamid => $id } )->collection;
-
+	
 	$team = db->team->read($id)->current;
 	$suburban = db->suburban->read($team->{'suburbanid'})->current;
 
@@ -234,8 +234,8 @@ get '/team/:id' => require_any_role [qw(admin coach contact)] => sub {
      my $proceed = false;
      if (user_has_role('coach')) {
          foreach my $coach (@{ $data->{'coaches'} }) {
-            if ($coach->{'coachid'} == $user->{'coachid'} ) {
-                $proceed = true;
+			if ($coach->{'id'} == $user->{'coachid'} ) {
+	            $proceed = true;
             }
          }
      };
