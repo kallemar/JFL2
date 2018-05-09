@@ -25,7 +25,7 @@
         <img src="[% request.uri_base %]/tpv.png" width="50" height="50"></img>
         <h3>Kiitos ilmoittautumisesta!</h3>
         <p>Ilmoittautumisesi otettiin vastaan, tervetuloa mukaan kesän hauskimpaan harrastukseen!</p>
-        <p>Tutustu tarkemmin toimintaan <a href="http://www.tpv.fi/index.php?option=com_content&view=category&layout=blog&id=32&Itemid=182">Futisklubin kotisivuilla</a>. Ne sisältävät tärkeätä tietoa toiminnasta</p>
+        <p>Tutustu tarkemmin toimintaan <a href="http://www.tpv.fi/index.php/futisklubi-etusivu">Futisklubin kotisivuilla</a>. Ne sisältävät tärkeätä tietoa toiminnasta</p>
       </fieldset>
     </div>
     <div id="footer">
