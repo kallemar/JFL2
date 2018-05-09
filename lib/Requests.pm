@@ -142,7 +142,7 @@ sub PostSalesInvoice {
     _xmlSetAttribute($invoice_xml, 	"/salesinvoice/selleridentifier", "type", "netvisor");
     _xmlset($invoice_xml, 			"/salesinvoice/sellername", "");
     _xmlset($invoice_xml, 			"/salesinvoice/invoicetype", undef);
-	_xmlset($invoice_xml, 			"/salesinvoice/salesinvoicestatus", "open");	# or "unsent"
+	_xmlset($invoice_xml, 			"/salesinvoice/salesinvoicestatus", "unsent");	# or "open"
     _xmlSetAttribute($invoice_xml, 	"/salesinvoice/salesinvoicestatus", "type", "netvisor");
     _xmlset($invoice_xml, 			"/salesinvoice/salesinvoicefreetextbeforelines", "");
     _xmlset($invoice_xml, 			"/salesinvoice/salesinvoicefreetextafterlines", "");
