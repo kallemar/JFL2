@@ -222,6 +222,16 @@ get '/team/:id' => require_any_role [qw(admin coach contact)] => sub {
                      ->current->{'parentid'};
         $player->{'comment'} = db->parent->read($parentid)->current->{'comment'};
         $player->{'interest'} = db->parent->read($parentid)->current->{'interest'};
+
+        # set T-shirt size
+        my $shirtsizeid = $player->{'shirtsizeid'};
+        my $shirtsize_name = '';
+        if ($shirtsizeid > 0) {
+            $shirtsize_name = db->shirtsizetable->read($shirtsizeid)->current->{'name'};
+        } else {
+            $shirtsize_name = '-';
+        }
+        $player->{'shirtsize_name'} = $shirtsize_name;
      }
      my $data->{'players'} = $players;
 
