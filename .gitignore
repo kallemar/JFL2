@@ -34,5 +34,5 @@ inc/
 /pm_to_blib
 /*.zip
 
-logs/
-db/jfldb
+/logs/
+/db/jfldb
