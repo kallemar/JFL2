@@ -29,7 +29,7 @@
    OTHER DEALINGS IN THE SOFTWARE.
 
 -->
-    <title>Pelaajan rekisteröityminen</title>
+    <title>Pelaajan rekisteröityminen / PLAYER REGISTRATION </title>
 
     <link href="[% request.uri_base %]/css/uni-form.css" media="screen" rel="stylesheet"/>
     <link href="[% request.uri_base %]/css/default.uni-form.css" title="Default Style" media="screen" rel="stylesheet"/>
@@ -99,91 +99,91 @@
 
       <fieldset>
         <img src="[% request.uri_base %]/tpv.png" width="50" height="50"></img>
-        <h3>PELAAJAN TIEDOT</h3>
+        <h3>PELAAJAN TIEDOT / PLAYER REGISTRATION </h3>
 
          [%IF result.err_firstname %] <div class="ctrlHolder error" id="error1"> [% ELSE %] <div class="ctrlHolder" > [% END %]
-          <label for=""><em>*</em> Etunimi</label>
+          <label for=""><em>*</em> Etunimi / First name</label>
           [% IF result.firstname %]
               <input name="firstname" id="name" value="[% result.firstname %]" size="35" maxlength="50" type="text" class="textInput  [% IF result.err_firstname %] medium error [% END %]"/>
           [% ELSE %]
               <input name="firstname" id="name" data-default-value="Etunimi" size="35" maxlength="50" type="text" class="textInput required"/>
           [% END %]
-          <p class="formHint">Pelaajan etunimi.</p>
+          <p class="formHint">Pelaajan etunimi. / Player's first name.</p>
         </div>
 
          [%IF result.err_lastname %] <div class="ctrlHolder error" id="error1"> [% ELSE %] <div class="ctrlHolder" > [% END %]
-          <label for=""><em>*</em> Sukunimi</label>
+          <label for=""><em>*</em> Sukunimi / Last name</label>
           [% IF result.lastname %]
               <input name="lastname" id="" value="[% result.lastname %]" size="35" maxlength="50" type="text" class="textInput  [% IF result.err_lastname %] medium error [% END %]"/>
           [% ELSE %]
               <input name="lastname" id="name" data-default-value="Sukunimi" size="35" maxlength="50" type="text" class="textInput required"/>
           [% END %]
-          <p class="formHint">Pelaajan sukunimi.</p>
+          <p class="formHint">Pelaajan sukunimi. / Player's last name. </p>
         </div>
 
         [%IF result.err_hetu %] <div class="ctrlHolder error" id="error1"> [% ELSE %] <div class="ctrlHolder" > [% END %]
-          <label for=""><em>*</em> Henkilötunnus</label>
+          <label for=""><em>*</em> Henkilötunnus / Identity number	</label>
           [% IF result.hetu %]
               <input name="hetu" id="" value="[% result.hetu %]" size="35" maxlength="11" type="text" class="textInput [% IF result.err_hetu %] medium error [% END %]"/>
           [% ELSE %]
               <input name="hetu" id="name" data-default-value="ppkkvv-123A" size="35" maxlength="11" type="text" class="textInput required"/>
           [% END %]
-          <p class="formHint">Henkilötunnus tarvitaan pelaajan vakuutusta ja lisenssiä varten.</p>
+          <p class="formHint">Henkilötunnus tarvitaan pelaajan vakuutusta ja lisenssiä varten. / Identity number is required for insurance and license.</p>
         </div>
 
          [%IF result.err_address %] <div class="ctrlHolder error" id="error1"> [% ELSE %] <div class="ctrlHolder" > [% END %]
-          <label for=""><em>*</em> Katuosoite</label>
+          <label for=""><em>*</em> Katuosoitei / Street address</label>
           [% IF result.address %]
               <input name="address" id="" value="[% result.address %]" size="35" maxlength="50" type="text" class="textInput [% IF result.err_address %] medium error [% END %]"/>
           [% ELSE %]
               <input name="address" id="name" data-default-value="Katuosoite" size="35" maxlength="50" type="text" class="textInput required"/>
           [% END %]
-          <p class="formHint">Pelaajan katuosoite.</p>
+          <p class="formHint">Pelaajan katuosoite. / Player's home address. </p>
         </div>
 
         [%IF result.err_zip %] <div class="ctrlHolder error" id="error1"> [% ELSE %] <div class="ctrlHolder" > [% END %]
-          <label for=""><em>*</em> Postinumero</label>
+          <label for=""><em>*</em> Postinumero / Post code</label>
           [% IF result.address %]
               <input name="zip" id="" value="[% result.zip %]" size="35" maxlength="5" type="text" class="textInput [% IF result.err_zip %] medium error [% END %]"/>
           [% ELSE %]
               <input name="zip" id="name" data-default-value="Postinumero" size="35" maxlength="5" type="text" class="textInput required"/>
           [% END %]
-          <p class="formHint">Pelaajan postinumero.</p>
+          <p class="formHint">Pelaajan postinumero. / Post code.</p>
         </div>
 
          [%IF result.err_suburban %] <div class="ctrlHolder error" id="error1"> [% ELSE %] <div class="ctrlHolder" > [% END %]
-          <label for="">* Kaupunginosa</label>
+          <label for="">* Kaupunginosai / District </label>
           <select name="suburban" id="" class="selectInput">
             <option value="">(valitse)</option>
           [% FOREACH sub IN suburbans %]
             <option value="[% sub.id %]" [%IF sub.id == result.suburban %] selected [% END %] >[% sub.name %]</option>
           [% END %]
           </select>
-          <p class="formHint">Valitse kaupunginosa, jossa pelaaja osallistuu toimintaan. Aluejako löytyy TPV:n kotisivulta.</p>
+          <p class="formHint">Valitse kaupunginosa, jossa pelaaja osallistuu toimintaan. / Select district, where you would like to play football. </p>
         </div>
 
          [%IF result.err_city %] <div class="ctrlHolder error" id="error1"> [% ELSE %] <div class="ctrlHolder" > [% END %]
-          <label for=""><em>*</em> Kaupunki</label>
+          <label for=""><em>*</em> Kaupunki / City </label>
           [% IF result.city %]
               <input name="city" id="" value="[% result.city %]" size="35" maxlength="10" type="text" class="textInput [% IF result.err_city %] medium error [% END %]"/>
           [% ELSE %]
               <input name="city" id="name" data-default-value="Kaupunki" size="35" maxlength="10" type="text" class="textInput required"/>
           [% END %]
-          <p class="formHint">Pelaajan kaupunki</p>
+          <p class="formHint">Pelaajan kaupunki / City. </p>
         </div>
 
          [%IF result.err_phone %] <div class="ctrlHolder error" id="error1"> [% ELSE %] <div class="ctrlHolder" > [% END %]
-          <label for=""><em>*</em> Puhelin</label>
+          <label for=""><em>*</em> Puhelin / Phone</label>
           [% IF result.phone %]
               <input name="phone" id="name" value="[% result.phone %]" size="35" maxlength="20" type="text" class="textInput [% IF result.err_phone %] medium error [% END %]"/>
           [%ELSE %]
               <input name="phone" id="name" data-default-value="Puhelinnumero" size="35" maxlength="20" type="text" class="textInput required"/>
           [% END %]
-          <p class="formHint">Puhelin yhteydenpitoa varten.</p>
+          <p class="formHint">Puhelin yhteydenpitoa varten. / Player's phone number.</p>
         </div>
 
          [%IF result.err_shirtsizeid %] <div class="ctrlHolder error" id="error1"> [% ELSE %] <div class="ctrlHolder" > [% END %]
-          <label for=""><em>*</em> Pelipaidan koko</label>
+          <label for=""><em>*</em> Pelipaidan koko / Jersey size</label>
           <select name="shirtsizeid" id="" class="selectInput">
             <option value="">(valitse)</option>
 				[% FOREACH size IN shirtsizes %]
@@ -191,44 +191,44 @@
 				[% END %]
           </select>
   
-          <p class="formHint">Pelipaidan koko. Jos valitset vaihtoehdon 'Käytän viimekesäistä pelipaitaa', niin maksusta vähennetään 10 euroa.</p>
+          <p class="formHint">Pelipaidan koko. / Jersey size.</p>
         </div>
 		
 		[%IF result.err_wantstoplayingirlteam %] <div class="ctrlHolder error" id="error1"> [% ELSE %] <div class="ctrlHolder" > [% END %]
-          <label for=""><em>*</em> Haluan pelata tyttöjoukkueessa</label>
+          <label for=""><em>*</em> Haluan pelata tyttöjoukkueessa / I want to play in a girl team </label>
           <select name="wantstoplayingirlteam" id="" class="selectInput">
-            <option value="0">Ei</option>
-            <option value="1">Kyllä</option>
+            <option value="0">Ei / No</option>
+            <option value="1">Kyllä / Yes</option>
           </select>
   
-          <p class="formHint">Valitse 'Kyllä' jos haluat pelata tyttöjoukkueessa. Joukkue muodostetaan mikäli löytyy riittävästi pelaajia</p>
+          <p class="formHint">Valitse 'Kyllä' jos haluat pelata tyttöjoukkueessa. / Select 'Yes', if you want to play in a girl team. </p>
         </div>
 
          [%IF result.err_email %] <div class="ctrlHolder error" id="error1"> [% ELSE %] <div class="ctrlHolder" > [% END %]
-          <label for=""><em>*</em> Sähköposti</label>
+          <label for=""><em>*</em> Sähköposti / E-mail</label>
           [% IF result.email %]
               <input name="email" id="" value="[% result.email %]" size="35" maxlength="50" type="text" class="textInput [% IF result.err_error %] medium error [% END %]"/>
           [% ELSE %]
               <input name="email" id="email" data-default-value="Sähköposti" size="35" maxlength="50" type="text" class="textInput required validateEmail"/>
           [% END %]
-          <p class="formHint">Sähköpostiosoite johon toimintaan liittyvät tiedot lähetetään.</p>
+          <p class="formHint">Sähköpostiosoite johon toimintaan liittyvät tiedot lähetetään. / Email adderess</p>
         </div>
 
          [%IF result.err_email_confirm %] <div class="ctrlHolder error" id="error1"> [% ELSE %] <div class="ctrlHolder" > [% END %]
-          <label for=""><em>*</em> Sähköpostiosoitteen varmistus.</label>
+          <label for=""><em>*</em> Sähköpostiosoitteen varmistus / Confirm e-mail </label>
           [% IF result.email_confirm %]
               <input name="email_confirm" id="" value="[% result.email_confirm %]" size="35" maxlength="50" type="text" class="textInput [% IF result.err_error %] medium error [% END %]"/>
           [% ELSE %]
               <input name="email_confirm" id="email_confirm" data-default-value="Sähköposti" size="35" maxlength="50" type="text" class="textInput required validateSameAs email"/>
           [% END %]
-          <p class="formHint">Syötä sähköpostiosoitteesi uudestaan.</p>
+          <p class="formHint">Syötä sähköpostiosoitteesi uudestaan. /  Confirm e-mail address. </p>
         </div>
 
       </fieldset>
 
       <div class="buttonHolder">
-        <a class="secondaryAction" href="http://www.tpv.fi/futisklubi" title="Peruuta">← Takaisin</a>
-        <button type="submit" class="primaryAction">Seuraava</button>
+        <a class="secondaryAction" href="http://www.tpv.fi/futisklubi" title="Peruuta">← Takaisin / Back</a>
+        <button type="submit" class="primaryAction">Seuraava / Next</button>
       </div>
 
     </form>
