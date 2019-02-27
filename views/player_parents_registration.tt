@@ -48,92 +48,92 @@
 
       <fieldset>
         <img src="[% request.uri_base %]/tpv.png" width="50" height="50"></img>
-        <h3>HUOLTAJAN YHTEYSTIEDOT</h3>
+        <h3>HUOLTAJAN YHTEYSTIEDOT / GUARDIAN'S CONTACT INFORMATION </h3>
 
          [%IF result.err_firstname %] <div class="ctrlHolder error" id="error1"> [% ELSE %] <div class="ctrlHolder" > [% END %]
-          <label for=""><em>*</em> Etunimi</label>
+          <label for=""><em>*</em> Etunimi / First name</label>
           [% IF result.firstname %]
               <input name="firstname" id="name" value="[% result.firstname %]" size="35" maxlength="50" type="text" class="textInput  [% IF result.err_firstname %] medium error [% END %]"/>
           [% ELSE %]
               <input name="firstname" id="name" data-default-value="Etunimi" size="35" maxlength="50" type="text" class="textInput required"/>
           [% END %]
-          <p class="formHint">Huoltajan etunimi.</p>
+          <p class="formHint">Huoltajan etunimi. / Guardian's first name. </p>
         </div>
 
          [%IF result.err_lastname %] <div class="ctrlHolder error" id="error1"> [% ELSE %] <div class="ctrlHolder" > [% END %]
-          <label for=""><em>*</em> Sukunimi</label>
+          <label for=""><em>*</em> Sukunimi / Last name</label>
           [% IF result.lastname %]
               <input name="lastname" id="" value="[% result.lastname %]" size="35" maxlength="50" type="text" class="textInput  [% IF result.err_lastname %] medium error [% END %]"/>
           [% ELSE %]
               <input name="lastname" id="name" data-default-value="Sukunimi" size="35" maxlength="50" type="text" class="textInput required"/>
           [% END %]
-          <p class="formHint">Huoltajan sukunimi.</p>
+          <p class="formHint">Huoltajan sukunimi. / Guardian's last name. </p>
         </div>
 
 
          [%IF result.err_phone %] <div class="ctrlHolder error" id="error1"> [% ELSE %] <div class="ctrlHolder" > [% END %]
-          <label for=""><em>*</em> Puhelin</label>
+          <label for=""><em>*</em> Puhelin / Phone </label>
           [% IF result.phone %]
               <input name="phone" id="name" value="[% result.phone %]" size="35" maxlength="20" type="text" class="textInput [% IF result.err_phone %] medium error [% END %]"/>
           [%ELSE %]
               <input name="phone" id="name" data-default-value="Puhelinnumero" size="35" maxlength="20" type="text" class="textInput required"/>
           [% END %]
-          <p class="formHint">Puhelin yhteydenpitoa varten.</p>
+          <p class="formHint">Puhelin yhteydenpitoa varten. / Telephone number for communication.</p>
         </div>
 
          [%IF result.err_email %] <div class="ctrlHolder error" id="error1"> [% ELSE %] <div class="ctrlHolder" > [% END %]
-          <label for=""><em>*</em> Sähköposti</label>
+          <label for=""><em>*</em> Sähköposti / E-mail</label>
           [% IF result.email %]
               <input name="email" id="" value="[% result.email %]" size="35" maxlength="50" type="text" class="textInput [% IF result.err_error %] medium error [% END %]"/>
           [% ELSE %]
               <input name="email" id="email" data-default-value="Sähköposti" size="35" maxlength="50" type="text" class="textInput required validateEmail"/>
           [% END %]
-          <p class="formHint">Sähköpostiosoite johon toimintaan liittyvät tiedot lähetetään.</p>
+          <p class="formHint">Sähköpostiosoite johon toimintaan liittyvät tiedot lähetetään. / E-mail address for sending information.</p>
         </div>
          [%IF result.err_email_confirm %] <div class="ctrlHolder error" id="error1"> [% ELSE %] <div class="ctrlHolder" > [% END %]
-          <label for=""><em>*</em> Sähkpostiosoitteen varmistus</label>
+          <label for=""><em>*</em> Sähkpostiosoitteen varmistus / Confirm e-mail </label>
           [% IF result.email_confirm %]
               <input name="email_confirm" id="" value="[% result.email_confirm %]" size="35" maxlength="50" type="text" class="textInput [% IF result.err_error %] medium error [% END %]"/>
           [% ELSE %]
               <input name="email_confirm" id="email_confirm" data-default-value="Sähköposti" size="35" maxlength="50" type="text" class="textInput required validateSameAs email"/>
           [% END %]
-          <p class="formHint">Syötä sähköpostiosoitteesi uudestaan.</p>
+          <p class="formHint">Syötä sähköpostiosoitteesi uudestaan. / Confirm e-mail address.</p>
         </div>
 
         [%IF result.err_relation %] <div class="ctrlHolder error" id="error1"> [% ELSE %] <div class="ctrlHolder" > [% END %]
           <p class="label">
-            <em>*</em> Tiedot ovat
+            <em>*</em> Tiedot ovat / Info belogns to
           </p>
           <ul>
-            <li><label for=""><input id="" name="relation" value="isä"  type="radio" [% IF result.relation == 'isä' %] checked [% END %]/> Isän</label></li>
-            <li><label for=""><input id="" name="relation" value="äiti" type="radio" [% IF result.relation == 'äiti' %] checked [% END %]/> Äidin</label></li>
-            <li><label for=""><input id="" name="relation" value="muu"  type="radio" [% IF result.relation == 'muu' %] checked [% END %]/> Muun</label></li>
+            <li><label for=""><input id="" name="relation" value="isä"  type="radio" [% IF result.relation == 'isä' %] checked [% END %]/> Isän / Father</label></li>
+            <li><label for=""><input id="" name="relation" value="äiti" type="radio" [% IF result.relation == 'äiti' %] checked [% END %]/> Äidin / Mother</label></li>
+            <li><label for=""><input id="" name="relation" value="muu"  type="radio" [% IF result.relation == 'muu' %] checked [% END %]/> Muun / Other</label></li>
           </ul>
-          <p class="formHint">Huoltajan tiedot ovat isän/äidin/jonkun muun.</p>
+          <p class="formHint">Huoltajan tiedot ovat isän/äidin/jonkun muun. Guardians contact information belongs to father/mother/other.</p>
         </div>
 
          <div class="ctrlHolder">
           <p class="label">
-            Olen kiinnostunut toimimaan
+            Olen kiinnostunut toimimaan / I am willing to participate as 
           </p>
           <ul>
-            <li><label for=""><input id="" name="interest" value="ohjaaja"    data-default-value="Placeholder text" type="radio" [% IF result.interest == 'ohjaaja' %] checked [% END %]/> Ohjaajana</label></li>
-            <li><label for=""><input id="" name="interest" value="apuohjaaja"          data-default-value="Placeholder text" type="radio" [% IF result.interest == 'apuohjaaja' %] checked [% END %]/> Apuohjaajana</label></li>
+            <li><label for=""><input id="" name="interest" value="ohjaaja"    data-default-value="Placeholder text" type="radio" [% IF result.interest == 'ohjaaja' %] checked [% END %]/> Coach</label></li>
+            <li><label for=""><input id="" name="interest" value="apuohjaaja"          data-default-value="Placeholder text" type="radio" [% IF result.interest == 'apuohjaaja' %] checked [% END %]/>Assistant coach</label></li>
             <!--<li><label for=""><input id="" name="interest" value="huoltaja"         data-default-value="Placeholder text" type="radio" [% IF result.interest == 'huoltaja' %] checked [% END %]/> Joukkueen huoltajana</label></li>-->
           </ul>
-          <p class="formHint">Merkitse tähän, jos ole kiinnostunut osallistumaan Futisklubin toimintaan.</p>
+          <p class="formHint">Merkitse tähän, jos ole kiinnostunut osallistumaan Futisklubin toimintaan. TPV järjestää ohjaajille koulutusta - aikaisempaa kokemusta ei tarvita. / Select, if you are willing to help with the team. TPV will provide training - no previous experience is needed. </p>
         </div>
 
         <div class="ctrlHolder">
-          <label for=""> Muuta</label>
+          <label for=""> Muuta / Other</label>
           <textarea name="comment" id="" rows="25" cols="25">[% result.comment %]</textarea>
-          <p class="formHint">Muuta tärkeätä tietoa seuralle.</p>
+          <p class="formHint">Muuta tärkeätä tietoa seuralle. / Other important information for the club. </p>
         </div>
       </fieldset>
 
       <div class="buttonHolder">
-        <a class="secondaryAction" href="[% request.uri_base %]/player" title="Peruuta">← Takaisin</a>
-        <button type="submit" class="primaryAction">Seuraava</button>
+        <a class="secondaryAction" href="[% request.uri_base %]/player" title="Peruuta">← Takaisin / Back</a>
+        <button type="submit" class="primaryAction">Seuraava / Next</button>
       </div>
 
     </form>
