@@ -24,17 +24,17 @@
     <!--  <div class="uniForm"> -->
       <fieldset>
         <img src="[% request.uri_base %]/tpv.png" width="50" height="50"></img>
-        <h3>TARKISTA TIEDOT</h3>
+        <h3>TARKISTA TIEDOT / CHECK INFORMATION</h3>
       </fieldset>
 
         <div class="ctrlHolder" >
-          <b>PELAAJAN TIEDOT: </b></br>
+          <b>PELAAJAN TIEDOT / PLAYER DETAILS: </b></br>
           [% player.result.firstname %] [% player.result.lastname %] ([% player.result.hetu %]) </br>
           [% player.result.address %] [% player.result.zip %] [% player.result.city %] </br>
-          Puhelin: [% player.result.phone %]</br>
-          Sähköposti: [% player.result.email %]</br>	
-          Pelipaidan koko: [% player.result.shirtsize_name %]</br>
-          Haluan pelata tyttöjoukkueessa (koskee vain tyttöpelaajia): [%IF player.result.wantstoplayingirlteam %]Kyllä[% ELSE %]Ei[% END %]</br>
+          Puhelin / phone: [% player.result.phone %]</br>
+          Sähköposti / e-mail: [% player.result.email %]</br>	
+          Pelipaidan koko / Jersey size: [% player.result.shirtsize_name %]</br>
+          Haluan pelata tyttöjoukkueessa (koskee vain tyttöpelaajia) / Want to play in girls team: [%IF player.result.wantstoplayingirlteam %]Kyllä[% ELSE %]Ei[% END %]</br>
 
 		  </div>
 
@@ -43,22 +43,22 @@
           Lisätietoja:  [% player.result.suburban_description %]</br>
         </div>
         <div class="ctrlHolder" >
-          <b>HUOLTAJAN TIEDOT: </b></br>
+          <b>HUOLTAJAN TIEDOT / GUARDIAN DETAILS: </b></br>
             [% parent.result.firstname %] [% parent.result.lastname %] </br>
-            Puhelin: [% parent.result.phone %]</br>
-            Sähköposti: [% parent.result.email %]
+            Puhelin / phone: [% parent.result.phone %]</br>
+            Sähköposti / e-mail: [% parent.result.email %]
         </div>
 
         <div class="ctrlHolder" >
-          <b>MUUT TIEDOT: </b></br>
-            Suhde pelaajaan: [% parent.result.relation %]</br>
-            Kiinnostus: [% parent.result.interest %]</br>
-            Muuta tietoa: <br/>[% parent.result.comment %]
+          <b>MUUT TIEDOT / OTHER DETAILS: </b></br>
+            Suhde pelaajaan / Relation to player: [% parent.result.relation %]</br>
+            Kiinnostus / Interested in to participate as: [% parent.result.interest %]</br>
+            Muuta tietoa / Other info: <br/>[% parent.result.comment %]
         </div>
 
         <div class="buttonHolder">
-          <a class="secondaryAction" href="[% request.uri_base %]/parents" title="Peruuta">← Takaisin</a>
-          <button type="submit" class="primaryAction">Lähetä</button>
+          <a class="secondaryAction" href="[% request.uri_base %]/parents" title="Peruuta">← Takaisin / Back</a>
+          <button type="submit" class="primaryAction">Lähetä / Send</button>
         </div>
   </form>
 
