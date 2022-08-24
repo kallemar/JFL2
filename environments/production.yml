@@ -49,20 +49,20 @@ plugins:
             ssl: 1
             host: 'email-smtp.eu-west-1.amazonaws.com'
             port: 465
-            sasl_username: AKIAI4GB4KUCS2E5RMFQ
-            sasl_password: Ai2sPycDtuta/nlpgzvBFYVk5pyzDcfMZZW19X8VMDR3
+            sasl_username: ''
+            sasl_password: ''
   Database:
      driver: 'SQLite'
      database: '/home/kalle/Projects/JFL2/db/jfldb'
 
 
 #Netvisor settings
-NetvisorRESTKey: ECA328F5F668C024D81DEA1A1655BDE9
-NetvisorRESTUserId: TD_86416_24451
+NetvisorRESTKey: 
+NetvisorRESTUserId: 
 Netvisor_RESTTestUrl: isvapi.netvisor.fi
 NetvisorShopVATID: 0155605-1
 Netvisor_PartnerId: Tam_17567
-Netvisor_PartnerKey: F6B0AB6A68A373F3BBAB840B633A3B18
+Netvisor_PartnerKey: 
 
 #Netvisor muut
 Netvisor_TShirtDiscountProductID: 66
