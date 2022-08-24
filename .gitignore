@@ -36,3 +36,4 @@ inc/
 
 /logs/
 /db/jfldb
+environments/production.yml
